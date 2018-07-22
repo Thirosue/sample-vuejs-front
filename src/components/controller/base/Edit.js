@@ -34,14 +34,8 @@ export default {
                   .catch(handler.apiHandleErr)
     },
     results() { 
-      let results = []
-      Object.keys(this.store.data)
-                  .forEach(key => results.push({
-                                      key: key, //DecodeはFilterで実施
-                                      value: this.store.data[key],
-                                      orderBy: ViewSettings.orderBy(key, this.columSetting),
-                                      type: ViewSettings.type(key, this.columSetting),
-                                    }))
+      const results = Object.keys(this.store.data)
+                              .map(key => ViewSettings.createFeed(key, this.store.data, this.columSetting))  //DecodeはFilterで実施
       return _.orderBy(results, 'orderBy')
     },
     confirmClean: function () {
@@ -59,11 +53,12 @@ export default {
         return
       }
       let modifiedData = Object.assign({}, this.data)
+      const getVaule = (key) => document.querySelector("[data-key='" + key + "']")
 
       //値の詰め替え
       Object.keys(this.store.data)
-                    .filter(key => !is.null(document.querySelector("[data-key='" + key + "']")))
-                    .forEach(key => modifiedData[key] = document.querySelector("[data-key='" + key + "']").value)
+                    .filter(key => !is.null(getVaule(key)))
+                    .forEach(key => modifiedData[key] = getVaule(key).value)
 
       this.$store.dispatch(this.namespace + this.updateType, modifiedData )
                     .then(()=>this.$store.dispatch(this.namespace + Type.UPDATED) && this.$router.push(this.store.listPath))
@@ -77,9 +72,6 @@ export default {
     data() { return this.store.data },
     _errors () {
       return this.errors.items.sort((a,b) => a.id - b.id)
-    },
-    buttonLabel() {
-      return this.editMode ? '変更' : '登録'
     },
     updateType() {
       return this.data.version ? Type.UPDATE : Type.CREATE

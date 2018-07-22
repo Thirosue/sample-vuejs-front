@@ -18,14 +18,8 @@ export default {
                   .catch(handler.apiHandleErr)
     },
     results() { 
-      let results = []
-      Object.keys(this.store.data)
-                  .forEach(key => results.push({
-                                      key: ViewSettings.decode(key, this.columSetting),
-                                      value: this.store.data[key],
-                                      orderBy: ViewSettings.orderBy(key, this.columSetting),
-                                      type: ViewSettings.type(key, this.columSetting),
-                                    }))
+      const results = Object.keys(this.store.data)
+                              .map(key => ViewSettings.createFeedWithDecode(key, this.store.data, this.columSetting))
       return _.orderBy(results, 'orderBy')
     },
   },

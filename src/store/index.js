@@ -27,7 +27,7 @@ const store = new Vuex.Store({
     loadEnd(state) { state.loading = false },
   },
   actions: {
-    [SET_STACKTRACE] ({commit}) { commit(SET_STACKTRACE, stackTrace) },
+    [SET_STACKTRACE] ({commit}, stackTrace) { commit(SET_STACKTRACE, stackTrace) },
   },
   strict: process.env.NODE_ENV !== 'production',
   plugins: [createPersistedState({ storage: window.sessionStorage })]

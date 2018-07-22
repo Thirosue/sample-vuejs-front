@@ -35,10 +35,10 @@ const session = {
       const response = await api.auth.doAuth(loginInfo)
       commit(SET_SESSION, { session: response.data.data[0] })
     },
-    async setRole ({ dispatch, commit, state }) {
+    async [SET_ROLE] ({ dispatch, commit, state }) {
       //TODO
     },
-    async setMenu ({ dispatch, commit, state }) {
+    async [SET_MENU] ({ dispatch, commit, state }) {
       //TODO
     },
     async checkSession ({ dispatch, commit, state }) {

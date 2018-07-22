@@ -11,13 +11,26 @@ const Staff = [
   {key: 'version', value: '改訂番号', orderBy: 0, type: 'ignore'},
 ]
 
-const decode = (key, mapping) => mapping.find(list=>list.key === key).value
-const orderBy = (key, mapping) => mapping.find(list=>list.key === key).orderBy
-const type = (key, mapping) => mapping.find(list=>list.key === key).type
+const find = (key, mapping) => mapping.find(list=>list.key === key)
+const decode = (key, mappings) => find(key, mappings).value
+
+const createFeed = (key, results, mappings) => ({
+  key: key,
+  value: results[key],
+  orderBy: find(key, mappings).orderBy,
+  type: find(key, mappings).type,
+})
+
+const createFeedWithDecode = (key, results, mappings) => ({
+  key: find(key, mappings).value,
+  value: results[key],
+  orderBy: find(key, mappings).orderBy,
+  type: find(key, mappings).type,
+})
 
 export default {
   decode,
-  orderBy,
-  type,
+  createFeed,
+  createFeedWithDecode,
   Staff,
 }

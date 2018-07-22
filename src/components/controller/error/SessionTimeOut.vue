@@ -1,10 +1,16 @@
 <template>
 　<div>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            セッションタイムアウト
+          </h1>
+        </div>
+      </div>
+    </section>
     <div class="container is-fullhd">
       <article class="message is-dark">
-        <div class="message-header">
-          <p>セッションタイムアウト</p>
-        </div>
         <div class="message-body">
           セッションがタイムアウトしました。<br/>
           もう一度ログインしてください。

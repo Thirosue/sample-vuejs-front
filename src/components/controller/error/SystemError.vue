@@ -1,11 +1,20 @@
 <template>
 　<div>
-    <div class="container is-fullhd">
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            システムエラー
+          </h1>
+        </div>
+      </div>
+    </section>
+    <div class="container is-fullhd" v-if="isShow">
       <article class="message is-danger">
         <div class="message-header">
-          <p>システムエラー</p>
+          <p>StackTrace</p>
         </div>
-        <div class="message-body" v-if="isShow">
+        <div class="message-body">
           {{stackTrace}}
         </div>
       </article>
