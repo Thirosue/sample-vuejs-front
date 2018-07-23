@@ -32,7 +32,6 @@ const company = {
       state.data = Object.assign({}, data)
     },
     [Type.SET_LIST] (state, { results }) {
-      console.log(results)
       state.list = Object.assign(new Array(), results)
     },
     [Type.SET_PAGE] (state, { page }) {

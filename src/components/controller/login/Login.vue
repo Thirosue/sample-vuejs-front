@@ -48,6 +48,7 @@
 <script>
 import handler from '@/module/errorHandler'
 import message from '@/conf/message'
+import Type from '@/store/mutation-types'
 
 export default {
   data: () => {
@@ -55,6 +56,12 @@ export default {
       email: '',
       password: '',
       errMsg: null,
+    }
+  },
+  created() {
+    if(this.$store.state.session.logouted) {
+      alert('ログアウトしました')
+      this.$store.dispatch('session/' + Type.UNSET_ALL)
     }
   },
   methods: {

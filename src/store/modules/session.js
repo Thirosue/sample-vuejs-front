@@ -5,6 +5,7 @@ import Type from '@/store/mutation-types'
 const SET_SESSION = 'setSession'
 const SET_ROLE = 'setRole'
 const SET_MENU = 'setMenu'
+const LOGOUTED = 'logouted'
 
 const session = {
   namespaced: true,
@@ -12,6 +13,7 @@ const session = {
     session: null,
     roleList: [],
     menuList: [],
+    logouted: false,
   },
   mutations: {
     [SET_SESSION] (state, { session }) {
@@ -27,7 +29,11 @@ const session = {
       state.session = null
       state.roleList = []
       state.menuList = []
-    }
+      state.logouted = false
+    },
+    [LOGOUTED] (state, { logouted }) {
+      state.logouted = logouted
+    },
   },
   actions: {
     async login ({ dispatch, commit }, loginInfo) {
@@ -47,7 +53,7 @@ const session = {
     },
     async logout ({ dispatch, commit, state }) {
       await api.auth.logout()
-      dispatch(Type.UNSET_ALL)
+      commit(LOGOUTED, { logouted: true })
     },
     [Type.UNSET_ALL] ({commit}) { commit(Type.UNSET_ALL) },
   }

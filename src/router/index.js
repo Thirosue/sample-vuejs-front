@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Config from '@/conf/config'
 import store from '@/store'
+import auth from '@/module/auth'
+import router from '@/router'
 
 import SystemError from '@/components/controller/error/SystemError'
 import BadRequest from '@/components/controller/error/BadRequest'
@@ -59,4 +61,16 @@ export default new Router({
       component: StaffDetail
     },
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  if(!auth.isAllowAction(to.path, ['admin'])) { //TODO
+    console.log('UnAuthorize Action')
+    router.push(Config.BAD_REQUEST_PATH)
+  }
+  auth.checkSession(to.path)
+  next()
+})
+
+router.afterEach((to, from) => {
 })
