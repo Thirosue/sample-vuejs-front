@@ -12,20 +12,20 @@ const Staff = [
 ]
 
 const find = (key, mapping) => mapping.find(list=>list.key === key)
-const decode = (key, mappings) => find(key, mappings).value
+const decode = (key, mapping) => find(key, mapping).value
 
-const createFeed = (key, results, mappings) => ({
+const createFeed = (key, results, mapping) => ({
   key: key,
   value: results[key],
-  orderBy: find(key, mappings).orderBy,
-  type: find(key, mappings).type,
+  orderBy: find(key, mapping).orderBy,
+  type: find(key, mapping).type,
 })
 
-const createFeedWithDecode = (key, results, mappings) => ({
-  key: find(key, mappings).value,
+const createFeedWithDecode = (key, results, mapping) => ({
+  key: find(key, mapping).value,
   value: results[key],
-  orderBy: find(key, mappings).orderBy,
-  type: find(key, mappings).type,
+  orderBy: find(key, mapping).orderBy,
+  type: find(key, mapping).type,
 })
 
 export default {

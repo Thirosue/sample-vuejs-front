@@ -16,7 +16,7 @@
         </router-link>
         <div class="navbar-dropdown is-boxed">
           <router-link class="navbar-item" to="/staffList">担当者一覧</router-link>
-          <router-link class="navbar-item" to="/staffList">担当者登録</router-link>
+          <router-link class="navbar-item" to="/staffEdit">担当者登録</router-link>
         </div>
       </div>
 
