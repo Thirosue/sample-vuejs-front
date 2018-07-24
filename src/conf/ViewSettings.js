@@ -2,7 +2,7 @@
  * 画面表示設定
  */
 const Staff = [
-  {key: 'id', value: 'ID', orderBy: 1, type: 'label'},
+  {key: 'id', value: 'ID', orderBy: 1, type: 'ignore'},
   {key: 'firstName', value: '名前', orderBy: 2},
   {key: 'lastName', value: '苗字', orderBy: 3},
   {key: 'email', value: 'Email', orderBy: 4},

@@ -3,18 +3,18 @@ import handler from '@/module/errorHandler'
 import Type from '@/store/mutation-types'
 import Message from '@/conf/message'
 import ViewSettings from '@/conf/ViewSettings'
+import Config from '@/conf/config'
 
 export default {
   beforeRouteLeave (to, from, next) {
-    if( ( this.store.listPath !== to.path || !this.store.updated ) && !this.confirmClean() ){
+    if( !this.store.updated && !this.confirmClean() ){
       return false
     }
     next()
   },
   data: () => {
     return {
-      editMode: false,
-    };
+    }
   },
   mounted() {
     const query = this.$router.history.current.query
@@ -22,9 +22,8 @@ export default {
       console.log(this.$router.history.current.name + ' Update Start target = ' + query.id)
       this.findById(query.id)
     } else {
-      console.log('Regist Start')
+      this.$router.push(Config.BAD_REQUEST_PATH)
     }
-    this.editMode = Object.keys(query).length > 0
   },
   methods: {
     getScreenId: () => null, //<--- 個別に定義
@@ -60,7 +59,7 @@ export default {
                     .filter(key => !is.null(getVaule(key)))
                     .forEach(key => modifiedData[key] = getVaule(key).value)
 
-      this.$store.dispatch(this.namespace + this.updateType, modifiedData )
+      this.$store.dispatch(this.namespace + Type.UPDATE, modifiedData )
                     .then(()=>this.$store.dispatch(this.namespace + Type.UPDATED) && this.$router.push(this.store.listPath))
                     .catch(handler.apiHandleErr)
     },
@@ -72,9 +71,6 @@ export default {
     data() { return this.store.data },
     _errors () {
       return this.errors.items.sort((a,b) => a.id - b.id)
-    },
-    updateType() {
-      return this.data.version ? Type.UPDATE : Type.CREATE
     },
   },
 }

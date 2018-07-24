@@ -18,10 +18,7 @@
             <tr v-for="(result, index) in results()" v-bind:key="index" v-if="result.type!=='ignore'">
               <th>{{result.key | decode}}</th>
               <td>
-                <div class="control" v-if="result.type==='label'">
-                  {{result.value}}
-                </div>
-                <div class="control" v-if="result.type!=='label'">
+                <div class="control">
                   <input class="input" type="text" v-bind:data-key="result.key" v-bind:value="result.value">
                 </div>
               </td>

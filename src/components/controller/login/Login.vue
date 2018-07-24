@@ -16,7 +16,7 @@
         <div class="control">
           <input class="input" id="id" type="email" v-model="email" placeholder="e.g. alexsmith@gmail.com" 
             name="email" data-vv-as="Email" v-validate="'email'"
-            :class="{'has-error': errors.has('email')}" required>
+            :class="{'has-error': errors.has('email')}" v-on:keyup.enter="signin" required>
         </div>
         <article v-if="errors.has('email')" class="message is-danger">
           <div class="message-body">
@@ -28,7 +28,7 @@
       <div class="field">
         <label class="label">Password</label>
         <div class="control">
-          <input class="input" id="password" type="password" v-model="password" required>
+          <input class="input" id="password" type="password" v-model="password" v-on:keyup.enter="signin" required>
         </div>
       </div>
 

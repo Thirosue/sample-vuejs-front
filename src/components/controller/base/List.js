@@ -7,20 +7,18 @@ import Type from '@/store/mutation-types'
 const SORT_ORDER = ['desc', 'asc', undefined]
 
 export default {
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      if(vm.store.updated && vm.store.editPath === from.path) {
-        alert('更新が完了しました')
-      }
-      vm.$store.dispatch(vm.namespace + Type.UNSET_ALL)
-      vm.restoreCondition()
-      if(!is.empty(vm.$router.history.current.query)){
-        vm.doSearch(vm.where)
-      }
-    })
-  },
   data: () => {
     return {
+    }
+  },
+  mounted () {
+    if(this.store.updated) {
+      alert('更新が完了しました')
+    }
+    this.$store.dispatch(this.namespace + Type.UNSET_ALL)
+    this.restoreCondition()
+    if(!is.empty(this.$router.history.current.query)){
+      this.doSearch(this.where)
     }
   },
   methods: {
@@ -47,7 +45,7 @@ export default {
     },
     search(page, rows) {
       let where = apiHelper.createConditions(this.$router.history.current.query, page, rows) //page,rowsをマージ
-      this.$store.dispatch(this.namespace + Type.SET_ROWS, rows)
+      this.$store.dispatch(this.namespace + Type.SET_ROWS, { rows })
       this.doSearch(where)
     },
     reload() {
@@ -57,7 +55,7 @@ export default {
     restoreCondition() {
       let query = this.$router.history.current.query
       this.where = Object.assign({}, this.where, this.convertList())
-      this.$store.dispatch(this.namespace + Type.SET_ROWS, query.rows)
+      this.$store.dispatch(this.namespace + Type.SET_ROWS, {rows : query.rows})
     },
     convertList() {
       let query = this.$router.history.current.query
