@@ -15,6 +15,7 @@ const company = {
     namespace: 'staff/',
     listPath: '/staffList',
     editPath: '/staffEdit',
+    registerPath: '/staffRegister',
     detailPath: '/staff',
     rows: null,
     count: null,

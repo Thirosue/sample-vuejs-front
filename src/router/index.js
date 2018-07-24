@@ -13,6 +13,7 @@ import Login from '@/components/controller/login/Login'
 import StaffList from '@/components/controller/staff/StaffList'
 import StaffEdit from '@/components/controller/staff/StaffEdit'
 import StaffDetail from '@/components/controller/staff/StaffDetail'
+import StaffRegister from '@/components/controller/staff/StaffRegister'
 
 Vue.use(Router)
 
@@ -51,7 +52,7 @@ export default new Router({
       component: StaffList
     },
     {
-      path: StateRoot.staff.editPath + "*",
+      path: StateRoot.staff.editPath,
       name: 'StaffEdit',
       component: StaffEdit
     },
@@ -59,6 +60,11 @@ export default new Router({
       path: StateRoot.staff.detailPath + "/:id",
       name: 'StaffDetail',
       component: StaffDetail
+    },
+    {
+      path: StateRoot.staff.registerPath,
+      name: 'StaffRegister',
+      component: StaffRegister
     },
   ]
 })
