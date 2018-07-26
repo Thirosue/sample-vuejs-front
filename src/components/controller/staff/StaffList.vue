@@ -50,7 +50,7 @@
 
     <div class="sample-result-list">
       <sample-searching v-bind:searching="searching" v-bind:noresult="noResult"></sample-searching> <!-- searching -->
-      <table class="table  is-bordered is-striped is-narrow is-hoverable is-fullwidth" v-show="existsResult">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" v-show="existsResult">
         <thead>
           <tr>
             <th>#</th>

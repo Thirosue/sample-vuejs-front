@@ -12,24 +12,13 @@
   <div class="container is-fullhd">
     <div class="notification">
       <div class="field">
-        <label class="label">Email</label>
-        <div class="control">
-          <input class="input" id="id" type="email" v-model="email" placeholder="e.g. alexsmith@gmail.com" 
-            name="email" data-vv-as="Email" v-validate="'email'"
-            :class="{'has-error': errors.has('email')}" v-on:keyup.enter="signin" required>
-        </div>
-        <article v-if="errors.has('email')" class="message is-danger">
-          <div class="message-body">
-            {{ errors.first('email') }}
-          </div>
-        </article>
+        <sample-input id="id" type="email" label="Email" name="email" v-model="email"
+          :required="true" v-on:error="errorFlg = $event" placeholder="e.g. alexsmith@gmail.com" :func="signin" />
       </div>
 
       <div class="field">
-        <label class="label">Password</label>
-        <div class="control">
-          <input class="input" id="password" type="password" v-model="password" v-on:keyup.enter="signin" required>
-        </div>
+        <sample-input id="password" type="password" label="Password" name="password" v-model="password"
+          :required="true" v-on:error="errorFlg = $event" :func="signin" />
       </div>
 
       <div v-if="errMsg" class="notification is-danger">
@@ -37,7 +26,7 @@
       </div>
       
       <div class="field is-grouped is-grouped-centered">
-        <button id="form-submit" class="button is-link" type="submit" v-disable="disableLogin" v-on:click.stop.prevent="signin">Login</button>
+        <button id="form-submit" class="button is-link" type="submit" v-disable="!errorFlg" v-on:click.stop.prevent="signin">Login</button>
       </div>
     </div>
   </div>
@@ -56,6 +45,7 @@ export default {
       email: '',
       password: '',
       errMsg: null,
+      errorFlg: false,
     }
   },
   created() {
@@ -66,6 +56,7 @@ export default {
   },
   methods: {
     signin() {
+      if(!this.errorFlg) return 
       this.errMsg = null
       this.$store.dispatch('session/login', { email: this.email, password: this.password })
                     .then(()=>this.$router.push('/'))
@@ -77,11 +68,6 @@ export default {
                       }
                     })
     },
-  },
-  computed: {
-    disableLogin() {
-      return 0 === this.email.length || 0 === this.password.length
-    }
   }
 }
 </script>

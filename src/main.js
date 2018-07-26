@@ -42,6 +42,10 @@ Vue.component('sample-footer', Footer)
 Vue.component('sample-pager', Pager)
 Vue.component('sample-searching', Searching)
 
+import InputField from '@/components/parts/form/InputField'
+
+Vue.component('sample-input', InputField)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
