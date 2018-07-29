@@ -14,7 +14,6 @@ export default {
   },
   data: () => {
     return {
-      errorFlg: false,
     }
   },
   mounted() {
@@ -46,12 +45,6 @@ export default {
       return result
     },
     async update() {
-      let isOk = await this.$validator.validateAll()
-      await this.doValidate()
-      if (!isOk && this.errors.any()) {
-        alert(this.errors.all())
-        return
-      }
       let modifiedData = Object.assign({}, this.data)
       const getVaule = (key) => document.querySelector("[data-key='" + key + "']")
 
@@ -71,8 +64,5 @@ export default {
     columSetting() { return null }, //<--- 個別に定義
     namespace() { return this.store.namespace },
     data() { return this.store.data },
-    _errors () {
-      return this.errors.items.sort((a,b) => a.id - b.id)
-    },
   },
 }

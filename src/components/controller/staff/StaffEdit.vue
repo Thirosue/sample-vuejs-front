@@ -19,13 +19,13 @@
               <th>{{result.key | decode}}</th>
               <td>
                 <sample-input :hasLabel="false" :id="result.key" :value="result.value" :type="getType(result.type)" :label="result.key | decode" :name="result.key"
-                    v-on:error="errorFlg = $event" :min="result.min" :max="result.max" :required="result.required" />
+                    v-on:error="setError(result.key, $event)" :min="result.min" :max="result.max" :required="result.required" />
               </td>
             </tr>
           </tbody>
         </table>
         <div class="field is-grouped is-grouped-centered">
-          <button id="form-submit" class="button is-link" type="submit" v-disable="!errorFlg" v-on:click.stop.prevent="update">更新</button>
+          <button id="form-submit" class="button is-link" type="submit" v-disable="hasError" v-on:click.stop.prevent="update">更新</button>
         </div>
       </div>
     </div>
@@ -36,15 +36,14 @@
 
 <script>
 import BaseEdit from '@/components/controller/base/Edit'
+import BaseValidate from '@/components/controller/base/Validate'
 import ViewSettings from '@/conf/ViewSettings'
 
 export default {
   name: 'StaffEdit',
-  mixins: [BaseEdit],
+  mixins: [BaseEdit,BaseValidate],
   mounted() {
     console.log('start StaffEdit!')
-  },
-  methods: {
   },
   computed: {
     store() { return this.$store.state.staff }, //OverRide

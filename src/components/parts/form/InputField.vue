@@ -71,7 +71,7 @@ export default {
       inputValue: this.value ? this.value : null,
     }
   },
-  async created() {
+  created() {
     //create validate rule
     let rules = []
     if( this.required ) { rules.push('required') }
@@ -79,9 +79,6 @@ export default {
     if( this.max ) { rules.push('max:' + this.max) }
     if( this.type === 'email' ) { rules.push('email') }
     this.validateRule = rules.join('|')
-
-    const result = await this.$validator.validateAll()
-    this.$emit('error', result)    
   },
   methods: {
     change(event) {
@@ -91,7 +88,7 @@ export default {
   watch: {
     async inputValue(event) {
       const result = await this.$validator.validateAll()
-      this.$emit('error', result)
+      this.$emit('error', !result)
     },
   },
 }

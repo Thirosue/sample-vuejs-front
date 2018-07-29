@@ -13,17 +13,17 @@
     <div class="notification">
 
       <sample-input id="id" type="email" label="Email" name="email" v-model="email" :hasLabel="true"
-        :required="true" v-on:error="errorFlg = $event" placeholder="e.g. alexsmith@gmail.com" :func="signin" />
+        :required="true" v-on:error="setError('email', $event)" placeholder="e.g. alexsmith@gmail.com" :func="signin" />
 
       <sample-input id="password" type="password" label="Password" name="password" v-model="password" :hasLabel="true"
-          :required="true" v-on:error="errorFlg = $event" :func="signin" />
+          :required="true" v-on:error="setError('password', $event)" :func="signin" />
 
       <div v-if="errMsg" class="notification is-danger">
         {{errMsg}}
       </div>
       
       <div class="field is-grouped is-grouped-centered">
-        <button id="form-submit" class="button is-link" type="submit" v-disable="!errorFlg" v-on:click.stop.prevent="signin">Login</button>
+        <button id="form-submit" class="button is-link" type="submit" v-disable="hasError" v-on:click.stop.prevent="signin">Login</button>
       </div>
     </div>
   </div>
@@ -35,14 +35,15 @@
 import handler from '@/module/errorHandler'
 import message from '@/conf/message'
 import Type from '@/store/mutation-types'
+import BaseValidate from '@/components/controller/base/Validate'
 
 export default {
+  mixins: [BaseValidate],
   data: () => {
     return {
       email: '',
       password: '',
       errMsg: null,
-      errorFlg: false,
     }
   },
   created() {
@@ -53,7 +54,7 @@ export default {
   },
   methods: {
     signin() {
-      if(!this.errorFlg) return 
+      if(this.hasError) return 
       this.errMsg = null
       this.$store.dispatch('session/login', { email: this.email, password: this.password })
                     .then(()=>this.$router.push('/'))
@@ -65,7 +66,7 @@ export default {
                       }
                     })
     },
-  }
+  },
 }
 </script>
 

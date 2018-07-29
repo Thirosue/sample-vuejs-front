@@ -12,7 +12,7 @@ export default {
   },
   data: () => {
     return {
-    };
+    }
   },
   methods: {
     getScreenId: () => null, //<--- 個別に定義
@@ -25,12 +25,6 @@ export default {
       return result
     },
     async create() {
-      let isOk = await this.$validator.validateAll()
-      await this.doValidate()
-      if (!isOk && this.errors.any()) {
-        alert(this.errors.all())
-        return
-      }
       let modifiedData = {}
       const getVaule = (key) => document.querySelector("[data-key='" + key + "']")
 
@@ -43,14 +37,12 @@ export default {
                     .then(()=>this.$store.dispatch(this.namespace + Type.UPDATED) && this.$router.push(this.store.listPath))
                     .catch(handler.apiHandleErr)
     },
+    getType: (type) => type ? type : 'text',
   },
   computed: {
     store() { return null }, //<--- 個別に定義
     columSetting() { return null }, //<--- 個別に定義
     namespace() { return this.store.namespace },
     columns() { return _.orderBy(this.columSetting, 'orderBy') },
-    _errors () {
-      return this.errors.items.sort((a,b) => a.id - b.id)
-    },
   },
 }

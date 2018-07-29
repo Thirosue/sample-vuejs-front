@@ -19,14 +19,15 @@
               <th>{{result.key | decode}}</th>
               <td>
                 <div class="control">
-                  <input class="input" type="text" v-bind:data-key="result.key">
+                  <sample-input :hasLabel="false" :id="result.key" :type="getType(result.type)" :label="result.key | decode" :name="result.key"
+                    v-on:error="setError(result.key, $event)" :min="result.min" :max="result.max" :required="result.required" />
                 </div>
               </td>
             </tr>
           </tbody>
         </table>
         <div class="field is-grouped is-grouped-centered">
-          <button id="form-submit" class="button is-link" type="submit" v-on:click.stop.prevent="create">登録</button>
+          <button id="form-submit" class="button is-link" type="submit" v-disable="hasError" v-on:click.stop.prevent="create">登録</button>
         </div>
       </div>
     </div>
@@ -37,11 +38,12 @@
 
 <script>
 import BaseRegister from '@/components/controller/base/Register'
+import BaseValidate from '@/components/controller/base/Validate'
 import ViewSettings from '@/conf/ViewSettings'
 
 export default {
   name: 'StaffRegister',
-  mixins: [BaseRegister],
+  mixins: [BaseRegister,BaseValidate],
   mounted() {
     console.log('start StaffRegister!')
   },
