@@ -6,6 +6,7 @@ export default {
 
   LOGIN_PATH: '/login',
   LOGOUT_PATH: '/logout',
+  EDIT_PASSWORD: '/passwordEdit',
   SYSERR_PATH: '/systemError',
   SESSION_TIMEOUT_PATH: '/sessionTimeOut',
   BAD_REQUEST_PATH: '/badRequest',

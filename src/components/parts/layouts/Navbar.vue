@@ -26,6 +26,13 @@
       <div class="navbar-item">
         <div class="field is-grouped">
           <p class="control">
+            <router-link class="button is-link" type="submit" v-bind:to="'/passwordEdit'">パスワード変更</router-link>
+          </p>
+        </div>
+      </div>
+      <div class="navbar-item">
+        <div class="field is-grouped">
+          <p class="control">
             <a class="button is-info" v-on:click.stop.prevent="logout">
               <span>Logout</span>
             </a>

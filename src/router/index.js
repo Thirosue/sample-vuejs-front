@@ -14,6 +14,7 @@ import StaffList from '@/components/controller/staff/StaffList'
 import StaffEdit from '@/components/controller/staff/StaffEdit'
 import StaffDetail from '@/components/controller/staff/StaffDetail'
 import StaffRegister from '@/components/controller/staff/StaffRegister'
+import PasswordEdit from '@/components/controller/staff/PasswordEdit'
 
 Vue.use(Router)
 
@@ -45,6 +46,11 @@ export default new Router({
       path: Config.LOGIN_PATH,
       name: 'Login',
       component: Login
+    },
+    {
+      path: Config.EDIT_PASSWORD,
+      name: 'PasswordEdit',
+      component: PasswordEdit
     },
     {
       path: StateRoot.staff.listPath,
