@@ -1,8 +1,8 @@
 <template>
   <div class="field">
-    <label v-if="label" class="label">{{label}}</label>
+    <label v-if="hasLabel" class="label">{{label}}</label>
     <div class="control">
-      <input class="input" v-bind:id="id" v-on:input="change" 
+      <input class="input" v-bind:id="id" v-on:input="change" v-model="inputValue" v-bind:data-key="id" 
         v-bind:type="type" v-bind:name="name" v-bind:data-vv-as="label?label:name" v-validate="validateRule"
         :class="{'has-error': errors.has(name)}" v-on:keyup.enter="func" v-bind:placeholder="placeholder">
     </div>
@@ -18,13 +18,20 @@
 export default {
   name: 'InputField',
   props: {
-    value: {},
     id: {
+      type: String,
+      required: false
+    },
+    value: {
       type: String,
       required: false
     },
     type: {
       type: String,
+      required: false
+    },
+    hasLabel: {
+      type: Boolean,
       required: false
     },
     label: {
@@ -60,17 +67,21 @@ export default {
   },
   data() {
     return {
-      validateRule: ''
+      validateRule: '',
+      inputValue: this.value ? this.value : null,
     }
   },
-  created() {
+  async created() {
     //create validate rule
     let rules = []
     if( this.required ) { rules.push('required') }
     if( this.min ) { rules.push('min:' + this.min) }
-    if( this.max ) { rules.push('max:' + this.min) }    
+    if( this.max ) { rules.push('max:' + this.max) }
     if( this.type === 'email' ) { rules.push('email') }
     this.validateRule = rules.join('|')
+
+    const result = await this.$validator.validateAll()
+    this.$emit('error', result)    
   },
   methods: {
     change(event) {
@@ -78,7 +89,7 @@ export default {
     },
   },
   watch: {
-    async value(event) {
+    async inputValue(event) {
       const result = await this.$validator.validateAll()
       this.$emit('error', result)
     },

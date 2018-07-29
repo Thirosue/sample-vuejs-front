@@ -14,6 +14,7 @@ export default {
   },
   data: () => {
     return {
+      errorFlg: false,
     }
   },
   mounted() {
@@ -63,6 +64,7 @@ export default {
                     .then(()=>this.$store.dispatch(this.namespace + Type.UPDATED) && this.$router.push(this.store.listPath))
                     .catch(handler.apiHandleErr)
     },
+    getType: (type) => type ? type : 'text',
   },
   computed: {
     store() { return null }, //<--- 個別に定義

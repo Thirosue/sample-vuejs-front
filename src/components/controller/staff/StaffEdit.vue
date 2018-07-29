@@ -18,15 +18,14 @@
             <tr v-for="(result, index) in results()" v-bind:key="index" v-if="result.type!=='ignore'">
               <th>{{result.key | decode}}</th>
               <td>
-                <div class="control">
-                  <input class="input" type="text" v-bind:data-key="result.key" v-bind:value="result.value">
-                </div>
+                <sample-input :hasLabel="false" :id="result.key" :value="result.value" :type="getType(result.type)" :label="result.key | decode" :name="result.key"
+                    v-on:error="errorFlg = $event" :min="result.min" :max="result.max" :required="result.required" />
               </td>
             </tr>
           </tbody>
         </table>
         <div class="field is-grouped is-grouped-centered">
-          <button id="form-submit" class="button is-link" type="submit" v-on:click.stop.prevent="update">更新</button>
+          <button id="form-submit" class="button is-link" type="submit" v-disable="!errorFlg" v-on:click.stop.prevent="update">更新</button>
         </div>
       </div>
     </div>

@@ -19,9 +19,8 @@
         <table class="table is-bordered is-striped is-narrow is-fullwidth">
           <tbody>
             <tr v-for="(result, index) in results()" v-bind:key="index" v-if="result.type!=='ignore'">
-              <th>{{result.key}}</th>
-              <td v-if="result.type!=='sercret'">{{result.value}}</td>
-              <td v-if="result.type==='sercret'">**********</td>
+              <th>{{result.key | decode}}</th>
+              <td>{{result.value}}</td>
             </tr>
           </tbody>
         </table>
@@ -47,6 +46,9 @@ export default {
   computed: {
     store() { return this.$store.state.staff }, //OverRide
     columSetting() { return ViewSettings.Staff }, //OverRide
+  },
+  filters: {
+    decode: (key) => ViewSettings.decode(key, ViewSettings.Staff)
   }
 }
 </script>
