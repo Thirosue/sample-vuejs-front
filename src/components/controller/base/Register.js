@@ -17,6 +17,7 @@ export default {
   methods: {
     getScreenId: () => null, //<--- 個別に定義
     doValidate() {}, //<--- 個別バリデーション
+    customizeData(data) {}, //<--- 必要に応じ個別実装
     confirmClean: function () {
       const result = window.confirm(Message.CLEAR_CONFIRM)
       if (result) {
@@ -24,7 +25,8 @@ export default {
       } 
       return result
     },
-    async create() {
+    create() {
+      if(this.checkError()) return 
       let modifiedData = {}
       const getVaule = (key) => document.querySelector("[data-key='" + key + "']")
 
@@ -32,6 +34,8 @@ export default {
                 .filter(column=>column.type!=='ignore')
                 .map(column=>column.key)
                 .forEach(key => modifiedData[key] = getVaule(key).value)
+
+      this.customizeData(modifiedData)
 
       this.$store.dispatch(this.namespace + Type.CREATE, modifiedData )
                     .then(()=>this.$store.dispatch(this.namespace + Type.UPDATED) && this.$router.push(this.store.listPath))

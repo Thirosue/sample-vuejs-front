@@ -28,6 +28,7 @@ export default {
   methods: {
     getScreenId: () => null, //<--- 個別に定義
     doValidate() {}, //<--- 個別バリデーション
+    customizeData(data) {}, //<--- 必要に応じ個別実装
     findById(id) {
       this.$store.dispatch(this.namespace + Type.FIND_BY_ID, id)
                   .catch(handler.apiHandleErr)
@@ -44,7 +45,7 @@ export default {
       } 
       return result
     },
-    async update() {
+    update() {
       let modifiedData = Object.assign({}, this.data)
       const getVaule = (key) => document.querySelector("[data-key='" + key + "']")
 
@@ -52,6 +53,8 @@ export default {
       Object.keys(this.store.data)
                     .filter(key => !is.null(getVaule(key)))
                     .forEach(key => modifiedData[key] = getVaule(key).value)
+
+      this.customizeData(modifiedData)
 
       this.$store.dispatch(this.namespace + Type.UPDATE, modifiedData )
                     .then(()=>this.$store.dispatch(this.namespace + Type.UPDATED) && this.$router.push(this.store.listPath))
