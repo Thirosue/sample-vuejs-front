@@ -14,14 +14,14 @@
     <div class="notification">
 
       <div class="field">
-        <label class="label">FirstName</label>
+        <label class="label">名前</label>
         <div class="control">
           <input class="input" id="id" type="text" v-model="where.firstName" v-on:keyup.enter="init">
         </div>
       </div>
 
       <div class="field">
-        <label class="label">LastName</label>
+        <label class="label">苗字</label>
         <div class="control">
           <input class="input" id="password" type="text" v-model="where.lastName" v-on:keyup.enter="init">
         </div>
@@ -54,8 +54,8 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>FirstName</th>
-            <th>LastName</th>
+            <th>名前</th>
+            <th>苗字</th>
             <th>Email</th>
             <th>Tel</th>
           </tr>

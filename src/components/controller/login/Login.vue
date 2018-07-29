@@ -11,15 +11,12 @@
   </section>
   <div class="container is-fullhd">
     <div class="notification">
-      <div class="field">
-        <sample-input id="id" type="email" label="Email" name="email" v-model="email"
-          :required="true" v-on:error="errorFlg = $event" placeholder="e.g. alexsmith@gmail.com" :func="signin" />
-      </div>
 
-      <div class="field">
-        <sample-input id="password" type="password" label="Password" name="password" v-model="password"
+      <sample-input id="id" type="email" label="Email" name="email" v-model="email" :hasLabel="true"
+        :required="true" v-on:error="errorFlg = $event" placeholder="e.g. alexsmith@gmail.com" :func="signin" />
+
+      <sample-input id="password" type="password" label="Password" name="password" v-model="password" :hasLabel="true"
           :required="true" v-on:error="errorFlg = $event" :func="signin" />
-      </div>
 
       <div v-if="errMsg" class="notification is-danger">
         {{errMsg}}
