@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     getScreenId: () => null, //<--- 個別に定義
-    doValidate() {}, //<--- 個別バリデーション
+    doValidate() { return false }, //<--- 個別バリデーション
     customizeData(data) {}, //<--- 必要に応じ個別実装
     confirmClean: function () {
       const result = window.confirm(Message.CLEAR_CONFIRM)
@@ -26,6 +26,8 @@ export default {
     },
     create() {
       if(this.checkAll()) return //Validateはmixinされる前提
+      if(!this.doValidate()) return 
+
       let modifiedData = {}
       const getVaule = (key) => document.querySelector("[data-key='" + key + "']")
 

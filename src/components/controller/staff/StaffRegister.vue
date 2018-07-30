@@ -40,6 +40,9 @@
             </tr>
           </tbody>
         </table>
+        <div v-if="errMsg" class="notification is-danger">
+          {{errMsg}}
+        </div>
         <div class="field is-grouped is-grouped-centered">
           <button id="form-submit" class="button is-link" type="submit" v-disable="checkAll()" v-on:click.stop.prevent="create">登録</button>
         </div>
@@ -54,14 +57,30 @@
 import BaseRegister from '@/components/controller/base/Register'
 import BaseValidate from '@/components/controller/base/Validate'
 import ViewSettings from '@/conf/ViewSettings'
+import Message from '@/conf/message'
 
 export default {
   name: 'StaffRegister',
   mixins: [BaseRegister,BaseValidate],
+  data: () => {
+    return {
+      errMsg: null,
+    }
+  },
   mounted() {
     console.log('start StaffRegister!')
   },
   methods: {
+    doValidate() {
+      const password = document.querySelector("[data-key='password']").value
+      const password2 = document.querySelector("[data-key='password2']").value
+
+      if(password !== password2) {
+        this.errMsg = Message.UNMUCH_PASSWORD
+        return false
+      }
+      return true
+    },
     customizeData(modifiedData) {
       modifiedData['password'] = document.querySelector("[data-key='password']").value
     },

@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     getScreenId: () => null, //<--- 個別に定義
-    doValidate() {}, //<--- 個別バリデーション
+    doValidate() { return true }, //<--- 個別バリデーション
     customizeData(data) {}, //<--- 必要に応じ個別実装
     findById(id) {
       this.$store.dispatch(this.namespace + Type.FIND_BY_ID, id)
@@ -46,6 +46,8 @@ export default {
       return result
     },
     update() {
+      if(!this.doValidate()) return 
+
       let modifiedData = Object.assign({}, this.data)
       const getVaule = (key) => document.querySelector("[data-key='" + key + "']")
 
