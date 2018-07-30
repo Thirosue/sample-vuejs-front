@@ -44,7 +44,7 @@
           {{errMsg}}
         </div>
         <div class="field is-grouped is-grouped-centered">
-          <button id="form-submit" class="button is-link" type="submit" v-disable="checkAll()" v-on:click.stop.prevent="create">登録</button>
+          <button id="form-submit" class="button is-link" type="submit" v-disable="hasError" v-on:click.stop.prevent="create">登録</button>
         </div>
       </div>
     </div>

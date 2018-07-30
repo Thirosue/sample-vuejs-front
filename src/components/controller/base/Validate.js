@@ -1,3 +1,5 @@
+import is from 'is_js'
+
 export default {
   data: () => {
     return {
@@ -9,9 +11,9 @@ export default {
       this.errorFlgs[key] = event
       this.errorFlgs = Object.assign({}, this.errorFlgs)
     },
-    checkAll() { 
-      const inputCnt = document.querySelectorAll('.sample-detail-area input').length
-      return Object.values(this.errorFlgs).length !== inputCnt || Object.values(this.errorFlgs).some(errorFlg=>errorFlg) 
+    existsEmptyNode() { 
+      const requiredNodeList = Array.from(document.querySelectorAll(':required'))
+      return requiredNodeList.some(node=>is.empty(node.value))
     },
   },
   computed: {

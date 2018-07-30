@@ -30,6 +30,7 @@ import directive from '@/module/directive'
 
 Vue.directive('disable', directive.disable )
 Vue.directive('focus', directive.focus )
+Vue.directive('required', directive.required )
 
 // add compornent for global
 import NavBar from '@/components/parts/layouts/NavBar'

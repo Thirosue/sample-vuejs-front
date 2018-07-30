@@ -25,8 +25,7 @@ export default {
       return result
     },
     create() {
-      if(this.checkAll()) return //Validateはmixinされる前提
-      if(!this.doValidate()) return 
+      if(this.existsEmptyNode() || !this.doValidate()) return  //Validateはmixinされる前提
 
       let modifiedData = {}
       const getVaule = (key) => document.querySelector("[data-key='" + key + "']")

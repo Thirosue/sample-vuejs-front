@@ -2,7 +2,7 @@
   <div class="field">
     <label v-if="hasLabel" class="label">{{label}}</label>
     <div class="control">
-      <input class="input" v-bind:id="id" v-on:input="change" v-model.lazy="inputValue" v-bind:data-key="id" 
+      <input class="input" v-bind:id="id" v-on:input="change" v-model.lazy="inputValue" v-bind:data-key="id" v-required="required"
         v-bind:type="type" v-bind:name="name" v-bind:data-vv-as="label?label:name" v-validate="validateRule" data-vv-validate-on="blur"
         :class="{'has-error': errors.has(name)}" v-on:keyup.enter="func" v-bind:placeholder="placeholder">
     </div>
