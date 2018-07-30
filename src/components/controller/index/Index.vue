@@ -18,6 +18,13 @@
 </template>
 
 <script>
+export default {
+  created() {
+    if(this.$store.state.session.loggedin) {
+      alert('ログインしました')
+    }
+  },
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
