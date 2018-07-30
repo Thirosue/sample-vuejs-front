@@ -20,7 +20,7 @@
               <td>
                 <div class="control">
                   <sample-input :hasLabel="false" :id="result.key" :type="getType(result.type)" :label="result.key | decode" :name="result.key"
-                    v-on:error="setError(result.key, $event)" :min="result.min" :max="result.max" :required="result.required" />
+                    v-on:error="setError(result.key, $event)" :min="result.min" :max="result.max" :required="result.required" :numeric="result.numeric" />
                 </div>
               </td>
             </tr>
@@ -41,7 +41,7 @@
           </tbody>
         </table>
         <div class="field is-grouped is-grouped-centered">
-          <button id="form-submit" class="button is-link" type="submit" v-disable="checkError()" v-on:click.stop.prevent="create">登録</button>
+          <button id="form-submit" class="button is-link" type="submit" v-disable="checkAll()" v-on:click.stop.prevent="create">登録</button>
         </div>
       </div>
     </div>

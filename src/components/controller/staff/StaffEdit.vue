@@ -19,7 +19,7 @@
               <th>{{result.key | decode}}</th>
               <td>
                 <sample-input :hasLabel="false" :id="result.key" :value="result.value" :type="getType(result.type)" :label="result.key | decode" :name="result.key"
-                    v-on:error="setError(result.key, $event)" :min="result.min" :max="result.max" :required="result.required" />
+                    v-on:error="setError(result.key, $event)" :min="result.min" :max="result.max" :required="result.required" :numeric="result.numeric" />
               </td>
             </tr>
           </tbody>

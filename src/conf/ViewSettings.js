@@ -6,7 +6,7 @@ const Staff = [
   {key: 'firstName', value: '名前', required: true, max: 40, orderBy: 2},
   {key: 'lastName', value: '苗字', required: true, max: 40, orderBy: 3},
   {key: 'email', value: 'Email', required: true, max: 100, type:'email', orderBy: 4},
-  {key: 'tel', value: 'Tel', max: 20, orderBy: 5},
+  {key: 'tel', value: 'Tel', numeric: true, max: 20, orderBy: 5},
   {key: 'password', value: 'パスワード', orderBy: 6, type: 'ignore'},
   {key: 'version', value: '改訂番号', orderBy: 0, type: 'ignore'},
 ]
@@ -21,6 +21,7 @@ const createFeed = (key, results, mapping) => ({
   min: find(key, mapping).min,
   max: find(key, mapping).max,
   required: find(key, mapping).required,
+  numeric: find(key, mapping).numeric,
   orderBy: find(key, mapping).orderBy,
 })
 

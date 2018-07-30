@@ -1,4 +1,3 @@
-import is from 'is_js'
 import handler from '@/module/errorHandler'
 import Type from '@/store/mutation-types'
 import Message from '@/conf/message'
@@ -26,7 +25,7 @@ export default {
       return result
     },
     create() {
-      if(this.checkError()) return 
+      if(this.checkAll()) return //Validateはmixinされる前提
       let modifiedData = {}
       const getVaule = (key) => document.querySelector("[data-key='" + key + "']")
 

@@ -2,8 +2,8 @@
   <div class="field">
     <label v-if="hasLabel" class="label">{{label}}</label>
     <div class="control">
-      <input class="input" v-bind:id="id" v-on:input="change" v-model="inputValue" v-bind:data-key="id" 
-        v-bind:type="type" v-bind:name="name" v-bind:data-vv-as="label?label:name" v-validate="validateRule"
+      <input class="input" v-bind:id="id" v-on:input="change" v-model.lazy="inputValue" v-bind:data-key="id" 
+        v-bind:type="type" v-bind:name="name" v-bind:data-vv-as="label?label:name" v-validate="validateRule" data-vv-validate-on="blur"
         :class="{'has-error': errors.has(name)}" v-on:keyup.enter="func" v-bind:placeholder="placeholder">
     </div>
     <article v-if="errors.has(name)" class="message is-danger">
@@ -42,6 +42,11 @@ export default {
       type: String,
       required: true
     },
+    numeric: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     min: {
       type: Number,
       required: false
@@ -75,6 +80,7 @@ export default {
     //create validate rule
     let rules = []
     if( this.required ) { rules.push('required') }
+    if( this.numeric ) { rules.push('numeric') }
     if( this.min ) { rules.push('min:' + this.min) }
     if( this.max ) { rules.push('max:' + this.max) }
     if( this.type === 'email' ) { rules.push('email') }
