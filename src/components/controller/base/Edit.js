@@ -4,10 +4,12 @@ import Type from '@/store/mutation-types'
 import Message from '@/conf/message'
 import ViewSettings from '@/conf/ViewSettings'
 import Config from '@/conf/config'
+import pathHelper from '@/module/helper/pathHelper'
 
 export default {
   beforeRouteLeave (to, from, next) {
-    if( !this.store.updated && !this.confirmClean() ){
+    //更新完了、エラーの場合は、確認ダイアログスキップ
+    if( !this.store.updated && !pathHelper.isErrorPath(to.path) && !this.confirmClean() ){
       return false
     }
     next()
@@ -15,6 +17,9 @@ export default {
   data: () => {
     return {
     }
+  },
+  created () {
+    document.cookie = Config.FUNCTION_ID + this.screenId
   },
   mounted() {
     const query = this.$router.history.current.query
@@ -26,7 +31,6 @@ export default {
     }
   },
   methods: {
-    getScreenId: () => null, //<--- 個別に定義
     doValidate() { return true }, //<--- 個別バリデーション
     customizeData(data) {}, //<--- 必要に応じ個別実装
     findById(id) {
@@ -38,7 +42,7 @@ export default {
                               .map(key => ViewSettings.createFeed(key, this.store.data, this.columSetting))  //DecodeはFilterで実施
       return _.orderBy(results, 'orderBy')
     },
-    confirmClean: function () {
+    confirmClean() {
       const result = window.confirm(Message.CLEAR_CONFIRM)
       if (result) {
         this.$store.dispatch(this.namespace + Type.UNSET_ALL)
@@ -65,9 +69,11 @@ export default {
     getType: (type) => type ? type : 'text',
   },
   computed: {
+    screenId: () => null, //<--- 個別に定義
     store() { return null }, //<--- 個別に定義
     columSetting() { return null }, //<--- 個別に定義
     namespace() { return this.store.namespace },
     data() { return this.store.data },
+    posting() { return this.store.posting },
   },
 }

@@ -86,6 +86,7 @@ export default {
     },
   },
   computed: {
+    getScreenId: () => "STAFF_REGISTER", //OverRide
     store() { return this.$store.state.staff }, //OverRide
     columSetting() { return ViewSettings.Staff }, //OverRide
   },

@@ -1,10 +1,12 @@
 import handler from '@/module/errorHandler'
 import Type from '@/store/mutation-types'
 import Message from '@/conf/message'
+import Config from '@/conf/config'
 
 export default {
   beforeRouteLeave (to, from, next) {
-    if( !this.store.updated && !this.confirmClean() ){
+    //更新完了、エラーの場合は、確認ダイアログスキップ
+    if( !this.store.updated && !pathHelper.isErrorPath(to.path) && !this.confirmClean() ){
       return false
     }
     next()
@@ -13,11 +15,13 @@ export default {
     return {
     }
   },
+  created () {
+    document.cookie = Config.FUNCTION_ID + this.screenId
+  },
   methods: {
-    getScreenId: () => null, //<--- 個別に定義
     doValidate() { return false }, //<--- 個別バリデーション
     customizeData(data) {}, //<--- 必要に応じ個別実装
-    confirmClean: function () {
+    confirmClean() {
       const result = window.confirm(Message.CLEAR_CONFIRM)
       if (result) {
         this.$store.dispatch(this.namespace + Type.UNSET_ALL)
@@ -44,6 +48,7 @@ export default {
     getType: (type) => type ? type : 'text',
   },
   computed: {
+    screenId: () => null, //<--- 個別に定義
     store() { return null }, //<--- 個別に定義
     columSetting() { return null }, //<--- 個別に定義
     namespace() { return this.store.namespace },

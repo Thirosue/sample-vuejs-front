@@ -3,24 +3,19 @@ import store from '@/store'
 import handler from '@/module/errorHandler'
 import Screenlist from '@/conf/screenList'
 import Config from '@/conf/config'
-
-const isUnAuthorize = (targetPath) => {
-  return Config.UNAUTHORITHED_PATH.find(path => targetPath.indexOf(path)!==-1)
-}
-
-const checkSessionErrorHandler = (error) => {
-  if(error.response.status===401) {
-    router.push(Config.SESSION_TIMEOUT_PATH)
-  } else {
-    handler.apiHandleErr(error)
-  }
-}
+import pathHelper from '@/module/helper/pathHelper'
 
 const checkSession = (path) => {
-  if(!isUnAuthorize(path)) {
+  if(!pathHelper.isUnAuthorizePath(path)) {
     store.dispatch('session/checkSession')
                 .then(() => console.info('session available!'))
-                .catch(checkSessionErrorHandler)
+                .catch(error => {
+                  if(error.response.status===401) {
+                    router.push(Config.SESSION_TIMEOUT_PATH)
+                  } else {
+                    handler.apiHandleErr(error)
+                  }
+                })
   }
 }
 

@@ -27,6 +27,7 @@ const company = {
     list: [],
     searching: false,
     updated: false,
+    posting: false,
   },
   mutations: {
     [Type.SET_DATA] (state, { data }) {
@@ -59,6 +60,9 @@ const company = {
     [Type.UPDATED] (state, { updated }) {
       state.updated = updated
     },
+    [Type.SET_POST_STATUS] (state, { posting }) {
+      state.posting = posting
+    },
     [Type.UNSET_LIST] (state) {
       state.count = null
       state.page = null
@@ -78,6 +82,7 @@ const company = {
       state.list = new Array()
       state.searching = false
       state.updated = false
+      state.posting = false
     },
   },
   actions: {
@@ -96,12 +101,14 @@ const company = {
       dispatch(Type.SET_SEARCH_END)
     },
     async [Type.UPDATE] ({ dispatch }, data) {
+      dispatch(Type.POST_START)
       await update(data)
-      dispatch(Type.UNSET_LIST)
+      dispatch(Type.UNSET_ALL)
     },
     async [Type.CREATE] ({ dispatch }, data) {
+      dispatch(Type.POST_START)
       await create(data)
-      dispatch(Type.UNSET_LIST)
+      dispatch(Type.UNSET_ALL)
     },
     [Type.SET_LIST] ({commit}, results) { commit(Type.SET_LIST, { results }) },
     [Type.SET_PAGE] ({commit}, page) { commit(Type.SET_PAGE, { page }) },
@@ -111,6 +118,7 @@ const company = {
     [Type.SET_SEARCH_START] ({commit}) { commit(Type.SET_SEARCHING, { searching: true }) },
     [Type.SET_SEARCH_END] ({commit}) { commit(Type.SET_SEARCHING, { searching: false }) },
     [Type.UPDATED] ({commit}) { commit(Type.UPDATED, { updated: true }) },
+    [Type.POST_START] ({commit}) { commit(Type.SET_POST_STATUS, { posting: true }) },
     [Type.SET_SORT_COLUMN] ({commit}, sortColumn) { commit(Type.SET_SORT_COLUMN, sortColumn) },
     [Type.SET_SORT_ORDER] ({commit}, sortOrder) { commit(Type.SET_SORT_ORDER, sortOrder) },
     [Type.UNSET_LIST] ({commit}) { commit(Type.UNSET_LIST) },

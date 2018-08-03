@@ -16,5 +16,6 @@ export default {
 
   SEPARATOR: ', ',
 
-  UNAUTHORITHED_PATH: ['login','logout','systemError','sessionTimeOut','badRequest'] //認証不要のパスリスト
+  UNAUTHORITHED_PATH: ['login','logout','systemError','sessionTimeOut','badRequest'], //認証不要のパスリスト
+  ERROR_PATH: ['systemError','sessionTimeOut','badRequest'] //エラーのパスリスト
 }

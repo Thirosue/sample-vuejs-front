@@ -3,8 +3,7 @@ import apiHelper from '@/module/helper/api'
 import download from '@/module/download'
 import handler from '@/module/errorHandler'
 import Type from '@/store/mutation-types'
-
-const SORT_ORDER = ['desc', 'asc', undefined]
+import Config from '@/conf/config'
 
 export default {
   data: () => {
@@ -20,10 +19,9 @@ export default {
     if(!is.empty(this.$router.history.current.query)){
       this.doSearch(this.where)
     }
+    document.cookie = Config.FUNCTION_ID + this.screenId
   },
   methods: {
-    getScreenId: () => null, //<--- 個別に定義
-    getFileProperties: () => ['ファイル名記載', 'ファイルヘッダ定義設定'], //<--- 個別に定義
     doValidate() {}, //<--- 個別バリデーション
     init() {
       this.$store.dispatch(this.namespace + Type.UNSET_ALL)
@@ -74,6 +72,8 @@ export default {
     },
   },
   computed: {
+    screenId: () => null, //<--- 個別に定義
+    fileProperties: () => ['ファイル名記載', 'ファイルヘッダ定義設定'], //<--- 個別に定義
     store() { return null }, //<--- 個別に定義
     namespace() { return this.store.namespace },
     results() { return this.store.list },

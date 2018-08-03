@@ -17,4 +17,7 @@ export default {
     SET_SEARCH_START: 'setSearchStart',
     SET_SEARCH_END: 'setSearchEnd',
     UPDATED: 'updated',
+    SET_POST_STATUS: 'setPostStatus',
+    POST_START: 'postStart',
+    POST_END: 'postEnd',
 }

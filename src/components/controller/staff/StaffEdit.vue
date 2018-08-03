@@ -46,12 +46,13 @@ export default {
     console.log('start StaffEdit!')
   },
   computed: {
+    getScreenId: () => "STAFF_EDIT", //OverRide
     store() { return this.$store.state.staff }, //OverRide
     columSetting() { return ViewSettings.Staff }, //OverRide
   },
   filters: {
     decode: (key) => ViewSettings.decode(key, ViewSettings.Staff)
-  }
+  },
 }
 </script>
 
