@@ -37,6 +37,28 @@
           </div>
         </div>
       </section>
+      <section class="hero">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">
+              Toast Test
+            </h1>
+            <nav class="level">
+              <div class="level-right">
+                <div class="level-item">
+                  <button class="button is-link" type="submit" v-on:click.stop.prevent="toast">トップ</button>
+                </div>
+                <div class="level-item">
+                  <button class="button is-link" type="submit" v-on:click.stop.prevent="toastBottom">ボトム</button>
+                </div>
+                <div class="level-item">
+                  <button class="button is-link" type="submit" v-on:click.stop.prevent="toastWith5Second">ボトム（5秒まち）</button>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </section>
     </div>
     <sample-footer></sample-footer>
   </div>
@@ -44,9 +66,9 @@
 
 <script>
 export default {
-  created() {
+  mounted() {
     if(this.$store.state.session.loggedin) {
-      this.$showModal('ログインしました')
+      this.$showToast('ログインしました')
     }
   },
   methods: {
@@ -61,6 +83,15 @@ export default {
     },
     openWithTitleAndSuccessAndError() {
       this.$showModal('hoge','title', ()=>{console.log('call success callback!')}, ()=>{console.log('call error callback!')})
+    },
+    toast() {
+      this.$showToast('show simple toast', 'info', 'top')
+    },
+    toastBottom() {
+      this.$showToast('show simple toast', 'info', 'bottom')
+    },
+    toastWith5Second() {
+      this.$showToast('show simple toast', 'info', 'bottom', 5000)
     },
   },
 }

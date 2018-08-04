@@ -46,11 +46,11 @@ export default {
       errMsg: null,
     }
   },
-  created() {
+  mounted() {
     if(this.$store.state.session.logouted) {
-      this.$showModal('ログアウトしました')
+      this.$showToast('ログアウトしました', 'none')
       this.$store.dispatch('session/' + Type.UNSET_ALL)
-    }
+    }    
   },
   methods: {
     signin() {
