@@ -12,6 +12,31 @@
           </p>
         </div>
       </section>
+      <section class="hero">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">
+              Modal Test
+            </h1>
+            <nav class="level">
+              <div class="level-right">
+                <div class="level-item">
+                  <button class="button is-link" type="submit" v-on:click.stop.prevent="open">シンプル</button>
+                </div>
+                <div class="level-item">
+                  <button class="button is-link" type="submit" v-on:click.stop.prevent="openWithTitle">タイトル付き</button>
+                </div>
+                <div class="level-item">
+                  <button class="button is-link" type="submit" v-on:click.stop.prevent="openWithTitleAndSuccess">コールバック付き（OK）</button>
+                </div>
+                <div class="level-item">
+                  <button class="button is-link" type="submit" v-on:click.stop.prevent="openWithTitleAndSuccessAndError">コールバック付き（OK/NG）</button>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </section>
     </div>
     <sample-footer></sample-footer>
   </div>
@@ -21,8 +46,22 @@
 export default {
   created() {
     if(this.$store.state.session.loggedin) {
-      alert('ログインしました')
+      this.$showModal('ログインしました')
     }
+  },
+  methods: {
+    open() {
+      this.$showModal('hoge')
+    },
+    openWithTitle() {
+      this.$showModal('hoge','title')
+    },
+    openWithTitleAndSuccess() {
+      this.$showModal('hoge','title',()=>{console.log('call success callback!')})
+    },
+    openWithTitleAndSuccessAndError() {
+      this.$showModal('hoge','title', ()=>{console.log('call success callback!')}, ()=>{console.log('call error callback!')})
+    },
   },
 }
 </script>

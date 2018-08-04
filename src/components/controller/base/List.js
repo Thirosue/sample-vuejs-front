@@ -12,7 +12,7 @@ export default {
   },
   mounted () {
     if(this.store.updated) {
-      alert('更新が完了しました')
+      this.$showModal('更新が完了しました')
     }
     this.$store.dispatch(this.namespace + Type.UNSET_ALL)
     this.restoreCondition()

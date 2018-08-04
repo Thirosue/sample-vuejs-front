@@ -8,12 +8,16 @@ import store from '@/store'
 Vue.config.productionTip = false
 
 // for validate
-import VeeValidate, { Validator } from'vee-validate'
+import VeeValidate, { Validator } from 'vee-validate'
 import ja from 'vee-validate/dist/locale/ja'
 import validMessage from '@/module/validate'
 Validator.localize('ja', ja);
 //デフォルトメッセージを上書き
 Vue.use(VeeValidate, validMessage.validMessage)
+
+// add plugin for global
+import ModalPlugin from '@/module/plugin/modal'
+Vue.use(ModalPlugin)
 
 // add filter for global
 import filter from '@/module/filter'

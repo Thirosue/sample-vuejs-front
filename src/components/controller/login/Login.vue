@@ -48,7 +48,7 @@ export default {
   },
   created() {
     if(this.$store.state.session.logouted) {
-      alert('ログアウトしました')
+      this.$showModal('ログアウトしました')
       this.$store.dispatch('session/' + Type.UNSET_ALL)
     }
   },
