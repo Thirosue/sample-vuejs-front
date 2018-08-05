@@ -18,9 +18,11 @@ Vue.use(VeeValidate, validMessage.validMessage)
 // add plugin for global
 import ModalPlugin from '@/module/plugin/modal'
 import ToastPlugin from '@/module/plugin/toast'
+import MyApplicationPlugin from '@/module/plugin/application'
 
 Vue.use(ModalPlugin)
 Vue.use(ToastPlugin)
+Vue.use(MyApplicationPlugin)
 
 // add filter for global
 import filter from '@/module/filter'

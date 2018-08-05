@@ -10,16 +10,14 @@
     <div class="navbar-start">
       <router-link class="navbar-item" to="/">Home</router-link>
 
-      <div class="navbar-item has-dropdown is-hoverable">
-        <router-link class="navbar-link" to="/staffList">
-          担当者管理
-        </router-link>
+      <div v-for="(category, i) in menuCategories" v-bind:key="i" class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" href="javascript:void(0)">
+          {{category.name}}
+        </a>
         <div class="navbar-dropdown is-boxed">
-          <router-link class="navbar-item" to="/staffList">担当者一覧</router-link>
-          <router-link class="navbar-item" to="/staffRegister">担当者登録</router-link>
+          <router-link v-for="(menu, j) in menus" v-bind:key="j" v-if="category.category === menu.category" class="navbar-item" :to="menu.url">{{menu.name}}</router-link>
         </div>
       </div>
-
     </div>
 
     <div class="navbar-end">

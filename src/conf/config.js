@@ -16,6 +16,10 @@ export default {
 
   SEPARATOR: ', ',
 
+  ALLOW_ALL: 'all',
+  ADMIN: 'system_admin',
+  OPERATOR: 'operator',
+
   UNAUTHORITHED_PATH: ['login','logout','systemError','sessionTimeOut','badRequest'], //認証不要のパスリスト
   ERROR_PATH: ['systemError','sessionTimeOut','badRequest'] //エラーのパスリスト
 }

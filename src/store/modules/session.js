@@ -4,7 +4,9 @@ import Type from '@/store/mutation-types'
 
 const SET_SESSION = 'setSession'
 const SET_ROLE = 'setRole'
+const SET_MENU_CATEGORY = 'setMenuCategory'
 const SET_MENU = 'setMenu'
+const ISLOGIN = 'isLogin'
 const LOGOUTED = 'logouted'
 const LOGGEDIN = 'loggedin'
 
@@ -13,7 +15,9 @@ const session = {
   state: {
     session: null,
     roleList: [],
-    menuList: [],
+    menuCategories: [],
+    menus: [],
+    isLogin: false,
     loggedin: false,
     logouted: false,
   },
@@ -24,15 +28,23 @@ const session = {
     [SET_ROLE] (state, { roles }) {
       state.roleList = Object.assign([], roles)
     },
-    [SET_MENU] (state, { menuList }) {
-      state.menuList = Object.assign([], menuList)
+    [SET_MENU_CATEGORY] (state, { menuCategories }) {
+      state.menuCategories = Object.assign([], menuCategories)
+    },    
+    [SET_MENU] (state, { menus }) {
+      state.menus = Object.assign([], menus)
     },
     [Type.UNSET_ALL] (state) {
       state.session = null
       state.roleList = []
-      state.menuList = []
+      state.menuCategories = []
+      state.menus = []
+      state.isLogin = false
       state.loggedin = false
       state.logouted = false
+    },
+    [ISLOGIN] (state, { isLogin }) {
+      state.isLogin = isLogin
     },
     [LOGOUTED] (state, { logouted }) {
       state.logouted = logouted
@@ -47,18 +59,23 @@ const session = {
       const response = await api.auth.doAuth(loginInfo)
       commit(SET_SESSION, { session: response.data.data[0] })
       commit(SET_ROLE, { roles: response.data.data[0].roles })
+      commit(ISLOGIN, { isLogin: true })
       commit(LOGGEDIN, { loggedin: true })
     },
-    async [SET_MENU] ({ dispatch, commit, state }) {
-      //TODO
+    [SET_MENU_CATEGORY] ({ commit }, payload) {
+      commit(SET_MENU_CATEGORY, { menuCategories: payload.menuCategories })
     },
-    async checkSession ({ dispatch, commit, state }) {
+    [SET_MENU] ({ commit }, payload) {
+      commit(SET_MENU, { menus: payload.menus })
+    },
+    async checkSession ({ commit }) {
       const response = await api.auth.checkSession()
       commit(SET_SESSION, { session: response.data.data[0] })
       commit(LOGGEDIN, { loggedin: false })
     },
-    async logout ({ dispatch, commit, state }) {
+    async logout ({ dispatch, commit }) {
       await api.auth.logout()
+      dispatch(Type.UNSET_ALL)
       commit(LOGOUTED, { logouted: true })
     },
     [Type.UNSET_ALL] ({commit}) { commit(Type.UNSET_ALL) },
