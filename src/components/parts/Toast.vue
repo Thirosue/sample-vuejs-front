@@ -53,4 +53,16 @@ div {
   display: inline-flex;
   padding: 1.25rem 1.5rem;
 }
+.fadeout {
+  animation : fadeOut 1s;
+  animation-fill-mode: both;
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 </style>
