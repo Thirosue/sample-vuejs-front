@@ -21,11 +21,11 @@ const session = {
     [SET_SESSION] (state, { session }) {
       state.session = session
     },
-    [SET_ROLE] (state, { data }) {
-      state.roleList = Object.assign([], data)
+    [SET_ROLE] (state, { roles }) {
+      state.roleList = Object.assign([], roles)
     },
-    [SET_MENU] (state, { data }) {
-      state.menuList = Object.assign([], data)
+    [SET_MENU] (state, { menuList }) {
+      state.menuList = Object.assign([], menuList)
     },
     [Type.UNSET_ALL] (state) {
       state.session = null
@@ -46,10 +46,8 @@ const session = {
       dispatch(Type.UNSET_ALL)
       const response = await api.auth.doAuth(loginInfo)
       commit(SET_SESSION, { session: response.data.data[0] })
+      commit(SET_ROLE, { roles: response.data.data[0].roles })
       commit(LOGGEDIN, { loggedin: true })
-    },
-    async [SET_ROLE] ({ dispatch, commit, state }) {
-      //TODO
     },
     async [SET_MENU] ({ dispatch, commit, state }) {
       //TODO

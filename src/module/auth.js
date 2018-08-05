@@ -24,7 +24,7 @@ const isAllowAction = (targetPath, roleList) => {
   if(undefined === targetScreen) {
     return true //対象なしは許可
   }
-  const allowRole = Object.keys(targetScreen).filter(key=>targetScreen[key]===true)
+  const allowRole = targetScreen["roles"]
   return allowRole.some(role => role === "all" || roleList.includes(role))
 }
 

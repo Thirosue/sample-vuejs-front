@@ -76,7 +76,7 @@ export default new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if(!auth.isAllowAction(to.path, ['admin'])) { //TODO
+  if(!auth.isAllowAction(to.path, StateRoot.session.roleList)) {
     console.log('UnAuthorize Action')
     router.push(Config.BAD_REQUEST_PATH)
   }

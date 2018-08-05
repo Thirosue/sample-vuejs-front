@@ -2,6 +2,7 @@ import handler from '@/module/errorHandler'
 import Type from '@/store/mutation-types'
 import Message from '@/conf/message'
 import Config from '@/conf/config'
+import pathHelper from '@/module/helper/pathHelper'
 
 export default {
   beforeRouteLeave (to, from, next) {
