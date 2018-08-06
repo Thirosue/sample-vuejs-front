@@ -16,28 +16,28 @@
       <div class="field">
         <label class="label">名前</label>
         <div class="control">
-          <input class="input" id="id" type="text" v-model="where.firstName" v-on:keyup.enter="init">
+          <input class="input" id="firstName" type="text" v-model="where.firstName" v-on:keyup.enter="init">
         </div>
       </div>
 
       <div class="field">
         <label class="label">苗字</label>
         <div class="control">
-          <input class="input" id="password" type="text" v-model="where.lastName" v-on:keyup.enter="init">
+          <input class="input" id="lastName" type="text" v-model="where.lastName" v-on:keyup.enter="init">
         </div>
       </div>
 
       <div class="field">
         <label class="label">Email</label>
         <div class="control">
-          <input class="input" id="password" type="text" v-model="where.email" v-on:keyup.enter="init">
+          <input class="input" id="email" type="text" v-model="where.email" v-on:keyup.enter="init">
         </div>
       </div>
 
       <div class="field">
         <label class="label">Tell</label>
         <div class="control">
-          <input class="input" id="password" type="text" v-model="where.tel" v-on:keyup.enter="init">
+          <input class="input" id="tel" type="text" v-model="where.tel" v-on:keyup.enter="init">
         </div>
       </div>
 
@@ -53,20 +53,15 @@
       <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" v-show="existsResult">
         <thead>
           <tr>
-            <th>#</th>
-            <th>名前</th>
-            <th>苗字</th>
-            <th>Email</th>
-            <th>Tel</th>
+            <th v-for="(label, index) in labels" v-bind:key="index">{{label}}</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(result, index) in results" v-bind:key="index">
-            <th><router-link v-bind:to="'/staff/' + result.id">{{result.id}}</router-link></th>
-            <td>{{result.firstName}}</td>
-            <td>{{result.lastName}}</td>
-            <td>{{result.email}}</td>
-            <td>{{result.tel}}</td>
+            <td v-for="(key, index) in resultKeys" v-bind:key="index">
+              <router-link v-if="key==='id'" v-bind:to="'/' + namespace +  result.id">{{result.id}}</router-link>
+              <template v-else>{{result[key]}}</template>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -80,6 +75,7 @@
 import fileHeader from '@/conf/fileHeader'
 import SystemParameter from '@/module/dto/SystemParameter'
 import BaseList from '@/components/controller/base/List'
+import ListSettings from '@/conf/ListSettings'
 
 const StaffQuery = {
   firstName: null,
@@ -103,6 +99,7 @@ export default {
   },
   computed: {
     store() { return this.$store.state.staff }, //OverRide
+    columSetting() { return ListSettings.Staff }, //OverRide
   },
 }
 </script>

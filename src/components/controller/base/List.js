@@ -4,6 +4,7 @@ import download from '@/module/download'
 import handler from '@/module/errorHandler'
 import Type from '@/store/mutation-types'
 import Config from '@/conf/config'
+import ListSettings from '@/conf/ListSettings'
 
 export default {
   data: () => {
@@ -75,7 +76,10 @@ export default {
     screenId: () => null, //<--- 個別に定義
     fileProperties: () => ['ファイル名記載', 'ファイルヘッダ定義設定'], //<--- 個別に定義
     store() { return null }, //<--- 個別に定義
+    columSetting() { return null }, //<--- 個別に定義
     namespace() { return this.store.namespace },
+    labels() { return ListSettings.getLabels(this.columSetting) },
+    resultKeys() { return ListSettings.getKeys(this.columSetting) },
     results() { return this.store.list },
     count() { return this.store.count },
     page() { return this.store.page },

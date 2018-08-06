@@ -3,11 +3,12 @@ import apiHelper from '@/module/helper/api'
 import Type from '@/store/mutation-types'
 
 //利用するAPIを定義
-const findAll = (where) => api.staff.findAll(where)
-const findById = (id) => api.staff.findById(id)
-const update = (data) => api.staff.update(data)
-const create = (data) => api.staff.create(data)
-const del = (id) => api.staff.delete(id)
+const endpoint = api.staff
+const findAll = (where) => endpoint.findAll(where)
+const findById = (id) => endpoint.findById(id)
+const update = (data) => endpoint.update(data)
+const create = (data) => endpoint.create(data)
+const del = (id) => endpoint.delete(id)
 
 const company = {
   namespaced: true,

@@ -1,5 +1,5 @@
 /**
- * 画面表示設定
+ * 詳細画面表示設定
  */
 const Staff = [
   {key: 'id', value: 'ID', orderBy: 1, type: 'ignore'},
