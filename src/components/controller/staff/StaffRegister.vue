@@ -40,8 +40,10 @@
             </tr>
           </tbody>
         </table>
-        <div v-if="errMsg" class="notification is-danger">
-          {{errMsg}}
+        <!--コンポーネント初期化直後、errors.has()が動作しない-->
+        <!--<div v-if="errors.has('passwordRelationCheck')" class="notification is-danger">-->
+        <div v-if="passwordRelationCheckMsg" class="notification is-danger">
+          {{ passwordRelationCheckMsg.msg }}
         </div>
         <div class="field is-grouped is-grouped-centered">
           <button id="form-submit" class="button is-link" type="submit" v-disable="hasError" v-on:click.stop.prevent="create">登録</button>
@@ -59,27 +61,31 @@ import BaseValidate from '@/components/controller/base/Validate'
 import ViewSettings from '@/conf/ViewSettings'
 import Message from '@/conf/message'
 
+const PASSWORD_RELATION_CHECK = 'passwordRelationCheck'
+
 export default {
   name: 'StaffRegister',
   mixins: [BaseRegister,BaseValidate],
   data: () => {
     return {
-      errMsg: null,
     }
   },
-  mounted() {
+  created() {
     console.log('start StaffRegister!')
+    this.$validator.attach({ 
+      name: PASSWORD_RELATION_CHECK,
+      alias: '2つのパスワード',
+      rules: 'sameValue'});
+  },
+  beforeDestroy() {
+    this.$validator.detach({name: PASSWORD_RELATION_CHECK})
   },
   methods: {
-    doValidate() {
+    async doValidate() {
       const password = document.querySelector("[data-key='password']").value
       const password2 = document.querySelector("[data-key='password2']").value
-
-      if(password !== password2) {
-        this.errMsg = Message.UNMUCH_PASSWORD
-        return false
-      }
-      return true
+      const checkResult = await this.$validator.validate(PASSWORD_RELATION_CHECK, {item1: password, item2: password2})
+      return checkResult
     },
     customizeData(modifiedData) {
       modifiedData['password'] = document.querySelector("[data-key='password']").value
@@ -89,10 +95,11 @@ export default {
     getScreenId: () => "STAFF_REGISTER", //OverRide
     store() { return this.$store.state.staff }, //OverRide
     columSetting() { return ViewSettings.Staff }, //OverRide
+    passwordRelationCheckMsg() { return this.errors.items.find(err=>err.field === PASSWORD_RELATION_CHECK) },
   },
   filters: {
     decode: (key) => ViewSettings.decode(key, ViewSettings.Staff)
-  }
+  },
 }
 </script>
 

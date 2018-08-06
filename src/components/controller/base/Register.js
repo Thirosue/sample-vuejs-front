@@ -29,8 +29,9 @@ export default {
       } 
       return result
     },
-    create() {
-      if(this.existsEmptyNode() || !this.doValidate()) return  //Validateはmixinされる前提
+    async create() {
+      const checkResult = await this.doValidate()
+      if(this.existsEmptyNode() || !checkResult) return  //Validateはmixinされる前提
 
       let modifiedData = {}
       const getVaule = (key) => document.querySelector("[data-key='" + key + "']")
@@ -54,5 +55,5 @@ export default {
     columSetting() { return null }, //<--- 個別に定義
     namespace() { return this.store.namespace },
     columns() { return _.orderBy(this.columSetting, 'orderBy') },
-  },
+  }, 
 }

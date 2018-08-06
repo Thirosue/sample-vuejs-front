@@ -49,8 +49,9 @@ export default {
       } 
       return result
     },
-    update() {
-      if(!this.doValidate()) return 
+    async update() {
+      const checkResult = await this.doValidate()
+      if(!checkResult) return 
 
       let modifiedData = Object.assign({}, this.data)
       const getVaule = (key) => document.querySelector("[data-key='" + key + "']")

@@ -30,6 +30,7 @@ const validMessage = { locale: 'ja', dictionary: {
       numericHyphen: n => n + "：半角数字と-(ハイフン)のみで入力してください。",
       allNotEmpty: n => n + "：１件以上選択してください。",
       fromTo: (n,e) => n + "：" + e[0] + "は" + e[1] + "より後の日付を指定してください。",
+      sameValue: n => n + "は同一でなければなりません",
     }
   }
 }}
@@ -95,6 +96,20 @@ Validator.extend("enterEither", {
   validate: values => {
     if ((values.item1 && values.item2) ||
         (!values.item1 && !values.item2 )  ) {
+      return false;
+    }
+    return true;
+  },
+});
+
+/**
+ * 2つの値が一致すること
+ * param1: item1
+ * param2: item2
+ */
+Validator.extend("sameValue", {
+  validate: values => {
+    if (values.item1 !== values.item2) {
       return false;
     }
     return true;
