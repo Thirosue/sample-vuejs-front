@@ -5,7 +5,7 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          担当者一覧
+          コード一覧
         </h1>
       </div>
     </div>
@@ -14,30 +14,30 @@
     <div class="notification">
 
       <div class="field">
-        <label class="label">名前</label>
+        <label class="label">コード分類</label>
         <div class="control">
-          <input class="input" id="firstName" type="text" v-model="where.firstName" v-on:keyup.enter="init">
+          <sample-code-cagegory v-model="where.categoryKey"></sample-code-cagegory>
         </div>
       </div>
 
       <div class="field">
-        <label class="label">苗字</label>
+        <label class="label">コード値</label>
         <div class="control">
-          <input class="input" id="lastName" type="text" v-model="where.lastName" v-on:keyup.enter="init">
+          <input class="input" id="codeKey" type="text" v-model="where.codeKey" v-on:keyup.enter="init">
         </div>
       </div>
 
       <div class="field">
-        <label class="label">Email</label>
+        <label class="label">コードエイリアス</label>
         <div class="control">
-          <input class="input" id="email" type="text" v-model="where.email" v-on:keyup.enter="init">
+          <input class="input" id="codeAlias" type="text" v-model="where.codeAlias" v-on:keyup.enter="init">
         </div>
       </div>
 
-      <div class="field">
-        <label class="label">Tell</label>
+      <div class="checkbox">
+        <label class="label">無効フラグ</label>
         <div class="control">
-          <input class="input" id="tel" type="text" v-model="where.tel" v-on:keyup.enter="init">
+          <input id="isInvalid" type="checkbox" v-model="where.isInvalid" v-on:keyup.enter="init">
         </div>
       </div>
 
@@ -49,7 +49,7 @@
     <hr>
 
     <div class="sample-result-list" v-if="totalPage">
-      <nav class="level">
+      <nav class="level" v-if="totalPage">
         <!-- Left side -->
         <div class="level-left">
         </div>
@@ -71,16 +71,27 @@
         <thead>
           <tr>
             <th>#</th>
-            <th v-for="(label, i) in labels" v-bind:key="i">{{label}}</th>
+            <th>ID</th>
+            <th>コード分類キー</th>
+            <th>コード分類名</th>
+            <th>コードキー</th>
+            <th>コード値</th>
+            <th>コードエイリアス</th>
+            <th>表示順</th>
+            <th>無効フラグ</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(result, rownum) in results" v-bind:key="rownum">
-            <td>{{rownum+1}}</td>
-            <td v-for="(key, j) in resultKeys" v-bind:key="j">
-              <router-link v-if="key==='id'" v-bind:to="'/' + namespace +  result.id">{{result.id}}</router-link>
-              <template v-else>{{result[key]}}</template>
-            </td>
+          <tr v-for="(result, index) in results" v-bind:key="index">
+            <td>{{index+1}}</td>
+            <td><router-link v-bind:to="'/' + namespace +  result.id">{{result.id}}</router-link></td>
+            <td>{{result.categoryKey}}</td>
+            <td>{{result.categoryName}}</td>
+            <td>{{result.codeKey}}</td>
+            <td>{{result.codeValue}}</td>
+            <td>{{result.codeAlias}}</td>
+            <td>{{result.displayOrder}}</td>
+            <td>{{result.isInvalid}}</td>
           </tr>
         </tbody>
       </table>
@@ -91,34 +102,48 @@
 </template>
 
 <script>
+import store from '@/store'
 import fileHeader from '@/conf/fileHeader'
 import SystemParameter from '@/module/dto/SystemParameter'
 import BaseList from '@/components/controller/base/List'
-import ListSettings from '@/conf/ListSettings'
+import SingleSelectBox from '@/components/parts/form/mixin/SingleSelectBox'
 
-const StaffQuery = {
-  firstName: null,
-  lastName: null,
-  email: null,
-  tel: null,
+const CodeQuery = {
+  categoryKey: null,
+  codeKey: null,
+  codeAlias: null,
+  isInvalid: false,
+}
+
+const codeCategory = {
+	mixins: [SingleSelectBox],
+  computed: {
+    targetList() { return store.state.master.codeCategory.map(row=>({
+        key: row.category_key,
+        value: row.category_name
+      }))
+    },
+  },
 }
 
 export default {
-  name: 'StaffList',
+  name: 'CodeList',
   mixins: [BaseList],
+	components: {
+		'sample-code-cagegory': codeCategory
+	},
   data: () => {
     return {
-      where: Object.assign({}, SystemParameter, StaffQuery),
+      where: Object.assign({}, SystemParameter, CodeQuery),
     }
   },
   mounted() {
-    console.log('start StaffList!')
+    console.log('start CodeList!')
   },
   methods: {
   },
   computed: {
-    store() { return this.$store.state.staff }, //OverRide
-    columSetting() { return ListSettings.Staff }, //OverRide
+    store() { return this.$store.state.code }, //OverRide
   },
 }
 </script>

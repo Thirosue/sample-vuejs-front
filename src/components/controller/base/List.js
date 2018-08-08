@@ -1,5 +1,5 @@
 import is from 'is_js'
-import apiHelper from '@/module/helper/api'
+import apiHelper from '@/module/helper/apiHelper'
 import download from '@/module/download'
 import handler from '@/module/errorHandler'
 import Type from '@/store/mutation-types'
@@ -29,22 +29,25 @@ export default {
       this.doSearch(this.where)
     },
     async doSearch(where) {
-      let isOk = await this.$validator.validateAll()
+      await this.$validator.validateAll()
       await this.doValidate()
-      if (!isOk || this.errors.any()) {
+      if (this.errors.any()) {
         return
       }
 
       this.findAll(where)
     },
     findAll(where) {
-      this.$store.dispatch(this.namespace + Type.FIND_ALL, where )
-                  .then(()=>this.$router.push({path: this.$router.history.path, query: where}))
+      let condition = {}
+      Object.keys(where)
+                .filter(key=>!is.empty(where[key])) //空は検索条件から除外
+                .forEach(key => condition[key] = where[key])
+      this.$store.dispatch(this.namespace + Type.FIND_ALL, condition )
+                  .then(()=>this.$router.push({path: this.$router.history.path, query: condition}))
                   .catch(handler.apiHandleErr)
     },
     search(page, rows) {
       let where = apiHelper.createConditions(this.$router.history.current.query, page, rows) //page,rowsをマージ
-      this.$store.dispatch(this.namespace + Type.SET_ROWS, { rows })
       this.doSearch(where)
     },
     reload() {
@@ -53,8 +56,8 @@ export default {
     },
     restoreCondition() {
       let query = this.$router.history.current.query
-      this.where = Object.assign({}, this.where, this.convertList())
-      this.$store.dispatch(this.namespace + Type.SET_ROWS, {rows : query.rows})
+      this.where = Object.assign({}, this.convertList())
+      this.where = apiHelper.createConditions(this.where, query.page, query.rows) //page,rowsをマージ
     },
     convertList() {
       let query = this.$router.history.current.query
@@ -84,9 +87,7 @@ export default {
     count() { return this.store.count },
     page() { return this.store.page },
     totalPage() { return this.store.totalPage },
-    rows() {
-      return this.store.rows !== undefined ? this.store.rows : Config.DEFAULT_ROWS
-    },
+    defaultRows() { return Config.DEFAULT_ROWS },
     searching() { return this.store.searching },
     existsResult() {
       return this.store.list.length !== 0

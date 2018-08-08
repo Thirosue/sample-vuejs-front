@@ -3,21 +3,21 @@ import apiHelper from '@/module/helper/apiHelper'
 import Type from '@/store/mutation-types'
 
 //利用するAPIを定義
-const endpoint = api.staff
+const endpoint = api.code
 const findAll = (where) => endpoint.findAll(where)
 const findById = (id) => endpoint.findById(id)
 const update = (data) => endpoint.update(data)
 const create = (data) => endpoint.create(data)
 const del = (id) => endpoint.delete(id)
 
-const company = {
+const code = {
   namespaced: true,
   state: {
-    namespace: 'staff/',
-    listPath: '/staffList',
-    editPath: '/staffEdit',
-    registerPath: '/staffRegister',
-    detailPath: '/staff',
+    namespace: 'code/',
+    listPath: '/codeList',
+    editPath: '/codeEdit',
+    registerPath: '/codeRegister',
+    detailPath: '/code',
     count: null,
     page: null,
     totalPage: null,
@@ -124,4 +124,4 @@ const company = {
   }
 }
 
-export default company
+export default code

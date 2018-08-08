@@ -8,14 +8,19 @@ import handler from '@/module/errorHandler'
 const getTargetList = (targetList, roles) => targetList.filter(row => row.roles.some(role => role === "all" || roles.includes(role)))
 
 export default {
+  beforeRouteEnter (to, from, next) {
+    console.clear()
+    next(vm => {})
+  },
   created() {
-    this.setMenuList() //ログイン後の画面遷移でログインユーザのメニュー一覧を取得しておく、以降キャッシュ利用
-    this.setMasterInfo() //ログイン後の画面遷移でマスタ情報を取得しておく、以降キャッシュ利用
+    if(this.hasState && this.isLogin) {
+      this.setMenuList() //ログイン後の画面遷移でログインユーザのメニュー一覧を取得しておく、以降キャッシュ利用
+      this.setMasterInfo() //ログイン後の画面遷移でマスタ情報を取得しておく、以降キャッシュ利用  
+    }
   },
   methods: {
     setMenuList() {
-      if(this.hasState && this.isLogin && this.menus.length === 0) {
-        console.log('set menu')
+      if(this.menus.length === 0) {
         const categories = getTargetList(MenuCategoryList, this.roles)
         const menuList = getTargetList(MenuList, this.roles)
         const menuCategories = _.orderBy(categories, 'order')
@@ -25,7 +30,9 @@ export default {
       }
     },
     setMasterInfo() {
-      //TODO
+      if(this.$store.state.master.codeCategory.length === 0) {
+        this.$store.dispatch('master/getCodeCategory')
+      }
     },
   },
   computed: {

@@ -5,7 +5,9 @@ import createPersistedState from 'vuex-persistedstate'
 Vue.use(Vuex)
 
 import session from './modules/session'
+import master from './modules/master'
 import staff from './modules/staff'
+import code from './modules/code'
 
 const SET_STACKTRACE = 'setStackTrace'
 
@@ -13,6 +15,8 @@ const store = new Vuex.Store({
   modules: {
     session,
     staff,
+    master,
+    code,
   },
   state: {
     stackTrace: null,

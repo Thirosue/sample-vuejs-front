@@ -64,7 +64,10 @@ export default {
       this.customizeData(modifiedData)
 
       this.$store.dispatch(this.namespace + Type.UPDATE, modifiedData )
-                    .then(()=>this.$store.dispatch(this.namespace + Type.UPDATED) && this.$router.push(this.store.listPath))
+                    .then(async ()=> {
+                      await this.$store.dispatch(this.namespace + Type.UPDATED)
+                      this.$router.push(this.store.listPath)
+                    })
                     .catch(handler.apiHandleErr)
     },
     getType: (type) => type ? type : 'text',

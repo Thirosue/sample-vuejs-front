@@ -1,40 +1,26 @@
 // Custominze
 // https://github.com/lokyoung/vuejs-paginate
 <template>
-  <ul :class="containerClass" v-if="!noLiSurround">
-    <li v-if="firstLastButton" :class="[pageClass, firstPageSelected() ? disabledClass : '']">
-      <a @click="selectFirstPage()" @keyup.enter="selectFirstPage()" :class="pageLinkClass" :tabindex="firstPageSelected() ? -1 : 0">{{ firstButtonText }}</a>
-    </li>
+  <nav :class="containerClass" role="navigation" aria-label="pagination" v-if="!noLiSurround">
+    <a :disabled="firstPageSelected()" v-if="!(firstPageSelected() && hidePrevNext)" :class="prevLinkClass" @click="prevPage()" @keyup.enter="prevPage()">{{ prevText }}</a>
+    <a :disabled="lastPageSelected()" v-if="!(lastPageSelected() && hidePrevNext)" :class="nextLinkClass" @click="nextPage()" @keyup.enter="nextPage()">{{ nextText }}</a>
 
-    <li v-if="!(firstPageSelected() && hidePrevNext)" :class="[prevClass, firstPageSelected() ? disabledClass : '']">
-      <a @click="prevPage()" @keyup.enter="prevPage()" :class="prevLinkClass" :tabindex="firstPageSelected() ? -1 : 0"><slot name="prevContent">{{ prevText }}</slot></a>
-    </li>
+    <ul class="pagination-list">
+      <li v-if="firstLastButton">
+        <a :disabled="firstPageSelected()" @click="selectFirstPage()" @keyup.enter="selectFirstPage()" :class="pageLinkClass" :tabindex="firstPageSelected() ? -1 : 0">{{ firstButtonText }}</a>
+      </li>
 
-    <li v-for="(page,index) in pages" v-bind:key="index" :class="[pageClass, page.selected ? activeClass : '', page.disabled ? disabledClass : '', page.breakView ? breakViewClass: '']">
-      <a v-if="page.breakView" :class="[pageLinkClass, breakViewLinkClass]" tabindex="0"><slot name="breakViewContent">{{ breakViewText }}</slot></a>
-      <a v-else-if="page.disabled" :class="pageLinkClass" tabindex="0">{{ page.content }}</a>
-      <a v-else @click="handlePageSelected(page.index)" @keyup.enter="handlePageSelected(page.index)" :class="pageLinkClass" tabindex="0">{{ page.content }}</a>
-    </li>
+      <li v-for="(page,index) in pages" v-bind:key="index" :class="[pageClass, page.breakView ? breakViewClass: '']">
+        <a v-if="page.breakView" :class="[pageLinkClass, breakViewLinkClass]" tabindex="0"><slot name="breakViewContent">{{ breakViewText }}</slot></a>
+        <a v-else-if="page.disabled" :class="[pageLinkClass, page.selected ? activeClass : '' ]" tabindex="0" :disabled="page.selected">{{ page.content }}</a>
+        <a v-else @click="handlePageSelected(page.index)" @keyup.enter="handlePageSelected(page.index)" :class="[pageLinkClass, page.selected ? activeClass : '' ]" tabindex="0" :disabled="page.selected">{{ page.content }}</a>
+      </li>
 
-    <li v-if="!(lastPageSelected() && hidePrevNext)" :class="[nextClass, lastPageSelected() ? disabledClass : '']">
-      <a @click="nextPage()" @keyup.enter="nextPage()" :class="nextLinkClass" :tabindex="lastPageSelected() ? -1 : 0"><slot name="nextContent">{{ nextText }}</slot></a>
-    </li>
-
-    <li v-if="firstLastButton" :class="[pageClass, lastPageSelected() ? disabledClass : '']">
-      <a @click="selectLastPage()" @keyup.enter="selectLastPage()" :class="pageLinkClass" :tabindex="lastPageSelected() ? -1 : 0">{{ lastButtonText }}</a>
-    </li>
-    
-    <div class="search_result_area" v-if="changeCount">
-      <select class="search" @change="changeRows(rows)" v-model="rows">
-        <option value="10">10</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="250">250</option>
-        <option value="500">500</option>
-      </select>
-      件		        								
-    </div>
-  </ul>
+      <li v-if="firstLastButton">
+        <a :disabled="lastPageSelected()" @click="selectLastPage()" @keyup.enter="selectLastPage()" :class="pageLinkClass" :tabindex="lastPageSelected() ? -1 : 0">{{ lastButtonText }}</a>
+      </li>
+    </ul>
+  </nav>
 </template>
 
 <script>
@@ -65,11 +51,11 @@ export default {
     },
     prevText: {
       type: String,
-      default: '<'
+      default: 'Previous'
     },
     nextText: {
       type: String,
-      default: '>'
+      default: 'Next page'
     },
     breakViewText: {
       type: String,
@@ -81,27 +67,27 @@ export default {
     },
     pageClass: {
       type: String,
-      default: 'page-item'
+      default: 'page-item' //not used
     },
     pageLinkClass: {
       type: String,
-      default: 'page-link'
+      default: 'pagination-link'
     },
     prevClass: {
       type: String,
-      default: 'page-item'
+      default: 'page-item' //not used
     },
     prevLinkClass: {
       type: String,
-      default: 'page-link'
+      default: 'pagination-previous'
     },
     nextClass: {
       type: String,
-      default: 'page-item'
+      default: 'page-item' //not used
     },
     nextLinkClass: {
       type: String,
-      default: 'page-link'
+      default: 'pagination-next'
     },
     breakViewClass: {
       type: String
@@ -111,7 +97,7 @@ export default {
     },
     activeClass: {
       type: String,
-      default: 'active'
+      default: 'is-current'
     },
     disabledClass: {
       type: String,
@@ -127,22 +113,16 @@ export default {
     },
     firstButtonText: {
       type: String,
-      default: '<<'
+      default: 'First Page'
     },
     lastButtonText: {
       type: String,
-      default: '>>'
+      default: 'Last Page'
     },
     hidePrevNext: {
       type: Boolean,
       default: false
     },
-    changeCount: {
-      type: Boolean,
-      default: false
-    },
-    initialRows: {
-    }
   },
   data() {
     return {
