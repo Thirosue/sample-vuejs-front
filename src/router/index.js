@@ -16,6 +16,7 @@ import StaffDetail from '@/components/controller/staff/StaffDetail'
 import StaffRegister from '@/components/controller/staff/StaffRegister'
 import PasswordEdit from '@/components/controller/staff/PasswordEdit'
 import CodeList from '@/components/controller/code/CodeList'
+import CodeDetail from '@/components/controller/code/CodeDetail'
 
 Vue.use(Router)
 
@@ -77,6 +78,11 @@ export default new Router({
       path: StateRoot.code.listPath,
       name: 'CodeList',
       component: CodeList
+    },
+    {
+      path: StateRoot.code.detailPath + "/:id",
+      name: 'CodeDetail',
+      component: CodeDetail
     },
   ]
 })
