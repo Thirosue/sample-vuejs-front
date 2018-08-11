@@ -23,7 +23,6 @@ export default {
       required: false
     },
     value: {
-      type: String,
       required: false
     },
     type: {
@@ -92,6 +91,9 @@ export default {
     },
   },
   watch: {
+    async value(event) {
+      this.inputValue = event
+    },
     async inputValue(event) {
       const result = await this.$validator.validateAll()
       this.$emit('error', !result)

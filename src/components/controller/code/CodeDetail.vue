@@ -72,7 +72,7 @@
             </tr>
             <tr>
               <th>無効フラグ</th>
-              <td><input type="checkbox" :value="data.isInvalid" disabled></td>
+              <td><input type="checkbox" v-model="data.isInvalid" disabled></td>
             </tr>
           </tbody>
         </table>

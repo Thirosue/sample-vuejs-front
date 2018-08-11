@@ -62,7 +62,9 @@ export default {
                     .forEach(key => modifiedData[key] = getVaule(key).value)
 
       this.customizeData(modifiedData)
-
+      this.doUpdate(modifiedData)
+    },
+    doUpdate(modifiedData) {
       this.$store.dispatch(this.namespace + Type.UPDATE, modifiedData )
                     .then(async ()=> {
                       await this.$store.dispatch(this.namespace + Type.UPDATED)
