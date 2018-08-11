@@ -18,6 +18,7 @@ import PasswordEdit from '@/components/controller/staff/PasswordEdit'
 import CodeList from '@/components/controller/code/CodeList'
 import CodeDetail from '@/components/controller/code/CodeDetail'
 import CodeEdit from '@/components/controller/code/CodeEdit'
+import CodeRegister from '@/components/controller/code/CodeRegister'
 
 Vue.use(Router)
 
@@ -89,6 +90,11 @@ export default new Router({
       path: StateRoot.code.editPath,
       name: 'CodeEdit',
       component: CodeEdit
+    },
+    {
+      path: StateRoot.code.registerPath,
+      name: 'CodeRegister',
+      component: CodeRegister
     },
   ]
 })

@@ -51,7 +51,7 @@ export default {
     },
     async update() {
       const checkResult = await this.doValidate()
-      if(!checkResult) return 
+      if(this.existsEmptyNode() || !checkResult || this.hasError) return  //Validateはmixinされる前提
 
       let modifiedData = Object.assign({}, this.data)
       const getVaule = (key) => document.querySelector("[data-key='" + key + "']")

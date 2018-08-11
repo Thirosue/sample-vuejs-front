@@ -20,7 +20,7 @@ export default {
     document.cookie = Config.FUNCTION_ID + this.screenId
   },
   methods: {
-    doValidate() { return false }, //<--- 個別バリデーション
+    doValidate() { return true }, //<--- 個別バリデーション
     customizeData(data) {}, //<--- 必要に応じ個別実装
     confirmClean() {
       const result = window.confirm(Message.CLEAR_CONFIRM)
@@ -31,7 +31,7 @@ export default {
     },
     async create() {
       const checkResult = await this.doValidate()
-      if(this.existsEmptyNode() || !checkResult) return  //Validateはmixinされる前提
+      if(this.existsEmptyNode() || !checkResult || this.hasError) return  //Validateはmixinされる前提
 
       let modifiedData = {}
       const getVaule = (key) => document.querySelector("[data-key='" + key + "']")
@@ -43,6 +43,9 @@ export default {
 
       this.customizeData(modifiedData)
 
+      this.doRegist(modifiedData)
+    },
+    doRegist(modifiedData) {
       this.$store.dispatch(this.namespace + Type.CREATE, modifiedData )
                     .then(async ()=> {
                       await this.$store.dispatch(this.namespace + Type.UPDATED)

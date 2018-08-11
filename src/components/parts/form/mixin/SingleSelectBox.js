@@ -10,7 +10,7 @@ export default {
       required: false,
       default: false
     },
-    require: {
+    required: {
       type: Boolean,
       required: false,
       default: false
@@ -24,7 +24,7 @@ export default {
   template: `
     <div class="select">
       <select :size=size v-bind:value="value" v-on:change="change" v-disable="disable">
-        <option value="" v-if="!require">選択してください</option>
+        <option value="" v-if="!required">選択してください</option>
         <option v-for="(row, i) in targetList" v-bind:key="i" v-bind:value="row.key">{{row.value}}</option>
       </select>
     </div>
