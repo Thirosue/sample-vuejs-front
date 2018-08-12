@@ -69,9 +69,8 @@ export default {
       return query;
     },
     downloadList() {
-      const fileProperties = this.getFileProperties()
-      if (this.list.length > 0) {
-        download.createFile(fileProperties[0], 'text/plain', fileProperties[1], this.list)
+      if (this.results.length > 0) {
+        download.createFile(this.fileProperties[0], 'text/plain', this.fileProperties[1], this.results)
       }
     },
   },

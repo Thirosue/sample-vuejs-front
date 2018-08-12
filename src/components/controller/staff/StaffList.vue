@@ -59,6 +59,9 @@
           <p class="level-item">
             <sample-view-count v-bind:value="where.rows||defaultRows" v-on:input="where.rows=$event, search(1,$event)"></sample-view-count>
           </p>
+          <p class="level-item">
+            <button class="button is-primary" type="submit" v-on:click.stop.prevent="downloadList">CSV Download</button>
+          </p>
         </div>
       </nav>
 
@@ -119,6 +122,7 @@ export default {
   computed: {
     store() { return this.$store.state.staff }, //OverRide
     columSetting() { return ListSettings.Staff }, //OverRide
+    fileProperties: () => ['staff.csv', fileHeader.STAFF_LIST], //OverRIde
   },
 }
 </script>
