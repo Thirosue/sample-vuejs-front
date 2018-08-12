@@ -1,0 +1,32 @@
+---
+version: '2'
+
+services:
+  sample-db:
+    image: mirrored1976/sample-db
+    container_name: sample-db
+    hostname: "sample-db"
+    environment:
+      - MYSQL_DATABASE=sample
+      - MYSQL_ROOT_USER=root
+      - MYSQL_ROOT_PASSWORD=passw0rd
+      - TZ=Japan
+    networks:
+      - link
+    ports:
+      - "3306:3306"
+
+  sample-api:
+    image: mirrored1976/sample-api
+    container_name: sample-api
+    hostname: "sample-api"
+    networks:
+      - link
+    ports:
+      - "18081:18081"
+    depends_on:
+      - sample-db
+
+networks:
+  link:
+    driver: bridge

@@ -1,0 +1,11 @@
+sudo: false
+
+language: node_js
+
+node_js:
+  - 'stable'
+
+script:
+  - rm -rf node_modules/
+  - npm install
+  - npm run build

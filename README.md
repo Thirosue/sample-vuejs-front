@@ -1,6 +1,33 @@
 # sample-front
 
+[![Build Status](https://travis-ci.org/Thirosue/sample-vuejs-front.svg?branch=master)](https://travis-ci.org/Thirosue/sample-vuejs-front)
+
 > A Vue.js project
+
+## Required
+
+* Docker
+
+## Run BackEnd API
+
+```
+$ docker-compose up -d
+```
+
+## 接続先情報
+
+* テストユーザ
+
+```
+sample@sample.com / password
+```
+
+* db
+
+```
+$ docker exec -ti sample-db /bin/bash
+root@sample-db:/# mysql -h localhost -P 3306 -uroot -ppassw0rd sample
+```
 
 ## Build Setup
 

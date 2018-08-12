@@ -42,7 +42,7 @@ Vue.directive('focus', directive.focus )
 Vue.directive('required', directive.required )
 
 // add compornent for global
-import NavBar from '@/components/parts/layouts/NavBar'
+import NavBar from '@/components/parts/layouts/Navbar'
 import Footer from '@/components/parts/layouts/Footer'
 import Pager from '@/components/parts/Pager'
 import Searching from '@/components/parts/Searching'
