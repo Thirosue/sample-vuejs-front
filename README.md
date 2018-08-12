@@ -8,13 +8,19 @@
 
 * Docker
 
-## Run BackEnd API
+## BackEnd
+
+### Run BackEnd API
 
 ```
 $ docker-compose up -d
 ```
 
-## 接続先情報
+### Swagger
+
+http://localhost:18081/admin/swagger-ui.html
+
+### 接続先情報
 
 * テストユーザ
 
@@ -29,7 +35,15 @@ $ docker exec -ti sample-db /bin/bash
 root@sample-db:/# mysql -h localhost -P 3306 -uroot -ppassw0rd sample
 ```
 
-## Build Setup
+### destory :boom:
+
+```
+$ ./clean_docker
+```
+
+## FrontEnd
+
+### Build Setup
 
 ``` bash
 # install dependencies

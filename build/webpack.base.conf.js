@@ -2,13 +2,12 @@
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const vueLoaderConfig = require('./vue-loader.conf')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
-
-
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
@@ -21,6 +20,11 @@ module.exports = {
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -78,5 +82,8 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
-  }
+  },
+  plugins: [
+    new VueLoaderPlugin()
+  ],
 }

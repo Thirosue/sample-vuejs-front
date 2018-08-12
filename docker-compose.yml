@@ -14,7 +14,7 @@ services:
     networks:
       - link
     ports:
-      - "3306:3306"
+      - "13306:3306"
 
   sample-api:
     image: mirrored1976/sample-api

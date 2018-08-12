@@ -1,0 +1,1 @@
+docker kill sample-api && docker kill sample-db && docker rm sample-api && docker rm sample-db
