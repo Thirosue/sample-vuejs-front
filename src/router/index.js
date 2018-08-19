@@ -4,6 +4,7 @@ import Config from '@/conf/config'
 import store from '@/store'
 import auth from '@/module/auth'
 import router from '@/router'
+import statistics from '@/module/statistics'
 
 import SystemError from '@/components/controller/error/SystemError'
 import BadRequest from '@/components/controller/error/BadRequest'
@@ -105,6 +106,9 @@ router.beforeEach((to, from, next) => {
     router.push(Config.BAD_REQUEST_PATH)
   }
   auth.checkSession(to.path)
+  if(from.path !== to.path) {
+    statistics.store(to.path)
+  }
   next()
 })
 

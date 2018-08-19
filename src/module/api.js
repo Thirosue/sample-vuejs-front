@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const HOST = location.origin
 const BASE_URL = HOST + '/admin'
+const ENDPOINT_LOG = BASE_URL + '/api/log'
 const ENDPOINT_AUTH = BASE_URL + '/api/auth'
 const ENDPOINT_STAFF = BASE_URL + '/api/staff'
 const ENDPOINT_CODE = BASE_URL + '/api/code'
@@ -27,6 +28,11 @@ myHttpClient.interceptors.response.use((response) => {
   }
   return response
 })
+
+const log = {
+  access: path => myHttpClient.get(ENDPOINT_LOG + "/access", { params: path }),
+  error: data => myHttpClient.post(ENDPOINT_LOG + "/error", data),
+}
 
 const auth = {
   doAuth: (loginInfo) => myHttpClient.post(ENDPOINT_AUTH, loginInfo),
@@ -55,6 +61,7 @@ const code = {
 }
 
 export default {
+  log,
   auth,
   master,
   staff,
