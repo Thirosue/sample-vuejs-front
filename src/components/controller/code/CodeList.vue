@@ -146,6 +146,7 @@ export default {
   methods: {
   },
   computed: {
+    screenId: () => "CODE_LIST",
     store() { return this.$store.state.code }, //OverRide
     fileProperties: () => ['code.csv', fileHeader.CODE_LIST], //OverRIde
   },

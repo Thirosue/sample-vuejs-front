@@ -92,7 +92,7 @@ export default {
     },
   },
   computed: {
-    getScreenId: () => "STAFF_REGISTER", //OverRide
+    screenId: () => "STAFF_REGISTER", //OverRide
     store() { return this.$store.state.staff }, //OverRide
     columSetting() { return ViewSettings.Staff }, //OverRide
     passwordRelationCheckMsg() { return this.errors.items.find(err=>err.field === PASSWORD_RELATION_CHECK) },

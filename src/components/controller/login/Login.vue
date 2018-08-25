@@ -67,6 +67,9 @@ export default {
                     })
     },
   },
+  computed: {
+    screenId: () => "LOGIN",
+  }
 }
 </script>
 

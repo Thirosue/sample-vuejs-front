@@ -178,7 +178,7 @@ export default {
     },
   },
   computed: {
-    getScreenId: () => "CODE_REGISTER", //OverRide
+    screenId: () => "CODE_REGISTER", //OverRide
     store() { return this.$store.state.code }, //OverRide
     submitTrigger() {
       return {

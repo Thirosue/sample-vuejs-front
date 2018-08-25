@@ -68,6 +68,9 @@ export default {
       if(!this.errorFlg) return 
       //TODO
     },
+  },
+  computed: {
+    screenId: () => "EDIT_PASSWORD",
   }
 }
 </script>

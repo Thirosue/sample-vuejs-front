@@ -96,6 +96,7 @@ export default {
   methods: {
   },
   computed: {
+    screenId: () => "CODE_DETAIL",
     store() { return this.$store.state.code }, //OverRide
   },
 }

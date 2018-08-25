@@ -4,6 +4,7 @@ import Config from '@/conf/config'
 import MenuList from '@/conf/menuList'
 import MenuCategoryList from '@/conf/menuCategoryList'
 import handler from '@/module/errorHandler'
+import Screenlist from '@/conf/screenList'
 
 const getTargetList = (targetList, roles) => targetList.filter(row => row.roles.some(role => role === "all" || roles.includes(role)))
 
@@ -13,6 +14,9 @@ export default {
     next(vm => {})
   },
   created() {
+    let target = Screenlist.find(s => s.id === this.screenId)
+    document.title = target ?  'Vue Sample ｜' + target.name : document.title    
+
     if(this.hasState && this.isLogin) {
       this.setMenuList() //ログイン後の画面遷移でログインユーザのメニュー一覧を取得しておく、以降キャッシュ利用
       this.setMasterInfo() //ログイン後の画面遷移でマスタ情報を取得しておく、以降キャッシュ利用  

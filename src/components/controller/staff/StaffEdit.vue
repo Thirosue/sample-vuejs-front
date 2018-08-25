@@ -46,7 +46,7 @@ export default {
     console.log('start StaffEdit!')
   },
   computed: {
-    getScreenId: () => "STAFF_EDIT", //OverRide
+    screenId: () => "STAFF_EDIT", //OverRide
     store() { return this.$store.state.staff }, //OverRide
     columSetting() { return ViewSettings.Staff }, //OverRide
   },

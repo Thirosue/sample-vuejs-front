@@ -135,7 +135,7 @@ export default {
     },
   },
   computed: {
-    getScreenId: () => "CODE_EDIT", //OverRide
+    sreenId: () => "CODE_EDIT", //OverRide
     store() { return this.$store.state.code }, //OverRide
   },
 }

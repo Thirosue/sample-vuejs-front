@@ -120,6 +120,7 @@ export default {
   methods: {
   },
   computed: {
+    screenId: () => "STAFF_LIST",
     store() { return this.$store.state.staff }, //OverRide
     columSetting() { return ListSettings.Staff }, //OverRide
     fileProperties: () => ['staff.csv', fileHeader.STAFF_LIST], //OverRIde

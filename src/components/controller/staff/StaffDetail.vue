@@ -44,6 +44,7 @@ export default {
   methods: {
   },
   computed: {
+    screenId: () => "STAFF_DETAIL",
     store() { return this.$store.state.staff }, //OverRide
     columSetting() { return ViewSettings.Staff }, //OverRide
   },
