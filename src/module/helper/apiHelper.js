@@ -1,4 +1,3 @@
-import store from '@/store'
 import Type from '@/store/mutation-types'
 
 const setResult = (dispatch, response) => {
@@ -8,9 +7,6 @@ const setResult = (dispatch, response) => {
   dispatch(Type.SET_TOTALPAGE, response.data.total_pages )
 }
 
-const createConditions = (currentQuery, currentPage, currentRow) => Object.assign({}, currentQuery, {page : currentPage}, {rows : currentRow})
-
 export default {
   setResult,
-  createConditions,
 }

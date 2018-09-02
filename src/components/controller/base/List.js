@@ -1,5 +1,4 @@
 import is from 'is_js'
-import apiHelper from '@/module/helper/apiHelper'
 import download from '@/module/download'
 import handler from '@/module/errorHandler'
 import Type from '@/store/mutation-types'
@@ -42,12 +41,12 @@ export default {
       Object.keys(where)
                 .filter(key=>!is.empty(where[key])) //空は検索条件から除外
                 .forEach(key => condition[key] = where[key])
-      this.$store.dispatch(this.namespace + Type.FIND_ALL, condition )
+      this.$store.dispatch(this.namespace + Type.FIND_ALL, condition)
                   .then(()=>this.$router.push({path: this.$router.history.path, query: condition}))
                   .catch(handler.apiHandleErr)
     },
     search(page, rows) {
-      let where = apiHelper.createConditions(this.$router.history.current.query, page, rows) //page,rowsをマージ
+      const where = Object.assign({}, this.where, {page}, {rows}) //page,rowsをマージ
       this.doSearch(where)
     },
     reload() {
@@ -55,9 +54,11 @@ export default {
       this.init()
     },
     restoreCondition() {
-      let query = this.$router.history.current.query
+      const page = this.query.page
+      const rows = this.query.rows
+
       this.where = Object.assign({}, this.convertList())
-      this.where = apiHelper.createConditions(this.where, query.page, query.rows) //page,rowsをマージ
+      this.where = Object.assign({}, this.where, {page}, {rows})
     },
     convertList() {
       let query = this.$router.history.current.query
@@ -79,6 +80,7 @@ export default {
     fileProperties: () => ['ファイル名記載', 'ファイルヘッダ定義設定'], //<--- 個別に定義
     store() { return null }, //<--- 個別に定義
     columSetting() { return null }, //<--- 個別に定義
+    query() { return this.$router.history.current.query },
     namespace() { return this.store.namespace },
     labels() { return ListSettings.getLabels(this.columSetting) },
     resultKeys() { return ListSettings.getKeys(this.columSetting) },

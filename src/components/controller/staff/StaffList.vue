@@ -56,6 +56,9 @@
 
         <!-- Right side -->
         <div class="level-right">
+          <div class="control">
+            <sample-sortbox v-model="where.sort" v-on:input="search(1, where.rows)"></sample-sortbox>
+          </div>
           <p class="level-item">
             <sample-view-count v-bind:value="where.rows||defaultRows" v-on:input="where.rows=$event, search(1,$event)"></sample-view-count>
           </p>
@@ -98,6 +101,7 @@ import fileHeader from '@/conf/fileHeader'
 import SystemParameter from '@/module/dto/SystemParameter'
 import BaseList from '@/components/controller/base/List'
 import ListSettings from '@/conf/ListSettings'
+import SingleSelectBox from '@/components/parts/form/mixin/SingleSelectBox'
 
 const StaffQuery = {
   firstName: null,
@@ -109,6 +113,14 @@ const StaffQuery = {
 export default {
   name: 'StaffList',
   mixins: [BaseList],
+	components: {
+    'sample-sortbox': {
+      mixins: [SingleSelectBox],
+      computed: {
+        targetList: () => ListSettings.getSortList(ListSettings.Staff),
+      },
+    }
+	},
   data: () => {
     return {
       where: Object.assign({}, SystemParameter, StaffQuery),

@@ -56,6 +56,9 @@
 
         <!-- Right side -->
         <div class="level-right">
+          <div class="control">
+            <sample-sortbox v-model="where.sort" v-on:input="search(1, where.rows)"></sample-sortbox>
+          </div>
           <p class="level-item">
             <sample-view-count v-bind:value="where.rows||defaultRows" v-on:input="where.rows=$event, search(1,$event)"></sample-view-count>
           </p>
@@ -118,22 +121,31 @@ const CodeQuery = {
   isInvalid: false,
 }
 
-const codeCategory = {
-	mixins: [SingleSelectBox],
-  computed: {
-    targetList() { return store.state.master.codeCategory.map(row=>({
-        key: row.category_key,
-        value: row.category_name
-      }))
-    },
-  },
-}
-
 export default {
   name: 'CodeList',
   mixins: [BaseList],
 	components: {
-		'sample-code-cagegory': codeCategory
+    'sample-code-cagegory': {
+      mixins: [SingleSelectBox],
+      computed: {
+      targetList() { return store.state.master.codeCategory.map(row=>({
+            key: row.category_key,
+            value: row.category_name
+          }))
+        },
+      },
+    },
+    'sample-sortbox': {
+      mixins: [SingleSelectBox],
+      computed: {
+        targetList: () => [
+          {key: 'categoryKey asc, displayOrder asc', value: 'コード分類キー 昇順'},
+          {key: 'categoryKey desc, displayOrder asc', value: 'コード分類キー 降順'},
+          {key: 'categoryName asc, displayOrder asc', value: 'コード分類名 昇順'},
+          {key: 'categoryName desc, displayOrder asc', value: 'コード分類名 降順'},
+        ],
+      },
+    }
 	},
   data: () => {
     return {
