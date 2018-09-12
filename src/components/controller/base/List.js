@@ -45,7 +45,8 @@ export default {
                   .then(()=>this.$router.push({path: this.$router.history.path, query: condition}))
                   .catch(handler.apiHandleErr)
     },
-    search(page, rows) {
+    search(page, inputRows) {
+      const rows = inputRows ? inputRows : this.$router.history.current.query.rows
       const where = Object.assign({}, this.where, {page}, {rows}) //page,rowsをマージ
       this.doSearch(where)
     },
