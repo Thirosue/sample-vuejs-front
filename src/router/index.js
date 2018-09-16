@@ -53,6 +53,10 @@ export default new Router({
       component: Login
     },
     {
+      path: Config.LOGOUT_PATH,
+      name: 'Logout',
+    },
+    {
       path: Config.EDIT_PASSWORD,
       name: 'PasswordEdit',
       component: PasswordEdit

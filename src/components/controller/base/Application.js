@@ -3,15 +3,22 @@ import _ from 'lodash'
 import Config from '@/conf/config'
 import MenuList from '@/conf/menuList'
 import MenuCategoryList from '@/conf/menuCategoryList'
-import handler from '@/module/errorHandler'
 import Screenlist from '@/conf/screenList'
 
 const getTargetList = (targetList, roles) => targetList.filter(row => row.roles.some(role => role === "all" || roles.includes(role)))
 
 export default {
   beforeRouteEnter (to, from, next) {
-    console.clear()
+    //console.clear()
     next(vm => {})
+  },
+  beforeRouteLeave (to, from, next) {
+    if(this.type === undefined && to.path === Config.LOGOUT_PATH) {
+      //編集画面以外の場合は、そのままログアウト
+      this.$logout()
+    } else {
+      next()
+    }
   },
   created() {
     let target = Screenlist.find(s => s.id === this.screenId)

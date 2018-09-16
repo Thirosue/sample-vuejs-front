@@ -1,6 +1,7 @@
 
 import api from '@/module/api'
 import Type from '@/store/mutation-types'
+import Config from '@/conf/config'
 
 const SET_SESSION = 'setSession'
 const SET_ROLE = 'setRole'
@@ -75,6 +76,7 @@ const session = {
     },
     async logout ({ dispatch, commit }) {
       await api.auth.logout()
+                      .finally(()=>document.cookie = Config.COOKIE_ID + "; max-age=0")
       dispatch(Type.UNSET_ALL)
       commit(LOGOUTED, { logouted: true })
     },

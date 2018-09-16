@@ -9,10 +9,11 @@ import pathHelper from '@/module/helper/pathHelper'
 export default {
   beforeRouteLeave (to, from, next) {
     //更新完了、エラーの場合は、確認ダイアログスキップ
-    if( !this.store.updated && !pathHelper.isErrorPath(to.path) && !this.confirmClean() ){
-      return false
+    if( !this.store.updated && !pathHelper.isErrorPath(to.path)){
+      this.confirmClean(to, next)
+    } else {
+      next()
     }
-    next()
   },
   data: () => {
     return {
@@ -42,12 +43,20 @@ export default {
                               .map(key => ViewSettings.createFeed(key, this.store.data, this.columSetting))  //DecodeはFilterで実施
       return _.orderBy(results, 'orderBy')
     },
-    confirmClean() {
-      const result = window.confirm(Message.CLEAR_CONFIRM)
-      if (result) {
-        this.$store.dispatch(this.namespace + Type.UNSET_ALL)
-      } 
-      return result
+    confirmClean(to, next) {
+      this.$showModal(
+        Message.CLEAR_CONFIRM, 
+        undefined, 
+        ()=>{
+          this.$store.commit(this.namespace + Type.UNSET_ALL)
+          if(to.path === Config.LOGOUT_PATH) {
+            //編集画面の場合は、確認ダイアログを経てログアウト
+            this.$logout()
+          }
+          next()
+        },
+        ()=>{/*cancel*/}
+      )
     },
     async update() {
       const checkResult = await this.doValidate()
@@ -75,6 +84,7 @@ export default {
     getType: (type) => type ? type : 'text',
   },
   computed: {
+    type: () => 'update',
     screenId: () => null, //<--- 個別に定義
     store() { return null }, //<--- 個別に定義
     columSetting() { return null }, //<--- 個別に定義

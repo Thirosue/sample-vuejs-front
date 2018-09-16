@@ -50,9 +50,7 @@ export default {
   name: 'Navbar',
   methods: {
     logout() {
-      this.$store.dispatch('session/logout')
-                    .then(()=>this.$router.push(Config.LOGIN_PATH))
-                    .catch(handler.apiHandleErr)
+      this.$router.push(Config.LOGOUT_PATH)
     },
   },
 }
