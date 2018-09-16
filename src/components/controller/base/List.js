@@ -39,7 +39,7 @@ export default {
     findAll(where) {
       let condition = {}
       Object.keys(where)
-                .filter(key=>!is.empty(where[key])) //空は検索条件から除外
+                .filter(key=>!is.empty(where[key]) && !is.undefined(where[key]) && !is.null(where[key])) //空は検索条件から除外
                 .forEach(key => condition[key] = where[key])
       this.$store.dispatch(this.namespace + Type.FIND_ALL, condition)
                   .then(()=>this.$router.push({path: this.$router.history.path, query: condition}))
@@ -49,10 +49,6 @@ export default {
       const rows = inputRows ? inputRows : this.$router.history.current.query.rows
       const where = Object.assign({}, this.where, {page}, {rows}) //page,rowsをマージ
       this.doSearch(where)
-    },
-    reload() {
-      this.restoreCondition()
-      this.init()
     },
     restoreCondition() {
       const page = this.query.page
