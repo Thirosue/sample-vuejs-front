@@ -11,6 +11,7 @@ export default {
     }
   },
   beforeRouteUpdate (to, from, next) {
+    this.findAll(to.query)
     next()
   },
   mounted () {
@@ -19,41 +20,41 @@ export default {
     }
     this.$store.dispatch(this.namespace + Type.UNSET_ALL)
     this.restoreCondition()
-    if(!is.empty(this.where)){
-      this.findAll(this.where)
-    }
+    this.findAll(this.where)
     document.cookie = Config.FUNCTION_ID + this.screenId
   },
   methods: {
     doValidate() {}, //<--- 個別バリデーション
-    init() {
-      this.$store.dispatch(this.namespace + Type.UNSET_ALL)
-      this.doSearch(this.where)
-    },
-    async doSearch(where) {
+    async init() {
       await this.$validator.validateAll()
       await this.doValidate()
       if (this.errors.any()) {
         return
       }
 
-      let condition = {}
-      Object.keys(where)
-                .filter(key=>!is.empty(where[key]) && !is.undefined(where[key]) && !is.null(where[key])) //空は検索条件から除外
-                .forEach(key => condition[key] = where[key])
-      this.findAll(condition)
+      this.$store.dispatch(this.namespace + Type.UNSET_ALL)
+      this.changeState(this.where)
     },
     findAll(where) {
-      this.$store.dispatch(this.namespace + Type.FIND_ALL, where)
-                  .then(()=>this.$router.push({path: this.$router.history.path, query: where}))
+      this.$store.dispatch(this.namespace + Type.FIND_ALL, this.getExistsValue(where))
                   .catch(handler.apiHandleErr)
     },
     search(page, inputRows) {
       const rows = inputRows ? inputRows : this.$router.history.current.query.rows
-      this.doSearch(Object.assign({}, this.where, {page}, {rows})) //page,rowsをマージ
+      this.changeState(Object.assign({}, this.where, {page}, {rows})) //page,rowsをマージ
+    },
+    changeState(where) {
+      this.$router.push({path: this.$router.history.path, query: this.getExistsValue(where)})
     },
     restoreCondition() {
       this.where = Object.assign({}, this.$router.history.current.query)
+    },
+    getExistsValue(where) {
+      let condition = {}
+      Object.keys(where)
+                .filter(key=>!is.empty(where[key]) && !is.undefined(where[key]) && !is.null(where[key])) //空は検索条件から除外
+                .forEach(key => condition[key] = where[key])
+      return condition
     },
     downloadList() {
       if (this.results.length > 0) {
