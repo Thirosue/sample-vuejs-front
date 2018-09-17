@@ -93,7 +93,7 @@ const code = {
       dispatch(Type.UNSET_LIST)
       dispatch(Type.SET_SEARCH_START)
       let response = await findById(id)
-      commit(Type.SET_DATA, { data : response.data.data[0] })
+      commit(Type.SET_DATA, { data : response.data[0] })
       dispatch(Type.SET_SEARCH_END)
     },
     async [Type.UPDATE] ({ dispatch }, data) {

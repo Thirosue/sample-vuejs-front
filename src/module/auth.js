@@ -10,7 +10,7 @@ const checkSession = (path) => {
     store.dispatch('session/checkSession')
                 .then(() => console.info('session available!'))
                 .catch(error => {
-                  if(error.response.status===401) {
+                  if(error.status===401) {
                     router.push(Config.SESSION_TIMEOUT_PATH)
                   } else {
                     handler.apiHandleErr(error)

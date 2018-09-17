@@ -10,14 +10,17 @@ export default {
     return {
     }
   },
+  beforeRouteUpdate (to, from, next) {
+    next()
+  },
   mounted () {
     if(this.store.updated) {
       this.$showModal('更新が完了しました')
     }
     this.$store.dispatch(this.namespace + Type.UNSET_ALL)
     this.restoreCondition()
-    if(!is.empty(this.$router.history.current.query)){
-      this.doSearch(this.where)
+    if(!is.empty(this.where)){
+      this.findAll(this.where)
     }
     document.cookie = Config.FUNCTION_ID + this.screenId
   },
@@ -34,37 +37,23 @@ export default {
         return
       }
 
-      this.findAll(where)
-    },
-    findAll(where) {
       let condition = {}
       Object.keys(where)
                 .filter(key=>!is.empty(where[key]) && !is.undefined(where[key]) && !is.null(where[key])) //空は検索条件から除外
                 .forEach(key => condition[key] = where[key])
-      this.$store.dispatch(this.namespace + Type.FIND_ALL, condition)
-                  .then(()=>this.$router.push({path: this.$router.history.path, query: condition}))
+      this.findAll(condition)
+    },
+    findAll(where) {
+      this.$store.dispatch(this.namespace + Type.FIND_ALL, where)
+                  .then(()=>this.$router.push({path: this.$router.history.path, query: where}))
                   .catch(handler.apiHandleErr)
     },
     search(page, inputRows) {
       const rows = inputRows ? inputRows : this.$router.history.current.query.rows
-      const where = Object.assign({}, this.where, {page}, {rows}) //page,rowsをマージ
-      this.doSearch(where)
+      this.doSearch(Object.assign({}, this.where, {page}, {rows})) //page,rowsをマージ
     },
     restoreCondition() {
-      const page = this.query.page
-      const rows = this.query.rows
-
-      this.where = Object.assign({}, this.convertList())
-      this.where = Object.assign({}, this.where, {page}, {rows})
-    },
-    convertList() {
-      let query = this.$router.history.current.query
-      let conditions = Object.assign({}, this.where)
-      Object.keys(conditions)
-              //複数選択項目（チェックボックス、複数選択セレクトボックス）で単一選択の場合、
-              .filter(key=>Array.isArray(conditions[key]) && query.hasOwnProperty(key) && !is.empty(query[key]))
-              .forEach(key => query[key] = [ query[key] ]) //リストに変換する
-      return query;
+      this.where = Object.assign({}, this.$router.history.current.query)
     },
     downloadList() {
       if (this.results.length > 0) {

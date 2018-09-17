@@ -58,8 +58,8 @@ const session = {
     async login ({ dispatch, commit }, loginInfo) {
       dispatch(Type.UNSET_ALL)
       const response = await api.auth.doAuth(loginInfo)
-      commit(SET_SESSION, { session: response.data.data[0] })
-      commit(SET_ROLE, { roles: response.data.data[0].roles })
+      commit(SET_SESSION, { session: response.data[0] })
+      commit(SET_ROLE, { roles: response.data[0].roles })
       commit(ISLOGIN, { isLogin: true })
       commit(LOGGEDIN, { loggedin: true })
     },
@@ -71,7 +71,7 @@ const session = {
     },
     async checkSession ({ commit }) {
       const response = await api.auth.checkSession()
-      commit(SET_SESSION, { session: response.data.data[0] })
+      commit(SET_SESSION, { session: response.data[0] })
       commit(LOGGEDIN, { loggedin: false })
     },
     async logout ({ dispatch, commit }) {

@@ -15,7 +15,7 @@ const master = {
   actions: {
     getCodeCategory ({ commit }) {
       api.master.getCodeCategory()
-        .then(response => commit('setCodeCategory', { data : response.data.data }))
+        .then(response => commit('setCodeCategory', { data : response.data }))
         .catch(handler.apiHandleErr)  
     },
   },

@@ -59,7 +59,7 @@ export default {
       this.$store.dispatch('session/login', { email: this.email, password: this.password })
                     .then(()=>this.$router.push('/'))
                     .catch(error => {
-                      if(error.response.status===401) {
+                      if(error.status===401) {
                         this.errMsg = message.ERR_AUTH
                       } else {
                         handler.apiHandleErr(error)
