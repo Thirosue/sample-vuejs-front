@@ -32,6 +32,7 @@ export default {
         return
       }
 
+      this.where.page = 1
       this.$store.dispatch(this.namespace + Type.UNSET_ALL)
       this.changeState(this.where)
     },
@@ -47,7 +48,16 @@ export default {
       this.$router.push({path: this.$router.history.path, query: this.getExistsValue(where)})
     },
     restoreCondition() {
-      this.where = Object.assign({}, this.$router.history.current.query)
+      this.where = Object.assign({}, this.convertList())
+    },
+    convertList() {	
+      let query = this.$router.history.current.query	
+      const conditions = Object.assign({}, this.where)
+      Object.keys(conditions)	
+              //複数選択項目（チェックボックス、複数選択セレクトボックス）で単一選択の場合、	
+              .filter(key=>Array.isArray(conditions[key]) && query.hasOwnProperty(key) && !is.empty(query[key]))	
+              .forEach(key => query[key] = [ query[key] ]) //リストに変換する	
+      return query
     },
     getExistsValue(where) {
       let condition = {}
