@@ -11,7 +11,11 @@ export default {
     }
   },
   beforeRouteUpdate (to, from, next) {
-    this.findAll(to.query)
+    if(!is.empty(to.query)) {
+      this.findAll(to.query)
+    } else {
+      location.reload() //resultsがクリアされない
+    }
     next()
   },
   mounted () {
@@ -19,8 +23,10 @@ export default {
       this.$showModal('更新が完了しました')
     }
     this.$store.dispatch(this.namespace + Type.UNSET_ALL)
-    this.restoreCondition()
-    this.findAll(this.where)
+    if(!is.empty(this.$router.history.current.query)) {
+      this.restoreCondition()
+      this.findAll(this.where)
+    }
     document.cookie = Config.FUNCTION_ID + this.screenId
   },
   methods: {
