@@ -118,7 +118,7 @@ const CodeQuery = {
   categoryKey: null,
   codeKey: null,
   codeAlias: null,
-  isInvalid: false,
+  isInvalid: null,
 }
 
 export default {

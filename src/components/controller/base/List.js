@@ -12,6 +12,7 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     if(!is.empty(to.query)) {
+      this.restoreCondition(to.query)
       this.findAll(to.query)
     } else {
       location.reload() //resultsがクリアされない
@@ -24,7 +25,7 @@ export default {
     }
     this.$store.dispatch(this.namespace + Type.UNSET_ALL)
     if(!is.empty(this.$router.history.current.query)) {
-      this.restoreCondition()
+      this.restoreCondition(this.$router.history.current.query)
       this.findAll(this.where)
     }
     document.cookie = Config.FUNCTION_ID + this.screenId
@@ -39,7 +40,6 @@ export default {
       }
 
       this.where.page = 1
-      this.$store.dispatch(this.namespace + Type.UNSET_ALL)
       this.changeState(this.where)
     },
     findAll(where) {
@@ -53,11 +53,10 @@ export default {
     changeState(where) {
       this.$router.push({path: this.$router.history.path, query: this.getExistsValue(where)})
     },
-    restoreCondition() {
-      this.where = Object.assign({}, this.convertList())
+    restoreCondition(where) {
+      this.where = Object.assign({}, this.convertList(where))
     },
-    convertList() {	
-      let query = this.$router.history.current.query	
+    convertList(query) {
       const conditions = Object.assign({}, this.where)
       Object.keys(conditions)	
               //複数選択項目（チェックボックス、複数選択セレクトボックス）で単一選択の場合、	
