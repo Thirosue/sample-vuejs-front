@@ -13,7 +13,6 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "encoding-japanese": "^1.0.29",
     "is_js": "^0.9.0",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
@@ -22,7 +21,8 @@
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "vuex-persistedstate": "^2.5.4",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "^3.0.0",
+    "text-encoding": "^0.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
