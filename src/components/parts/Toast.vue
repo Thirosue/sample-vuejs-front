@@ -1,23 +1,18 @@
 <template>
-<div class="notification" :class="'is-' + info" :style="positionStyle">
+<div class="toast notification" :class="'is-' + info" :style="positionStyle">
   <button class="delete" v-on:click.stop.prevent="close"></button>
   <span v-html="content"></span>
 </div>
 </template>
 
 <script>
-
-const positionStyleMapping = [
-  { "key": "top", "style": { top: '10px' } },
-  { "key": "bottom", "style": { bottom: '10px' } },
-]
-
 export default {
   data:() => {
     return {
       info: 'info',
       position: 'top',
       content: null,
+      px: null,
     }
   },
   beforeDestroy() {
@@ -29,7 +24,10 @@ export default {
     },
   },
   computed: {
-    positionStyle() { return positionStyleMapping.find(style=>style.key === this.position).style },
+    positionStyle() { 
+      if(this.position === 'top') return { top: this.px }
+      return { bottom: this.px }
+    },
   },
 }
 </script>

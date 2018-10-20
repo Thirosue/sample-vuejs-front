@@ -49,10 +49,10 @@
                   <button class="button is-link" type="submit" v-on:click.stop.prevent="toast">トップ</button>
                 </div>
                 <div class="level-item">
-                  <button class="button is-link" type="submit" v-on:click.stop.prevent="toastBottom">ボトム</button>
+                  <button class="button is-link" type="submit" v-on:click.stop.prevent="toastBottom">ボトム ※要位置調整</button>
                 </div>
                 <div class="level-item">
-                  <button class="button is-link" type="submit" v-on:click.stop.prevent="toastWith5Second">ボトム（5秒まち）</button>
+                  <button class="button is-link" type="submit" v-on:click.stop.prevent="toastWith5Second">トップ（5秒まち）</button>
                 </div>
               </div>
             </nav>
@@ -91,7 +91,7 @@ export default {
       this.$showToast('show simple toast', 'info', 'bottom')
     },
     toastWith5Second() {
-      this.$showToast('show simple toast', 'info', 'bottom', 5000)
+      this.$showToast('show simple toast', 'info', 'top', 5000)
     },
   },
 }
