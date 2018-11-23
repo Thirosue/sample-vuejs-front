@@ -15,7 +15,7 @@
 
       <div class="field">
         <label class="label">コード分類</label>
-        <div class="control">
+        <div id="category-key" class="control">
           <sample-code-cagegory v-model="where.categoryKey"></sample-code-cagegory>
         </div>
       </div>
@@ -73,7 +73,7 @@
 
       <hr>
 
-      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" v-show="existsResult">
+      <table id="listview" class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" v-show="existsResult">
         <thead>
           <tr>
             <th>#</th>

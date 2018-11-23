@@ -68,4 +68,24 @@ npm run e2e
 npm test
 ```
 
+## Test
+
+### e2e 
+
+use testcafe
+
+#### required
+
+```
+$ npm install -g testcafe
+$ testcafe -v
+0.21.1
+```
+
+#### run
+
+```
+$ npm run e2e
+```
+
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

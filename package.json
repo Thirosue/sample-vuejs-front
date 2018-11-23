@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "unit": "sed -i -e 's|plugins|//plugins|g' src/store/index.js && jest --config test/unit/jest.conf.js --coverage || ( git checkout src/store/index.js && rm src/store/index.js-e )",
-    "e2e": "node test/e2e/runner.js",
+    "e2e": "testcafe chrome e2e",
     "test": "npm run unit && npm run e2e",
     "build": "node build/build.js"
   },
