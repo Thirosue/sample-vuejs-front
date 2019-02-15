@@ -17,12 +17,7 @@ Validator.localize('ja', ja);
 Vue.use(VeeValidate, validMessage.validMessage)
 
 // add plugin for global
-import ModalPlugin from '@/module/plugin/modal'
-import ToastPlugin from '@/module/plugin/toast'
 import MyApplicationPlugin from '@/module/plugin/application'
-
-Vue.use(ModalPlugin)
-Vue.use(ToastPlugin)
 Vue.use(MyApplicationPlugin)
 
 // add filter for global
@@ -43,11 +38,11 @@ Vue.directive('focus', directive.focus )
 Vue.directive('required', directive.required )
 
 // add compornent for global
-import NavBar from '@/components/parts/layouts/Navbar'
-import Footer from '@/components/parts/layouts/Footer'
-import Pager from '@/components/parts/Pager'
-import Searching from '@/components/parts/Searching'
-import ViewCount from '@/components/parts/ViewCount'
+import NavBar from '@/components/layouts/Navbar'
+import Footer from '@/components/layouts/Footer'
+import Pager from '@/components/Pager'
+import Searching from '@/components/Searching'
+import ViewCount from '@/components/ViewCount'
 
 Vue.component('sample-navbar', NavBar)
 Vue.component('sample-footer', Footer)
@@ -55,7 +50,7 @@ Vue.component('sample-pager', Pager)
 Vue.component('sample-searching', Searching)
 Vue.component('sample-view-count', ViewCount)
 
-import InputField from '@/components/parts/form/InputField'
+import InputField from '@/components/form/InputField'
 
 Vue.component('sample-input', InputField)
 

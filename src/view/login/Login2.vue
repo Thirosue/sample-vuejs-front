@@ -1,0 +1,107 @@
+<template>
+<div>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Login Form2
+        </h1>
+      </div>
+    </div>
+  </section>
+  <div class="container is-fullhd">
+    <div class="notification">
+      <form-input
+        id="email"
+        v-model.trim="form.items.email.value"
+        v-bind:formItem="form.items.email"
+        v-bind:maxlength="form.items.email.maxlength"
+        label="メールアドレス（必須）"
+        type="email"
+        autocomplete="email"
+        dirty
+        touched
+      />
+      <form-input
+        id="password"
+        v-model="form.items.password.value"
+        v-bind:formItem="form.items.password"
+        label="パスワード（必須）"
+        type="password"
+        autocomplete="password"
+        dirty
+        touched
+      />
+
+      <div v-if="errMsg" class="notification is-danger">
+        {{errMsg}}
+      </div>
+
+      <div class="field is-grouped is-grouped-centered">
+        <button id="form-submit" class="button is-link" type="submit" :disabled="form.invalid" v-on:click.prevent="signin">Login</button>
+      </div>
+    </div>
+  </div>
+  <sample-footer></sample-footer>
+</div>
+</template>
+
+<script>
+import { FormInput } from '@/components/form';
+import { LoginForm } from '@/forms';
+import { FORM_GETTER_TYPES, FORM_MUTATION_TYPES } from '@/store/modules/form';
+import { SESSION_GETTER_TYPES, SESSION_MUTATION_TYPES } from '@/store/modules/session';
+import { Config } from '@/conf/config'
+import { apiHandleErr } from '@/module/errorHandler';
+import { COMMON_MESSAGE, LOGIN_MESSAGE } from '@/conf/message';
+import { authApi } from '@/module/api';
+
+const _handleError =  (error) => {
+  if(error.response.status===401) {
+    this.errMsg = LOGIN_MESSAGE.ERR_AUTH;
+  } else {
+    apiHandleErr(error.response);
+  }
+}
+
+export default {
+  name: 'Login',
+  
+  components: {
+    FormInput,
+  },
+
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      if(from.path === Config.LOGOUT_PATH) {
+        vm.$showToast(LOGIN_MESSAGE.LOGOUTED, 'none');
+      }
+    })
+  },
+
+  data() {
+    const form = new LoginForm();
+    return {
+      form,
+      errMsg: null,
+    };
+  },
+
+  mounted() {
+    console.log(this.$store.getters[SESSION_GETTER_TYPES.VALUES]);
+  },
+
+  methods: {
+    async signin() {
+      const value = this.form.values();
+      const response = await authApi.doAuth(value).catch(_handleError);
+      this.$store.commit(SESSION_MUTATION_TYPES.SET_VALUES, response.data[0]);
+      this.$router.push('/');
+    },
+  },
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+</style>

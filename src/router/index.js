@@ -1,29 +1,32 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Config from '@/conf/config'
 import store from '@/store'
-import auth from '@/module/auth'
 import router from '@/router'
-import statistics from '@/module/statistics'
+import { Config } from '@/conf/config'
+import { isAllowAction, checkSession } from '@/module/auth'
+import { setAccessLog } from '@/module/statistics'
+import { SESSION_GETTER_TYPES } from '@/store/modules/session';
 
-import SystemError from '@/components/controller/error/SystemError'
-import BadRequest from '@/components/controller/error/BadRequest'
-import SessionTimeOut from '@/components/controller/error/SessionTimeOut'
-import Index from '@/components/controller/index/Index'
-import Login from '@/components/controller/login/Login'
-import StaffList from '@/components/controller/staff/StaffList'
-import StaffEdit from '@/components/controller/staff/StaffEdit'
-import StaffDetail from '@/components/controller/staff/StaffDetail'
-import StaffRegister from '@/components/controller/staff/StaffRegister'
-import PasswordEdit from '@/components/controller/staff/PasswordEdit'
-import CodeList from '@/components/controller/code/CodeList'
-import CodeDetail from '@/components/controller/code/CodeDetail'
-import CodeEdit from '@/components/controller/code/CodeEdit'
-import CodeRegister from '@/components/controller/code/CodeRegister'
+import SystemError from '@/view/error/SystemError'
+import BadRequest from '@/view/error/BadRequest'
+import SessionTimeOut from '@/view/error/SessionTimeOut'
+import Index from '@/view/index/Index'
+import Logout from '@/view/login/Logout'
+import StaffEdit from '@/view/staff/StaffEdit'
+import StaffDetail from '@/view/staff/StaffDetail'
+import StaffRegister from '@/view/staff/StaffRegister'
+import PasswordEdit from '@/view/staff/PasswordEdit'
+import CodeDetail from '@/view/code/CodeDetail'
+import CodeEdit from '@/view/code/CodeEdit'
+import CodeRegister from '@/view/code/CodeRegister'
+
+import Login2 from '@/view/login/Login2';
+import StaffList2 from '@/view/staff/StaffList2';
+import CodeList2 from '@/view/code/CodeList2';
 
 Vue.use(Router)
 
-const StateRoot = store.state
+const StateRoot = store.state;
 
 export default new Router({
   routes: [
@@ -50,11 +53,12 @@ export default new Router({
     {
       path: Config.LOGIN_PATH,
       name: 'Login',
-      component: Login
+      component: Login2
     },
     {
       path: Config.LOGOUT_PATH,
       name: 'Logout',
+      component: Logout
     },
     {
       path: Config.EDIT_PASSWORD,
@@ -64,7 +68,7 @@ export default new Router({
     {
       path: StateRoot.staff.listPath,
       name: 'StaffList',
-      component: StaffList
+      component: StaffList2
     },
     {
       path: StateRoot.staff.editPath,
@@ -84,7 +88,7 @@ export default new Router({
     {
       path: StateRoot.code.listPath,
       name: 'CodeList',
-      component: CodeList
+      component: CodeList2
     },
     {
       path: StateRoot.code.detailPath + "/:id",
@@ -104,16 +108,17 @@ export default new Router({
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  if(!auth.isAllowAction(to.path, StateRoot.session.roleList)) {
-    console.log('UnAuthorize Action')
-    router.push(Config.BAD_REQUEST_PATH)
+router.beforeEach(async (to, from, next) => {
+  const session = store.getters[SESSION_GETTER_TYPES.VALUES];
+  if(!isAllowAction(to.path, session.roles)) {
+    console.log('UnAuthorize Action');
+    router.push(Config.BAD_REQUEST_PATH);
   }
-  auth.checkSession(to.path)
+  checkSession(to.path);
   if(from.path !== to.path) {
-    statistics.store(to.path)
+    setAccessLog(to.path);
   }
-  next()
+  next();
 })
 
 router.afterEach((to, from) => {

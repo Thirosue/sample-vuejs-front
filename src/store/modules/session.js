@@ -1,87 +1,49 @@
+import { buildModuleTypes } from '@/helpers/store';
 
-import api from '@/module/api'
-import Type from '@/store/mutation-types'
-import Config from '@/conf/config'
+const moduleName = 'session';
+const GETTER_TYPES = {
+  VALUES: 'VALUES',
+  IS_LOGIN: 'IS_LOGIN',
+};
+const MUTATION_TYPES = {
+  SET_VALUES: 'SET_VALUES',
+  CLEAR_VALUES: 'CLEAR_VALUES',
+};
 
-const SET_SESSION = 'setSession'
-const SET_ROLE = 'setRole'
-const SET_MENU_CATEGORY = 'setMenuCategory'
-const SET_MENU = 'setMenu'
-const ISLOGIN = 'isLogin'
-const LOGOUTED = 'logouted'
-const LOGGEDIN = 'loggedin'
+export const SESSION_GETTER_TYPES = buildModuleTypes({
+  moduleName,
+  types: GETTER_TYPES,
+});
 
-const session = {
-  namespaced: true,
-  state: {
-    session: null,
-    roleList: [],
-    menuCategories: [],
-    menus: [],
-    isLogin: false,
-    loggedin: false,
-    logouted: false,
+export const SESSION_MUTATION_TYPES = buildModuleTypes({
+  moduleName,
+  types: MUTATION_TYPES,
+});
+
+export const namespaced = true;
+
+export const state = {
+  values: null,
+};
+
+export const getters = {
+  [GETTER_TYPES.VALUES](state) {
+    if (state.values === null) {
+      return {};
+    }
+    return state.values;
   },
-  mutations: {
-    [SET_SESSION] (state, { session }) {
-      state.session = session
-    },
-    [SET_ROLE] (state, { roles }) {
-      state.roleList = Object.assign([], roles)
-    },
-    [SET_MENU_CATEGORY] (state, { menuCategories }) {
-      state.menuCategories = Object.assign([], menuCategories)
-    },    
-    [SET_MENU] (state, { menus }) {
-      state.menus = Object.assign([], menus)
-    },
-    [Type.UNSET_ALL] (state) {
-      state.session = null
-      state.roleList = []
-      state.menuCategories = []
-      state.menus = []
-      state.isLogin = false
-      state.loggedin = false
-      state.logouted = false
-    },
-    [ISLOGIN] (state, { isLogin }) {
-      state.isLogin = isLogin
-    },
-    [LOGOUTED] (state, { logouted }) {
-      state.logouted = logouted
-    },
-    [LOGGEDIN] (state, { loggedin }) {
-      state.loggedin = loggedin
-    },
+  [GETTER_TYPES.IS_LOGIN](state) {
+    return state.values !== null;
   },
-  actions: {
-    async login ({ dispatch, commit }, loginInfo) {
-      dispatch(Type.UNSET_ALL)
-      const response = await api.auth.doAuth(loginInfo)
-      commit(SET_SESSION, { session: response.data[0] })
-      commit(SET_ROLE, { roles: response.data[0].roles })
-      commit(ISLOGIN, { isLogin: true })
-      commit(LOGGEDIN, { loggedin: true })
-    },
-    [SET_MENU_CATEGORY] ({ commit }, payload) {
-      commit(SET_MENU_CATEGORY, { menuCategories: payload.menuCategories })
-    },
-    [SET_MENU] ({ commit }, payload) {
-      commit(SET_MENU, { menus: payload.menus })
-    },
-    async checkSession ({ commit }) {
-      const response = await api.auth.checkSession()
-      commit(SET_SESSION, { session: response.data[0] })
-      commit(LOGGEDIN, { loggedin: false })
-    },
-    async logout ({ dispatch, commit }) {
-      await api.auth.logout()
-                      .finally(()=>document.cookie = Config.COOKIE_ID + "; max-age=0")
-      dispatch(Type.UNSET_ALL)
-      commit(LOGOUTED, { logouted: true })
-    },
-    [Type.UNSET_ALL] ({commit}) { commit(Type.UNSET_ALL) },
-  }
-}
+};
 
-export default session
+export const mutations = {
+  [MUTATION_TYPES.SET_VALUES](state, values) {
+    state.values = values;
+  },
+
+  [MUTATION_TYPES.CLEAR_VALUES](state) {
+    state.values = null;
+  },
+};

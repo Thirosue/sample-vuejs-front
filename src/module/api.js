@@ -12,15 +12,15 @@ const ENDPOINT_CODE = BASE_URL + '/api/code'
 /*********************
  * Get Settings 
  * *******************/
-const makeGetUrl = (base, where) => base + ( is.empty(where) ? '' : '?' + querystring.stringify(where) )
+const _makeGetUrl = (base, where) => base + ( is.empty(where) ? '' : '?' + querystring.stringify(where) )
 
 //get filter
-const searchEnd = response => {
+const _searchEnd = response => {
   /* filter implements */
   return response
 }
 
-const checkStatus = response => {
+const _checkStatus = response => {
   if (response.status >= 200 && response.status < 300) {
     return response
   } else {
@@ -30,111 +30,103 @@ const checkStatus = response => {
   }
 }
 
-const toJson = response => response.json()
-const toText = response => response.text()
+const _toJson = response => response.json()
+const _toText = response => response.text()
 
-const fetchGet = (base, where = {}) => 
-window.fetch(makeGetUrl(base, where), {
+const _fetchGet = (base, where = {}) => 
+window.fetch(_makeGetUrl(base, where), {
     method: 'GET',
   }
-).then(searchEnd).then(checkStatus)
+).then(_searchEnd).then(_checkStatus)
 
 /*********************
  * Post/Put Settings 
  * *******************/
-const submitButton = () => document.querySelectorAll(".button")
-const updateHeader = ({
+const _submitButton = () => document.querySelectorAll(".button")
+const _updateHeader = ({
   'X-Requested-With': 'csrf',  //csrf header
   'Content-Type': 'application/json'
 })
 
-const updateStartFilter = () => {
-  if(submitButton()) {
-    Array.from(submitButton()).forEach(button=>button.disabled = true)
+const _updateStartFilter = () => {
+  if(_submitButton()) {
+    Array.from(_submitButton()).forEach(button=>button.disabled = true)
   }
 }
 
-const updateEndFilter = () => {
-  if(submitButton()) {
-    Array.from(submitButton()).forEach(button=>button.disabled = "")
+const _updateEndFilter = () => {
+  if(_submitButton()) {
+    Array.from(_submitButton()).forEach(button=>button.disabled = "")
   }
 }
 
-const updatehEnd = response => {
-  updateEndFilter()
+const _updatehEnd = response => {
+  _updateEndFilter()
   return response
 }
 
-const postBase = (url, data) => {
-  updateStartFilter()
+const _postBase = (url, data) => {
+  _updateStartFilter()
   return window.fetch(url, {
       method: 'POST',
-      headers: updateHeader,
+      headers: _updateHeader,
       body: JSON.stringify(data)
     }
   )
 }
 
-const putBase = (url, data) => {
-  updateStartFilter()
+const _putBase = (url, data) => {
+  _updateStartFilter()
   return window.fetch(url, {
       method: 'PUT',
-      headers: updateHeader,
+      headers: _updateHeader,
       body: JSON.stringify(data)
     }
   )
 }
 
-const fetchPost = (url, data) => postBase(url, data).then(updatehEnd).then(checkStatus)
-const fetchPut = (url, data) => putBase(url, data).then(updatehEnd).then(checkStatus)
+const _fetchPost = (url, data) => _postBase(url, data).then(_updatehEnd).then(_checkStatus)
+const _fetchPut = (url, data) => _putBase(url, data).then(_updatehEnd).then(_checkStatus)
 
 /*********************
  * Delete Settings 
  * *******************/
-const fetchDelete = url => 
+const _fetchDelete = url => 
 window.fetch(url, {
     method: 'DELETE',
-    headers: updateHeader
-  }).then(checkStatus)
+    headers: _updateHeader
+  }).then(_checkStatus)
 
 /*********************
  * API Settings 
  * *******************/
-const log = {
-  access: path => fetchGet(ENDPOINT_LOG + "/access", path),
-  error: data => fetchPost(ENDPOINT_LOG + "/error", data),
+export const logApi = {
+  access: path => _fetchGet(ENDPOINT_LOG + "/access", path),
+  error: data => _fetchPost(ENDPOINT_LOG + "/error", data),
 }
 
-const auth = {
-  doAuth: loginInfo => fetchPost(ENDPOINT_AUTH, loginInfo).then(toJson),
-  checkSession: () => fetchPut(ENDPOINT_AUTH).then(toJson),
-  logout: () => fetchDelete(ENDPOINT_AUTH).then(toJson),
+export const authApi = {
+  doAuth: loginInfo => _fetchPost(ENDPOINT_AUTH, loginInfo).then(_toJson),
+  checkSession: () => _fetchPut(ENDPOINT_AUTH).then(_toJson),
+  logout: () => _fetchDelete(ENDPOINT_AUTH).then(_toJson),
 }
 
-const master = {
-  getCodeCategory: () => fetchGet(BASE_URL + '/api/codeCategory').then(toJson),
+export const masterApi = {
+  getCodeCategory: () => _fetchGet(BASE_URL + '/api/codeCategory').then(_toJson),
 }
 
-const staff = {
-  findAll: where => fetchGet(ENDPOINT_STAFF, where).then(toJson),
-  findById: id => fetchGet(ENDPOINT_STAFF + "/" + id).then(toJson),
-  create: data => fetchPost(ENDPOINT_STAFF, data).then(toJson),
-  update: data => fetchPut(ENDPOINT_STAFF, data).then(toJson),
-  delete: id => fetchDelete(ENDPOINT_STAFF + '/' + id).then(toJson),
+export const staffApi = {
+  findAll: where => _fetchGet(ENDPOINT_STAFF, where).then(_toJson),
+  findById: id => _fetchGet(ENDPOINT_STAFF + "/" + id).then(_toJson),
+  create: data => _fetchPost(ENDPOINT_STAFF, data).then(_toJson),
+  update: data => _fetchPut(ENDPOINT_STAFF, data).then(_toJson),
+  delete: id => _fetchDelete(ENDPOINT_STAFF + '/' + id).then(_toJson),
 }
 
-const code = {
-  findAll: where => fetchGet(ENDPOINT_CODE, where).then(toJson),
-  findById: id => fetchGet(ENDPOINT_CODE + "/" + id).then(toJson),
-  create: data => fetchPost(ENDPOINT_CODE, data).then(toJson),
-  update: data => fetchPut(ENDPOINT_CODE, data).then(toJson),
-  delete: id => fetchDelete(ENDPOINT_CODE + '/' + id).then(toJson),
-}
-
-export default {
-  log,
-  auth,
-  master,
-  staff,
-  code,
+export const codeApi = {
+  findAll: where => _fetchGet(ENDPOINT_CODE, where).then(_toJson),
+  findById: id => _fetchGet(ENDPOINT_CODE + "/" + id).then(_toJson),
+  create: data => _fetchPost(ENDPOINT_CODE, data).then(_toJson),
+  update: data => _fetchPut(ENDPOINT_CODE, data).then(_toJson),
+  delete: id => _fetchDelete(ENDPOINT_CODE + '/' + id).then(_toJson),
 }

@@ -4,9 +4,9 @@
  * 許可リスト方式
  * 全てのロールに許可する画面は "all" を指定
 */
-import Config from '@/conf/config'
+import { Config } from '@/conf/config'
 
-export default [
+export const Screenlist = [
     { id: "LOGIN" , name: "ログイン" , url: "/login", roles: [ Config.ALLOW_ALL ] },
 //    { id: "TOP" , name: "ポータルトップ" , url: "/" , roles: ["all"] },
     { id: "EDIT_PASSWORD" , name: "パスワード編集" , url: "/passwordEdit", roles: [ Config.ALLOW_ALL ] },

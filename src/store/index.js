@@ -4,8 +4,9 @@ import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
-import session from './modules/session'
-import master from './modules/master'
+import * as session from '@/store/modules/session';
+import * as form from '@/store/modules/form';
+import * as master from './modules/master'
 import staff from './modules/staff'
 import code from './modules/code'
 
@@ -17,6 +18,7 @@ const store = new Vuex.Store({
     staff,
     master,
     code,
+    form,
   },
   state: {
     stackTrace: null,

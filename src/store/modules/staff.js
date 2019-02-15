@@ -1,14 +1,13 @@
-import api from '@/module/api'
-import apiHelper from '@/module/helper/apiHelper'
+import { staffApi } from '@/module/api'
+import { setResult } from '@/helpers/apiHelper'
 import Type from '@/store/mutation-types'
 
 //利用するAPIを定義
-const endpoint = api.staff
-const findAll = (where) => endpoint.findAll(where)
-const findById = (id) => endpoint.findById(id)
-const update = (data) => endpoint.update(data)
-const create = (data) => endpoint.create(data)
-const del = (id) => endpoint.delete(id)
+const findAll = (where) => staffApi.findAll(where)
+const findById = (id) => staffApi.findById(id)
+const update = (data) => staffApi.update(data)
+const create = (data) => staffApi.create(data)
+const del = (id) => staffApi.delete(id)
 
 const company = {
   namespaced: true,
@@ -86,7 +85,7 @@ const company = {
       dispatch(Type.UNSET_LIST)
       dispatch(Type.SET_SEARCH_START)
       let response = await findAll(where)
-      apiHelper.setResult(dispatch, response)
+      setResult(dispatch, response)
       dispatch(Type.SET_SEARCH_END)
     },
     async [Type.FIND_BY_ID] ({ dispatch, commit }, id) {

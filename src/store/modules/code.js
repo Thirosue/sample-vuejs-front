@@ -1,14 +1,13 @@
-import api from '@/module/api'
-import apiHelper from '@/module/helper/apiHelper'
+import { codeApi } from '@/module/api'
+import { setResult } from '@/helpers/apiHelper'
 import Type from '@/store/mutation-types'
 
 //利用するAPIを定義
-const endpoint = api.code
-const findAll = (where) => endpoint.findAll(where)
-const findById = (id) => endpoint.findById(id)
-const update = (data) => endpoint.update(data)
-const create = (data) => endpoint.create(data)
-const del = (id) => endpoint.delete(id)
+const findAll = (where) => codeApi.findAll(where)
+const findById = (id) => codeApi.findById(id)
+const update = (data) => codeApi.update(data)
+const create = (data) => codeApi.create(data)
+const del = (id) => codeApi.delete(id)
 
 const code = {
   namespaced: true,
@@ -86,7 +85,7 @@ const code = {
       dispatch(Type.UNSET_LIST)
       dispatch(Type.SET_SEARCH_START)
       let response = await findAll(where)
-      apiHelper.setResult(dispatch, response)
+      setResult(dispatch, response)
       dispatch(Type.SET_SEARCH_END)
     },
     async [Type.FIND_BY_ID] ({ dispatch, commit }, id) {

@@ -1,6 +1,6 @@
 import {TextEncoder} from 'text-encoding'
 
-const createFile = (name, mimeType, model, json) => {
+export const createFile = (name, mimeType, model, json) => {
   // 文字コード→SJIS、改行コード→CRLF、項目タイトルあり、BOM→無し
   const header = model.map(m => m.value)
   const headerKey = model.map(m => m.key)
@@ -33,8 +33,4 @@ const createFile = (name, mimeType, model, json) => {
       "_blank"
     );
   }
-}
-
-export default {
-  createFile
 }

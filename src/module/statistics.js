@@ -1,29 +1,31 @@
 import _ from 'lodash'
 import moment from 'moment'
-import api from '@/module/api'
+import { logApi } from '@/module/api'
+import { Config } from '@/conf/config'
 
-const getAccessLog = () => JSON.parse(sessionStorage.getItem('accesslog')) || []
-const setAccessLog = accesslog => sessionStorage.setItem('accesslog', JSON.stringify(accesslog))
+const _getAccessLog = () => JSON.parse(sessionStorage.getItem('accesslog')) || [];
+const _setAccessLog = accesslog => sessionStorage.setItem('accesslog', JSON.stringify(accesslog));
 
-const store = (path) => {
-  const accesslog = getAccessLog()
-  accesslog.push(({timestamp: moment().format(), path: path}))
-  setAccessLog(accesslog)
-}
-
-const push = async () => {
-  let accesslog = getAccessLog()
+const _sendServer = async () => {
+  let accesslog = _getAccessLog();
   for(let i=0; i<accesslog.length; i++) {
-    await api.log.access({path: accesslog[i].path})
-                    .then(()=> accesslog[i].pushed = true, console.log('push success! path=(' + accesslog[i].path + ')'))
-                    .catch(err => console.error(err))
+    await logApi.access({path: accesslog[i].path})
+                    .then(()=> { 
+                      accesslog[i].pushed = true;
+                      console.log('push success! path=(' + accesslog[i].path + ')');
+                    })
+                    .catch(err => {
+                      accesslog[i].retry++;
+                    });
   }
-  accesslog = accesslog.filter(log=>!log.pushed)
-  setAccessLog(accesslog)
+  accesslog = accesslog.filter(log=>!log.pushed && log.retry < Config.LOG_RETRY_MAX);
+  _setAccessLog(accesslog);
 }
 
-window.setInterval(push, 5000)
+window.setInterval(_sendServer, 5000);
 
-export default {
-  store
+export const setAccessLog = path => {
+  const accesslog = _getAccessLog();
+  accesslog.push(({timestamp: moment().format(), path: path, retry: 0}));
+  _setAccessLog(accesslog);
 }
