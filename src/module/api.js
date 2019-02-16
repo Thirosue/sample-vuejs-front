@@ -121,6 +121,7 @@ export const staffApi = {
   create: data => _fetchPost(ENDPOINT_STAFF, data).then(_toJson),
   update: data => _fetchPut(ENDPOINT_STAFF, data).then(_toJson),
   delete: id => _fetchDelete(ENDPOINT_STAFF + '/' + id).then(_toJson),
+  changePassword: data => _fetchPost(ENDPOINT_STAFF + '/updatePassword', data).then(_toJson),
 }
 
 export const codeApi = {

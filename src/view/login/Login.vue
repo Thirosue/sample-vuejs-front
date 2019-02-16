@@ -11,19 +11,34 @@
   </section>
   <div class="container is-fullhd">
     <div class="notification">
-
-      <sample-input id="id" type="email" label="Email" name="email" v-model="email" :hasLabel="true"
-        :required="true" v-on:error="setError('email', $event)" placeholder="e.g. alexsmith@gmail.com" :func="signin" />
-
-      <sample-input id="password" type="password" label="Password" name="password" v-model="password" :hasLabel="true"
-          :required="true" v-on:error="setError('password', $event)" :func="signin" />
+      <form-input
+        id="email"
+        v-model.trim="form.items.email.value"
+        v-bind:formItem="form.items.email"
+        v-bind:maxlength="form.items.email.maxlength"
+        label="メールアドレス（必須）"
+        type="email"
+        autocomplete="email"
+        dirty
+        touched
+      />
+      <form-input
+        id="password"
+        v-model="form.items.password.value"
+        v-bind:formItem="form.items.password"
+        label="パスワード（必須）"
+        type="password"
+        autocomplete="password"
+        dirty
+        touched
+      />
 
       <div v-if="errMsg" class="notification is-danger">
         {{errMsg}}
       </div>
-      
+
       <div class="field is-grouped is-grouped-centered">
-        <button id="form-submit" class="button is-link" type="submit" v-disable="hasError" v-on:click.stop.prevent="signin">Login</button>
+        <button id="form-submit" class="button is-link" type="submit" :disabled="form.invalid" v-on:click.prevent="signin">Login</button>
       </div>
     </div>
   </div>
@@ -32,44 +47,60 @@
 </template>
 
 <script>
-import { apiHandleErr } from '@/module/errorHandler'
-import { Message } from '@/conf/message'
-import Type from '@/store/mutation-types'
-import BaseValidate from '@/view/base/Validate'
+import { FormInput } from '@/components/form';
+import { LoginForm } from '@/forms';
+import { FORM_GETTER_TYPES, FORM_MUTATION_TYPES } from '@/store/modules/form';
+import { SESSION_GETTER_TYPES, SESSION_MUTATION_TYPES } from '@/store/modules/session';
+import { Config } from '@/conf/config'
+import { apiHandleErr } from '@/module/errorHandler';
+import { COMMON_MESSAGE, LOGIN_MESSAGE } from '@/conf/message';
+import { authApi } from '@/module/api';
 
 export default {
-  mixins: [BaseValidate],
-  data: () => {
+  name: 'Login',
+  
+  components: {
+    FormInput,
+  },
+
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      if(from.path === Config.LOGOUT_PATH) {
+        vm.$showToast(LOGIN_MESSAGE.LOGOUTED, 'none');
+      }
+    })
+  },
+
+  data() {
+    const form = new LoginForm();
     return {
-      email: '',
-      password: '',
+      form,
       errMsg: null,
-    }
+    };
   },
+
   mounted() {
-    if(this.$store.state.session.logouted) {
-      this.$showToast('ログアウトしました', 'none')
-      this.$store.dispatch('session/' + Type.UNSET_ALL)
-    }    
+    console.log(this.$store.getters[SESSION_GETTER_TYPES.VALUES]);
   },
+
   methods: {
     signin() {
-      if(this.hasError) return 
-      this.errMsg = null
-      this.$store.dispatch('session/login', { email: this.email, password: this.password })
-                    .then(()=>this.$router.push('/'))
-                    .catch(error => {
-                      if(error.status===401) {
-                        this.errMsg = message.ERR_AUTH
-                      } else {
-                        apiHandleErr(error)
-                      }
-                    })
+      const value = this.form.values();
+      console.log(value);
+      authApi.doAuth(value)
+          .then(response => {
+            this.$store.commit(SESSION_MUTATION_TYPES.SET_VALUES, response.data[0]);
+            this.$router.push('/');
+          })
+          .catch(error => {
+              if(error.response.status===401) {
+                this.errMsg = LOGIN_MESSAGE.ERR_AUTH;
+              } else {
+                apiHandleErr(error.response);
+              }
+          });
     },
   },
-  computed: {
-    screenId: () => "LOGIN",
-  }
 }
 </script>
 

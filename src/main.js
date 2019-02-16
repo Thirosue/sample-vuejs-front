@@ -42,13 +42,11 @@ import NavBar from '@/components/layouts/Navbar'
 import Footer from '@/components/layouts/Footer'
 import Pager from '@/components/Pager'
 import Searching from '@/components/Searching'
-import ViewCount from '@/components/ViewCount'
 
 Vue.component('sample-navbar', NavBar)
 Vue.component('sample-footer', Footer)
 Vue.component('sample-pager', Pager)
 Vue.component('sample-searching', Searching)
-Vue.component('sample-view-count', ViewCount)
 
 import InputField from '@/components/form/InputField'
 

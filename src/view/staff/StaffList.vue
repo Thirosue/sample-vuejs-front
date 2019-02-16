@@ -13,42 +13,42 @@
   <div class="container is-fullhd">
     <div class="notification">
 
-      <div class="field">
-        <label class="label">名前</label>
-        <div class="control">
-          <input class="input" id="firstName" type="text" v-model="where.firstName" v-on:keyup.enter="init">
-        </div>
-      </div>
+      <form-input
+        id="firstName"
+        v-model.trim="form.items.firstName.value"
+        v-bind:formItem="form.items.firstName"
+        label="名前"
+      />
 
-      <div class="field">
-        <label class="label">苗字</label>
-        <div class="control">
-          <input class="input" id="lastName" type="text" v-model="where.lastName" v-on:keyup.enter="init">
-        </div>
-      </div>
+      <form-input
+        id="lastName"
+        v-model.trim="form.items.lastName.value"
+        v-bind:formItem="form.items.lastName"
+        label="苗字"
+      />
 
-      <div class="field">
-        <label class="label">Email</label>
-        <div class="control">
-          <input class="input" id="email" type="text" v-model="where.email" v-on:keyup.enter="init">
-        </div>
-      </div>
+      <form-input
+        id="email"
+        v-model.trim="form.items.email.value"
+        v-bind:formItem="form.items.email"
+        label="Email"
+      />
 
-      <div class="field">
-        <label class="label">Tell</label>
-        <div class="control">
-          <input class="input" id="tel" type="text" v-model="where.tel" v-on:keyup.enter="init">
-        </div>
-      </div>
+      <form-input
+        id="tel"
+        v-model.trim="form.items.tel.value"
+        v-bind:formItem="form.items.tel"
+        label="Tell"
+      />
 
       <div class="field is-grouped is-grouped-right">
-        <button id="form-submit" class="button is-link" type="submit" v-on:click.stop.prevent="init">Search</button>
+        <button id="form-submit" class="button is-link" type="submit" v-on:click.stop.prevent="search(1)">Search</button>
       </div>
     </div>
 
     <hr>
 
-    <div class="sample-result-list" v-if="totalPage">
+    <div class="sample-result-list" v-if="0 < results.length">
       <nav class="level">
         <!-- Left side -->
         <div class="level-left">
@@ -57,10 +57,20 @@
         <!-- Right side -->
         <div class="level-right">
           <div class="control">
-            <sample-sortbox v-model="where.sort" v-on:input="search(1, where.rows)"></sample-sortbox>
+            <simple-select
+              id="sort"
+              v-model.trim="form.items.sort.value"
+              v-bind:formItem="form.items.sort"
+              v-on:input="search(1)"
+            />
           </div>
           <p class="level-item">
-            <sample-view-count v-bind:value="where.rows||defaultRows" v-on:input="where.rows=$event, search(1,$event)"></sample-view-count>
+            <simple-select
+              id="rows"
+              v-model.trim="form.items.rows.value"
+              v-bind:formItem="form.items.rows"
+              v-on:input="search(1)"
+            />
           </p>
           <p class="level-item">
             <button class="button is-primary" type="submit" v-on:click.stop.prevent="downloadList">CSV Download</button>
@@ -68,12 +78,10 @@
         </div>
       </nav>
 
-      <sample-searching v-bind:searching="searching" v-bind:noresult="noResult"></sample-searching> <!-- searching -->
-      <sample-pager v-if="existsResult" v-bind:initial-page="page" v-bind:page-count="totalPage" v-bind:click-handler="search" :resultCount="count"></sample-pager><!-- pager -->
-
+      <sample-pager v-bind:initial-page="page" v-bind:page-count="totalPage" v-bind:click-handler="search" :resultCount="count"></sample-pager><!-- pager -->
       <hr>
 
-      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" v-show="existsResult">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
         <thead>
           <tr>
             <th>#</th>
@@ -84,7 +92,7 @@
           <tr v-for="(result, rownum) in results" v-bind:key="rownum">
             <td>{{rownum+1}}</td>
             <td v-for="(key, j) in resultKeys" v-bind:key="j">
-              <router-link v-if="key==='id'" v-bind:to="'/' + namespace +  result.id">{{result.id}}</router-link>
+              <router-link v-if="key==='id'" v-bind:to="'/' + namespace + '/' +  result.id">{{result.id}}</router-link>
               <template v-else>{{result[key]}}</template>
             </td>
           </tr>
@@ -97,53 +105,45 @@
 </template>
 
 <script>
-import csvHeader from '@/conf/csvHeader';
-import SystemParameter from '@/module/dto/SystemParameter'
-import BaseList from '@/view/base/List'
-import { getSortList } from '@/helpers/sort'
-import SingleSelectBox from '@/components/form/mixin/SingleSelectBox'
-
-const StaffQuery = {
-  firstName: null,
-  lastName: null,
-  email: null,
-  tel: null,
-}
+/*
+ * 検索結果を設定に持たせるVersion
 
 const StaffListSettings = [
-  {key: 'id', value: 'ID', order: 1, sort: false},
-  {key: 'firstName', value: '名前', order: 2, sort: true},
-  {key: 'lastName', value: '苗字', order: 3, sort: false},
-  {key: 'email', value: 'Email', order: 4, sort: true},
-  {key: 'tel', value: 'Tel', order: 5, sort: false},
-]
+    {key: 'id', value: 'ID', order: 1, sort: false},
+    {key: 'firstName', value: '名前', order: 2, sort: true},
+    {key: 'lastName', value: '苗字', order: 3, sort: false},
+    {key: 'email', value: 'Email', order: 4, sort: true},
+    {key: 'tel', value: 'Tel', order: 5, sort: false},
+  ]
+
+ */
+import is from 'is_js';
+import { StaffSearchForm } from '@/forms';
+import { staffApi } from '@/module/api';
+import csvHeader from '@/conf/csvHeader';
+import ListSettings from '@/conf/ListSettings';
+import BaseList from '@/view/base/List';
 
 export default {
   name: 'StaffList',
   mixins: [BaseList],
-	components: {
-    'sample-sortbox': {
-      mixins: [SingleSelectBox],
-      computed: {
-        targetList: () => getSortList(StaffListSettings),
-      },
-    }
-	},
-  data: () => {
+
+  data() {
+    const form = new StaffSearchForm(this.$router.history.current.query);
     return {
-      where: Object.assign({}, SystemParameter, StaffQuery),
-    }
+      form,
+    };
   },
-  mounted() {
-    console.log('start StaffList!')
-  },
+
   methods: {
+    callApi: where => staffApi.findAll(where), //<--- 個別に定義
   },
+
   computed: {
-    screenId: () => "STAFF_LIST",
-    store() { return this.$store.state.staff }, //OverRide
-    columSetting() { return StaffListSettings }, //OverRide
-    fileProperties: () => ['staff.csv', csvHeader.STAFF_LIST], //OverRIde
+    screenId: () => "STAFF_LIST", //<--- 個別に定義
+    namespace: () => "staff", //<--- 個別に定義
+    fileProperties: () => ['staff.csv', csvHeader.STAFF_LIST], //<--- 個別に定義
+    columSetting: () => ListSettings.StaffListSettings, //<--- 個別に定義
   },
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="field">
-    <label v-bind:for="id" class="label">{{ label }}</label>
+    <label v-if="label" v-bind:for="id" class="label">{{ label }}</label>
     <div class="control">
       <input 
         class="input"

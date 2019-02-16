@@ -1,5 +1,5 @@
 import { BaseForm } from '@/lib';
-import { PasswordFormItem } from './items';
+import { PasswordFormItem } from '@/forms/items';
 
 export class PasswordUpdateForm extends BaseForm {
   constructor({ password = '', passwordConfirm = '' } = {}) {
@@ -29,13 +29,5 @@ export class PasswordUpdateForm extends BaseForm {
       return true;
     }
     return this.items.password.value === this.items.passwordConfirm.value;
-  }
-
-  buildRequestBody() {
-    return {
-      user: {
-        ...this.values(),
-      },
-    };
   }
 }

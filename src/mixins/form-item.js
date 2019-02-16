@@ -1,3 +1,4 @@
+import is from 'is_js';
 import { BaseFormItem } from '@/lib';
 
 const createInitialStates = () => {
@@ -23,7 +24,7 @@ export const formItemMixin = {
     },
     label: {
       type: String,
-      required: true,
+      required: false,
     },
     name: {
       type: String,
@@ -101,7 +102,6 @@ export const formItemMixin = {
   methods: {
     handleInput(evt) {
       const value = evt.target.value;
-      console.log(value);
       this.$emit('input', value);
     },
 

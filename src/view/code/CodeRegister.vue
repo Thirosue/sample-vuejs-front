@@ -18,7 +18,6 @@
             <tr>
               <th>コード分類キー</th>
               <td>
-                <sample-code-cagegory :required="true" v-model="editData.codeCategoryId"></sample-code-cagegory>
               </td>
             </tr>
             <tr>
@@ -113,25 +112,10 @@ import BaseRegister from '@/view/base/Register'
 import BaseValidate from '@/view/base/Validate'
 import ViewSettings from '@/conf/ViewSettings'
 import Message from '@/conf/message'
-import SingleSelectBox from '@/components/form/mixin/SingleSelectBox'
-
-const codeCategory = {
-	mixins: [SingleSelectBox],
-  computed: {
-    targetList() { return store.state.master.codeCategory.map(row=>({
-        key: row.id,
-        value: row.category_name
-      }))
-    },
-  },
-}
 
 export default {
   name: 'StaffRegister',
   mixins: [BaseRegister,BaseValidate],
-	components: {
-		'sample-code-cagegory': codeCategory
-  },
   directives: {
     disabled: {
       deep: true,

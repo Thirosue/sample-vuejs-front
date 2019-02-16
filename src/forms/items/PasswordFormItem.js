@@ -29,7 +29,7 @@ export class PasswordFormItem extends BaseFormItem {
 
   _isExpectLengthValidator(value) {
     return isExpectLength(value, {
-      min: this.min,
+      min: this.minlength,
       max: this.maxlength - 1,
     });
   }

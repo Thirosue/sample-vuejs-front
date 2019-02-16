@@ -1,6 +1,6 @@
 export { ContactForm } from './ContactForm';
 export { SampleForm } from './SampleForm';
-export { PasswordUpdateForm } from './PasswordUpdateForm';
+export { PasswordUpdateForm } from './system/PasswordUpdateForm';
 
 export { LoginForm } from './login/LoginForm';
 

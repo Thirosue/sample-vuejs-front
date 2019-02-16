@@ -11,18 +11,17 @@ import SystemError from '@/view/error/SystemError'
 import BadRequest from '@/view/error/BadRequest'
 import SessionTimeOut from '@/view/error/SessionTimeOut'
 import Index from '@/view/index/Index'
+import Login from '@/view/login/Login';
 import Logout from '@/view/login/Logout'
+import StaffList from '@/view/staff/StaffList';
 import StaffEdit from '@/view/staff/StaffEdit'
 import StaffDetail from '@/view/staff/StaffDetail'
 import StaffRegister from '@/view/staff/StaffRegister'
-import PasswordEdit from '@/view/staff/PasswordEdit'
+import PasswordEdit from '@/view/system/PasswordEdit'
+import CodeList from '@/view/code/CodeList';
 import CodeDetail from '@/view/code/CodeDetail'
 import CodeEdit from '@/view/code/CodeEdit'
 import CodeRegister from '@/view/code/CodeRegister'
-
-import Login2 from '@/view/login/Login2';
-import StaffList2 from '@/view/staff/StaffList2';
-import CodeList2 from '@/view/code/CodeList2';
 
 Vue.use(Router)
 
@@ -53,7 +52,7 @@ export default new Router({
     {
       path: Config.LOGIN_PATH,
       name: 'Login',
-      component: Login2
+      component: Login
     },
     {
       path: Config.LOGOUT_PATH,
@@ -68,7 +67,7 @@ export default new Router({
     {
       path: StateRoot.staff.listPath,
       name: 'StaffList',
-      component: StaffList2
+      component: StaffList
     },
     {
       path: StateRoot.staff.editPath,
@@ -88,7 +87,7 @@ export default new Router({
     {
       path: StateRoot.code.listPath,
       name: 'CodeList',
-      component: CodeList2
+      component: CodeList
     },
     {
       path: StateRoot.code.detailPath + "/:id",

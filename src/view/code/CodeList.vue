@@ -13,43 +13,46 @@
   <div class="container is-fullhd">
     <div class="notification">
 
-      <div class="field">
-        <label class="label">コード分類</label>
-        <div id="category-key" class="control">
-          <sample-code-cagegory v-model="where.categoryKey"></sample-code-cagegory>
-        </div>
-      </div>
+      <form-select
+        id="categoryKey"
+        v-model.trim="form.items.categoryKey.value"
+        v-bind:formItem="form.items.categoryKey"
+        label="コード分類"
+      />
 
-      <div class="field">
-        <label class="label">コード値</label>
-        <div class="control">
-          <input class="input" id="codeKey" type="text" v-model="where.codeKey" v-on:keyup.enter="init">
-        </div>
-      </div>
+      <form-input
+        id="codeKey"
+        v-model.trim="form.items.codeKey.value"
+        v-bind:formItem="form.items.codeKey"
+        label="コード値"
+      />
 
-      <div class="field">
-        <label class="label">コードエイリアス</label>
-        <div class="control">
-          <input class="input" id="codeAlias" type="text" v-model="where.codeAlias" v-on:keyup.enter="init">
-        </div>
-      </div>
+      <form-input
+        id="codeAlias"
+        v-model.trim="form.items.codeAlias.value"
+        v-bind:formItem="form.items.codeAlias"
+        label="コードエイリアス"
+      />
 
-      <div class="checkbox">
-        <label class="label">無効フラグ</label>
-        <div class="control">
-          <input id="isInvalid" type="checkbox" v-model="where.isInvalid" v-on:keyup.enter="init">
-        </div>
-      </div>
+      <form-checkbox
+        id="isInvalid"
+        type="checkbox"
+        v-model.trim="form.items.isInvalid.value"
+        v-bind:formItem="form.items.isInvalid"
+        label="無効フラグ"
+        true-value="1"
+        false-value="0"
+      />
 
       <div class="field is-grouped is-grouped-right">
-        <button id="form-submit" class="button is-link" type="submit" v-on:click.stop.prevent="init">Search</button>
+        <button id="form-submit" class="button is-link" type="submit" v-on:click.stop.prevent="search(1)">Search</button>
       </div>
     </div>
 
     <hr>
 
-    <div class="sample-result-list" v-if="totalPage">
-      <nav class="level" v-if="totalPage">
+    <div class="sample-result-list" v-if="0 < results.length">
+      <nav class="level">
         <!-- Left side -->
         <div class="level-left">
         </div>
@@ -57,10 +60,20 @@
         <!-- Right side -->
         <div class="level-right">
           <div class="control">
-            <sample-sortbox v-model="where.sort" v-on:input="search(1, where.rows)"></sample-sortbox>
+            <simple-select
+              id="sort"
+              v-model.trim="form.items.sort.value"
+              v-bind:formItem="form.items.sort"
+              v-on:input="search(1)"
+            />
           </div>
           <p class="level-item">
-            <sample-view-count v-bind:value="where.rows||defaultRows" v-on:input="where.rows=$event, search(1,$event)"></sample-view-count>
+            <simple-select
+              id="rows"
+              v-model.trim="form.items.rows.value"
+              v-bind:formItem="form.items.rows"
+              v-on:input="search(1)"
+            />
           </p>
           <p class="level-item">
             <button class="button is-primary" type="submit" v-on:click.stop.prevent="downloadList">CSV Download</button>
@@ -68,12 +81,10 @@
         </div>
       </nav>
 
-      <sample-searching v-bind:searching="searching" v-bind:noresult="noResult"></sample-searching> <!-- searching -->
-      <sample-pager v-if="existsResult" v-bind:initial-page="page" v-bind:page-count="totalPage" v-bind:click-handler="search" :resultCount="count"></sample-pager><!-- pager -->
-
+      <sample-pager v-bind:initial-page="page" v-bind:page-count="totalPage" v-bind:click-handler="search" :resultCount="count"></sample-pager><!-- pager -->
       <hr>
 
-      <table id="listview" class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" v-show="existsResult">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
         <thead>
           <tr>
             <th>#</th>
@@ -90,7 +101,7 @@
         <tbody>
           <tr v-for="(result, index) in results" v-bind:key="index">
             <td>{{index+1}}</td>
-            <td><router-link v-bind:to="'/' + namespace +  result.id">{{result.id}}</router-link></td>
+            <td><router-link v-bind:to="'/' + namespace + '/' + result.id">{{result.id}}</router-link></td>
             <td>{{result.categoryKey}}</td>
             <td>{{result.categoryName}}</td>
             <td>{{result.codeKey}}</td>
@@ -108,59 +119,45 @@
 </template>
 
 <script>
+/*
+ * 検索結果を素直に記載するVersion
+ */
 import store from '@/store'
+import is from 'is_js';
+import { CodeSearchForm } from '@/forms';
+import { codeApi } from '@/module/api';
+import { convertKeys } from '@/helpers/form';
 import csvHeader from '@/conf/csvHeader';
-import SystemParameter from '@/module/dto/SystemParameter'
-import BaseList from '@/view/base/List'
-import SingleSelectBox from '@/components/form/mixin/SingleSelectBox'
+import ListSettings from '@/conf/ListSettings';
+import BaseList from '@/view/base/List';
 
-const CodeQuery = {
-  categoryKey: null,
-  codeKey: null,
-  codeAlias: null,
-  isInvalid: null,
-}
+const CodeSortItems = [
+  {value: 'categoryKey asc, displayOrder asc', text: 'コード分類キー 昇順'},
+  {value: 'categoryKey desc, displayOrder asc', text: 'コード分類キー 降順'},
+  {value: 'categoryName asc, displayOrder asc', text: 'コード分類名 昇順'},
+  {value: 'categoryName desc, displayOrder asc', text: 'コード分類名 降順'},
+];
 
 export default {
   name: 'CodeList',
   mixins: [BaseList],
-	components: {
-    'sample-code-cagegory': {
-      mixins: [SingleSelectBox],
-      computed: {
-      targetList() { return store.state.master.codeCategory.map(row=>({
-            key: row.category_key,
-            value: row.category_name
-          }))
-        },
-      },
-    },
-    'sample-sortbox': {
-      mixins: [SingleSelectBox],
-      computed: {
-        targetList: () => [
-          {key: 'categoryKey asc, displayOrder asc', value: 'コード分類キー 昇順'},
-          {key: 'categoryKey desc, displayOrder asc', value: 'コード分類キー 降順'},
-          {key: 'categoryName asc, displayOrder asc', value: 'コード分類名 昇順'},
-          {key: 'categoryName desc, displayOrder asc', value: 'コード分類名 降順'},
-        ],
-      },
-    }
-	},
-  data: () => {
+  
+  data() {
+    const codeCategories = store.state.master.codeCategories.map(val=>convertKeys(val, ['category_key', 'value'],  ['category_name', 'text'])); //APIの返戻を整形
+    const form = new CodeSearchForm(this.$router.history.current.query, codeCategories , CodeSortItems); //dataオプションでは、mapGetters 利用不可
     return {
-      where: Object.assign({}, SystemParameter, CodeQuery),
-    }
+      form,
+    };
   },
-  mounted() {
-    console.log('start CodeList!')
-  },
+
   methods: {
+    callApi: where => codeApi.findAll(where), //<--- 個別に定義
   },
+
   computed: {
-    screenId: () => "CODE_LIST",
-    store() { return this.$store.state.code }, //OverRide
-    fileProperties: () => ['code.csv', csvHeader.CODE_LIST], //OverRIde
+    screenId: () => "CODE_LIST", //<--- 個別に定義
+    namespace: () => "code", //<--- 個別に定義
+    fileProperties: () => ['code.csv', csvHeader.CODE_LIST], //<--- 個別に定義
   },
 }
 </script>
