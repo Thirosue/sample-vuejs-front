@@ -10,7 +10,7 @@
           </h1>
         </div>
         <div class="field is-grouped is-grouped-right">
-          <router-link class="button is-link" type="submit" v-bind:to="'/staffEdit?id=' + data.id">編集</router-link>
+          <router-link class="button is-link" type="submit" v-bind:to="'/' + namespace + 'Edit?id=' + data.id">編集</router-link>
         </div>
       </div>
     </section>
@@ -18,8 +18,8 @@
       <div class="sample-detail-area">
         <table class="table is-bordered is-striped is-narrow is-fullwidth">
           <tbody>
-            <tr v-for="(result, index) in results()" v-bind:key="index" v-if="result.type!=='ignore'">
-              <th>{{result.key | decode}}</th>
+            <tr v-for="(result, index) in results()" v-bind:key="index">
+              <th>{{result.label}}</th>
               <td>{{result.value}}</td>
             </tr>
           </tbody>
@@ -32,8 +32,23 @@
 </template>
 
 <script>
-import BaseDetail from '@/view/base/Detail'
-import ViewSettings from '@/conf/ViewSettings'
+/*
+ * 表示を設定に持たせるVersion
+
+const Staff = [
+  {key: 'id', label: 'ID', orderBy: 1, ignore: true},
+  {key: 'firstName', label: '名前', orderBy: 2},
+  {key: 'lastName', label: '苗字', orderBy: 3},
+  {key: 'email', label: 'Email', orderBy: 4},
+  {key: 'tel', label: 'Tel', orderBy: 5},
+  {key: 'password', label: 'パスワード', orderBy: 6, ignore: true},
+  {key: 'version', label: '改訂番号', orderBy: 0, ignore: true},
+]
+
+ */
+import { staffApi } from '@/module/api';
+import BaseDetail from '@/view/base/Detail';
+import ViewSettings from '@/conf/ViewSettings';
 
 export default {
   name: 'StaffDetail',
@@ -42,14 +57,12 @@ export default {
     console.log('start StaffDetail!')
   },
   methods: {
+    callApi: id => staffApi.findById(id), //<--- 個別に定義
   },
   computed: {
     screenId: () => "STAFF_DETAIL",
-    store() { return this.$store.state.staff }, //OverRide
+    namespace: () => "staff", //<--- 個別に定義
     columSetting() { return ViewSettings.Staff }, //OverRide
-  },
-  filters: {
-    decode: (key) => ViewSettings.decode(key, ViewSettings.Staff)
   }
 }
 </script>

@@ -2,7 +2,7 @@ import is from 'is_js'
 import { apiHandleErr } from '@/module/errorHandler'
 import Type from '@/store/mutation-types'
 import { COMMON_MESSAGE } from '@/conf/message'
-import ViewSettings from '@/conf/ViewSettings'
+import { createView } from '@/helpers/view';
 import { Config } from '@/conf/config'
 import { isErrorPath } from '@/helpers/pathHelper'
 
@@ -39,9 +39,7 @@ export default {
                   .catch(apiHandleErr)
     },
     results() { 
-      const results = Object.keys(this.store.data)
-                              .map(key => ViewSettings.createFeed(key, this.store.data, this.columSetting))  //DecodeはFilterで実施
-      return _.orderBy(results, 'orderBy')
+      return createView(this.data, this.columSetting);
     },
     confirmClean(to, next) {
       this.$showModal(

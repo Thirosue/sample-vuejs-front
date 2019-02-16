@@ -4,6 +4,7 @@ export { RowsFormItem } from './RowsFormItem';
 export { SortFormItem } from './SortFormItem';
 export { NameFormItem } from './NameFormItem';
 export { EmailFormItem } from './EmailFormItem';
+export { TelFormItem } from './TelFormItem';
 export { CategoryFormItem } from './CategoryFormItem';
 export { TitleFormItem } from './TitleFormItem';
 export { BodyFormItem } from './BodyFormItem';

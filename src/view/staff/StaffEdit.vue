@@ -16,9 +16,9 @@
         <table class="table  is-bordered is-striped is-narrow is-fullwidth" >
           <tbody>
             <tr v-for="(result, index) in results()" v-bind:key="index" v-if="result.type!=='ignore'">
-              <th>{{result.key | decode}}</th>
+              <th>{{result.label}}</th>
               <td>
-                <sample-input :hasLabel="false" :id="result.key" :value="result.value" :type="getType(result.type)" :label="result.key | decode" :name="result.key"
+                <sample-input :hasLabel="false" :id="result.key" :value="result.value" :type="getType(result.type)" :label="result.label" :name="result.key"
                     v-on:error="setError(result.key, $event)" :min="result.min" :max="result.max" :required="result.required" :numeric="result.numeric" :func="update" />
               </td>
             </tr>
@@ -49,9 +49,6 @@ export default {
     screenId: () => "STAFF_EDIT", //OverRide
     store() { return this.$store.state.staff }, //OverRide
     columSetting() { return ViewSettings.Staff }, //OverRide
-  },
-  filters: {
-    decode: (key) => ViewSettings.decode(key, ViewSettings.Staff)
   },
 }
 </script>

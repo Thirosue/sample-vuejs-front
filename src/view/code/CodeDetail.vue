@@ -10,7 +10,7 @@
           </h1>
         </div>
         <div class="field is-grouped is-grouped-right">
-          <router-link class="button is-link" type="submit" v-bind:to="'/codeEdit?id=' + data.id">編集</router-link>
+          <router-link class="button is-link" type="submit" v-bind:to="'/' + namespace + 'Edit?id=' + data.id">編集</router-link>
         </div>
       </div>
     </section>
@@ -84,8 +84,11 @@
 </template>
 
 <script>
+/*
+ * 検索結果を素直に記載するVersion
+ */
+import { codeApi } from '@/module/api';
 import BaseDetail from '@/view/base/Detail'
-import ViewSettings from '@/conf/ViewSettings'
 
 export default {
   name: 'CodeDetail',
@@ -94,10 +97,11 @@ export default {
     console.log('start CodeDetail!')
   },
   methods: {
+    callApi: id => codeApi.findById(id), //<--- 個別に定義
   },
   computed: {
     screenId: () => "CODE_DETAIL",
-    store() { return this.$store.state.code }, //OverRide
+    namespace: () => "code", //<--- 個別に定義
   },
 }
 </script>

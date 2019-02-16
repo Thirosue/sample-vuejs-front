@@ -48,6 +48,7 @@ export default {
   },
 
   methods: {
+    callApi: where => { /* callApi */ }, //<--- 個別に定義
     search(page) {
       if(page) {
         this.form.items.page.value = page;
