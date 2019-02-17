@@ -52,11 +52,6 @@ export default {
       this.$router.push(Config.LOGOUT_PATH);
     },
   },
-  // computed: {
-  //   activeMenus() {
-  //     return this.menus.filters(menu=>this.menuCategories.include(menu.category))
-  //   }
-  // }
 }
 </script>
 

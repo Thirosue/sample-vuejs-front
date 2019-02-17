@@ -1,29 +1,30 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import store from '@/store'
-import router from '@/router'
-import { Config } from '@/conf/config'
-import { isAllowAction, checkSession } from '@/module/auth'
-import { setAccessLog } from '@/module/statistics'
+import Vue from 'vue';
+import Router from 'vue-router';
+import store from '@/store';
+import router from '@/router';
+import { Config } from '@/conf/config';
+import { isAllowAction, checkSession } from '@/module/auth';
+import { setAccessLog } from '@/module/statistics';
 import { SESSION_GETTER_TYPES } from '@/store/modules/session';
 
-import SystemError from '@/view/error/SystemError'
-import BadRequest from '@/view/error/BadRequest'
-import SessionTimeOut from '@/view/error/SessionTimeOut'
-import Index from '@/view/index/Index'
+import SystemError from '@/view/error/SystemError';
+import BadRequest from '@/view/error/BadRequest';
+import SessionTimeOut from '@/view/error/SessionTimeOut';
+import Complete from '@/view/common/Complete';
+import Index from '@/view/index/Index';
 import Login from '@/view/login/Login';
-import Logout from '@/view/login/Logout'
+import Logout from '@/view/login/Logout';
 import StaffList from '@/view/staff/StaffList';
-import StaffEdit from '@/view/staff/StaffEdit'
-import StaffDetail from '@/view/staff/StaffDetail'
-import StaffRegister from '@/view/staff/StaffRegister'
-import PasswordEdit from '@/view/system/PasswordEdit'
+import StaffEdit from '@/view/staff/StaffEdit';
+import StaffDetail from '@/view/staff/StaffDetail';
+import StaffRegister from '@/view/staff/StaffRegister';
+import PasswordEdit from '@/view/system/PasswordEdit';
 import CodeList from '@/view/code/CodeList';
-import CodeDetail from '@/view/code/CodeDetail'
-import CodeEdit from '@/view/code/CodeEdit'
-import CodeRegister from '@/view/code/CodeRegister'
+import CodeDetail from '@/view/code/CodeDetail';
+import CodeEdit from '@/view/code/CodeEdit';
+import CodeRegister from '@/view/code/CodeRegister';
 
-Vue.use(Router)
+Vue.use(Router);
 
 const StateRoot = store.state;
 
@@ -80,6 +81,11 @@ export default new Router({
       component: StaffDetail
     },
     {
+      path: '/staffEditComplete',
+      name: 'StaffEditComplete',
+      component: Complete
+    },
+    {
       path: StateRoot.staff.registerPath,
       name: 'StaffRegister',
       component: StaffRegister
@@ -103,6 +109,11 @@ export default new Router({
       path: StateRoot.code.registerPath,
       name: 'CodeRegister',
       component: CodeRegister
+    },
+    {
+      path: '/codeEditComplete',
+      name: 'CodeEditComplete',
+      component: Complete
     },
   ]
 })

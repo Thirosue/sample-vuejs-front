@@ -1,5 +1,5 @@
 import { BaseForm } from '@/lib';
-import { SearchFormItem, SortFormItem } from '@/forms/items';
+import { TextFormItem, SortFormItem } from '@/forms/items';
 import { set } from '@/helpers/list';
 import { getSortList } from '@/helpers/sort';
 import ListSettings from '@/conf/ListSettings';
@@ -15,10 +15,10 @@ export class StaffSearchForm extends BaseForm {
     sort = '',
   } = {}) {
     super();
-    this.addItem('firstName', new SearchFormItem(firstName));
-    this.addItem('lastName', new SearchFormItem(lastName));
-    this.addItem('email', new SearchFormItem(email));
-    this.addItem('tel', new SearchFormItem(tel));
+    this.addItem('firstName', new TextFormItem(firstName));
+    this.addItem('lastName', new TextFormItem(lastName));
+    this.addItem('email', new TextFormItem(email));
+    this.addItem('tel', new TextFormItem(tel));
 
     //for list search
     set(this, rows, page);

@@ -12,6 +12,7 @@
         }"
         v-on:input="handleInput"
         v-on:blur="handleBlur"
+        :checked="value"
       >
     </div>
     <article v-show="showError" class="message is-danger">

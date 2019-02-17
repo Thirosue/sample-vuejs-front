@@ -1,14 +1,32 @@
 import is from 'is_js'
+import store from '@/store';
+import router from '@/router';
 import { sleep } from '@/helpers/timerHelper'
-import Modal from '@/components/Modal'
-import Toast from '@/components/Toast'
-import Application from '@/view/base/Application'
+import Modal from '@/components/Modal';
+import Toast from '@/components/Toast';
+import Application from '@/view/base/Application';
+import { authApi } from '@/module/api';
+import { Config } from '@/conf/config';
+import { SESSION_MUTATION_TYPES } from '@/store/modules/session';
+import { MASTER_MUTATION_TYPES } from '@/store/modules/master';
 
 export default {
     install: (Vue) => {
       Vue.mixin({
         mixins: [Application]
       })
+
+      Vue.prototype.$logout = () => {
+        console.log('logouted...');
+        authApi.logout()
+                    .finally(()=>{
+                      store.commit(SESSION_MUTATION_TYPES.CLEAR_VALUES);
+                      store.commit(MASTER_MUTATION_TYPES.CLEAR_VALUES);
+                      document.cookie = Config.COOKIE_ID + "; max-age=0";
+                      router.push(Config.LOGIN_PATH);
+                   });
+      };
+
       Vue.prototype.$showToast = async (content, info = 'info', position = 'bottom', duration = 2000) => {
         const toast = Vue.extend(Toast)
         const toastBottoms = Array.from(document.querySelectorAll('.toast')).map(node=>node.getBoundingClientRect()).map(rect=>rect.top + rect.height)
@@ -28,7 +46,7 @@ export default {
         component.$el.classList.add('fadeout')
         await sleep(1500)
         component.$el.remove()
-      }
+      };
 
       Vue.prototype.$showModal = (content, title = undefined, submitCallBack = () => {}, cancelCallBack = () => {}) => {
         const modal = Vue.extend(Modal)
@@ -41,7 +59,7 @@ export default {
           },
         }).$mount()
         document.querySelector("#app").appendChild(component.$el)
-      }
+      };
     }
   }
   

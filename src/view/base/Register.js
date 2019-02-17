@@ -1,44 +1,13 @@
-import is from 'is_js'
-import { apiHandleErr } from '@/module/errorHandler'
-import Type from '@/store/mutation-types'
-import { COMMON_MESSAGE } from '@/conf/message'
-import { Config } from '@/conf/config'
-import { isErrorPath } from '@/helpers/pathHelper'
+import { apiHandleErr } from '@/module/errorHandler';
+import Type from '@/store/mutation-types';
+import BaseUpdate from '@/view/base/Update';
 
 export default {
-  beforeRouteLeave (to, from, next) {
-    //更新完了、エラーの場合は、確認ダイアログスキップ
-    if( !this.store.updated && !isErrorPath(to.path)){
-      this.confirmClean(to, next)
-    } else {
-      next()
-    }
-  },
-  data: () => {
-    return {
-    }
-  },
-  created () {
-    document.cookie = Config.FUNCTION_ID + this.screenId
-  },
+  mixins: [BaseUpdate],
+
   methods: {
     doValidate() { return true }, //<--- 個別バリデーション
     customizeData(data) {}, //<--- 必要に応じ個別実装
-    confirmClean(to, next) {
-      this.$showModal(
-        COMMON_MESSAGE.CLEAR_CONFIRM, 
-        undefined, 
-        ()=>{
-          this.$store.commit(this.namespace + Type.UNSET_ALL)
-          if(to.path === Config.LOGOUT_PATH) {
-            //編集画面の場合は、確認ダイアログを経てログアウト
-            this.$logout()
-          }
-          next()
-        },
-        ()=>{/*cancel*/}
-      )
-    },
     async create() {
       const checkResult = await this.doValidate()
       if(this.existsEmptyNode() || !checkResult || this.hasError) return  //Validateはmixinされる前提
@@ -65,6 +34,7 @@ export default {
     },
     getType: (type) => type ? type : 'text',
   },
+
   computed: {
     type: () => 'update',
     screenId: () => null, //<--- 個別に定義
@@ -72,5 +42,6 @@ export default {
     columSetting() { return null }, //<--- 個別に定義
     namespace() { return this.store.namespace },
     columns() { return _.orderBy(this.columSetting, 'orderBy') },
+    completePath() { return '/' + this.namespace + 'RegisterComplete' },
   }, 
 }

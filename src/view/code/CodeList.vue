@@ -60,7 +60,7 @@
         <!-- Right side -->
         <div class="level-right">
           <div class="control">
-            <simple-select
+            <form-select
               id="sort"
               v-model.trim="form.items.sort.value"
               v-bind:formItem="form.items.sort"
@@ -68,7 +68,7 @@
             />
           </div>
           <p class="level-item">
-            <simple-select
+            <form-select
               id="rows"
               v-model.trim="form.items.rows.value"
               v-bind:formItem="form.items.rows"
@@ -122,7 +122,7 @@
 /*
  * 検索結果を素直に記載するVersion
  */
-import store from '@/store'
+import store from '@/store';
 import is from 'is_js';
 import { CodeSearchForm } from '@/forms';
 import { codeApi } from '@/module/api';

@@ -5,7 +5,8 @@
 <script>
 export default {
   created () {
-    this.$logout();
+    const to = this.$router.history.current.query.to;
+    this.$router.push(to);
   }
 }
 </script>

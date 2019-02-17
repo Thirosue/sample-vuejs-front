@@ -11,7 +11,7 @@ const createInitialStates = () => {
 export const formItemMixin = {
   props: {
     value: {
-      type: String,
+      //type: String,
       required: true,
     },
     id: {

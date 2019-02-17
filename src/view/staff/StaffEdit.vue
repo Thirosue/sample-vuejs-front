@@ -10,22 +10,67 @@
       </div>
     </div>
   </section>
-  <div class="container is-fullhd">
+  <div class="container is-fullhd" v-if="form">
     <div class="container is-fullhd">
       <div class="sample-detail-area">
         <table class="table  is-bordered is-striped is-narrow is-fullwidth" >
           <tbody>
-            <tr v-for="(result, index) in results()" v-bind:key="index" v-if="result.type!=='ignore'">
-              <th>{{result.label}}</th>
+            <tr>
+              <th>苗字</th>
               <td>
-                <sample-input :hasLabel="false" :id="result.key" :value="result.value" :type="getType(result.type)" :label="result.label" :name="result.key"
-                    v-on:error="setError(result.key, $event)" :min="result.min" :max="result.max" :required="result.required" :numeric="result.numeric" :func="update" />
+                <form-input
+                  id="lastName"
+                  v-model.trim="form.items.lastName.value"
+                  v-bind:formItem="form.items.lastName"
+                  v-bind:maxlength="form.items.lastName.maxlength"
+                  dirty
+                  touched
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>名前</th>
+              <td>
+                <form-input
+                  id="firstName"
+                  v-model.trim="form.items.firstName.value"
+                  v-bind:formItem="form.items.firstName"
+                  v-bind:maxlength="form.items.firstName.maxlength"
+                  dirty
+                  touched
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td>
+                <form-input
+                  id="email"
+                  v-model.trim="form.items.email.value"
+                  v-bind:formItem="form.items.email"
+                  v-bind:maxlength="form.items.email.maxlength"
+                  type="email"
+                  dirty
+                  touched
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>Tel</th>
+              <td>
+                <form-input
+                  id="tel"
+                  v-model.trim="form.items.tel.value"
+                  v-bind:formItem="form.items.tel"
+                  dirty
+                  touched
+                />
               </td>
             </tr>
           </tbody>
         </table>
         <div class="field is-grouped is-grouped-centered">
-          <button id="form-submit" class="button is-link" type="submit" v-disable="hasError" v-on:click.stop.prevent="update">更新</button>
+          <button id="form-submit" class="button is-link" type="submit" :disabled="form.invalid" v-on:click.stop.prevent="update">更新</button>
         </div>
       </div>
     </div>
@@ -35,20 +80,38 @@
 </template>
 
 <script>
-import BaseEdit from '@/view/base/Edit'
-import BaseValidate from '@/view/base/Validate'
-import ViewSettings from '@/conf/ViewSettings'
+import _ from 'lodash';
+import { staffApi } from '@/module/api';
+import { apiHandleErr } from '@/module/errorHandler';
+import BaseEdit from '@/view/base/Edit';
+import { StaffUpdateForm } from '@/forms';
 
 export default {
   name: 'StaffEdit',
-  mixins: [BaseEdit,BaseValidate],
+  mixins: [BaseEdit],
+
+  data() {
+    const form = new StaffUpdateForm();
+    return {
+      form,
+    };
+  },
+
   mounted() {
     console.log('start StaffEdit!')
   },
+
+  methods: {
+    callUpdate: data => staffApi.update(data),//OverRide
+    async initForm(id) {
+      const response = await staffApi.findById(id).catch(apiHandleErr);
+      this.form = new StaffUpdateForm(_.head(response.data));
+    },
+  },
+
   computed: {
     screenId: () => "STAFF_EDIT", //OverRide
-    store() { return this.$store.state.staff }, //OverRide
-    columSetting() { return ViewSettings.Staff }, //OverRide
+    namespace: () => "staff", //OverRide
   },
 }
 </script>

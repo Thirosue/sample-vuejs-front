@@ -23,3 +23,12 @@ export const isExpectLength = (value, { max = Infinity, min = 0 } = {}) => {
   }
   return true;
 };
+
+export const isInteger = value => {
+  const num = Number(value);
+  return is.integer(num) && -2147483648 <= num && num <= 2147483647;
+};
+
+export const isFlag = value => {
+  return ['0','1'].includes(value);
+};

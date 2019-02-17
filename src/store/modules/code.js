@@ -1,5 +1,4 @@
 import { codeApi } from '@/module/api'
-import { setResult } from '@/helpers/apiHelper'
 import Type from '@/store/mutation-types'
 
 //利用するAPIを定義
@@ -82,18 +81,10 @@ const code = {
   },
   actions: {
     async [Type.FIND_ALL] ({ dispatch, commit }, where) {
-      dispatch(Type.UNSET_LIST)
-      dispatch(Type.SET_SEARCH_START)
-      let response = await findAll(where)
-      setResult(dispatch, response)
-      dispatch(Type.SET_SEARCH_END)
+      //
     },
     async [Type.FIND_BY_ID] ({ dispatch, commit }, id) {
-      dispatch(Type.UNSET_LIST)
-      dispatch(Type.SET_SEARCH_START)
-      let response = await findById(id)
-      commit(Type.SET_DATA, { data : response.data[0] })
-      dispatch(Type.SET_SEARCH_END)
+      //
     },
     async [Type.UPDATE] ({ dispatch }, data) {
       dispatch(Type.POST_START)
