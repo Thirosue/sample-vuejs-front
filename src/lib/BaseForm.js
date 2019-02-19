@@ -1,3 +1,4 @@
+import is from 'is_js';
 import _ from 'lodash';
 import { BaseFormItem } from './BaseFormItem';
 
@@ -74,7 +75,7 @@ export class BaseForm {
 
   notNullValues() {
     return Object.entries(this.values())
-                    .filter(([name, val]) => val) //nullを除去
+                    .filter(([name, val]) => !is.empty(val) && !is.null(val)) //空文字を除去
                     .reduce(
                       (o, [name, val]) => ({...o, [name]: val}),
                       {}

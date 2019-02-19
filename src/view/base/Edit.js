@@ -3,6 +3,7 @@ import { apiHandleErr } from '@/module/errorHandler';
 import { Config } from '@/conf/config';
 import BaseUpdate from '@/view/base/Update';
 import { FORM_GETTER_TYPES, FORM_MUTATION_TYPES } from '@/store/modules/form';
+import { PATH_LIST } from '@/helpers/path';
 
 export default {
   mixins: [BaseUpdate],
@@ -20,7 +21,7 @@ export default {
   methods: {
     initForm: id => { /* callApi */ }, //<--- 個別に定義
     callUpdate: id => { /* callApi */ }, //<--- 個別に定義
-    async update() {
+    update() {
       this.callUpdate(this.form.values())
                     .then(() => this.$router.push({path: this.completePath, query: { to: this.listPath } }))
                     .catch(apiHandleErr)
@@ -32,6 +33,6 @@ export default {
     screenId: () => null, //<--- 個別に定義
     namespace: () => null, //<--- 個別に定義
     columSetting() { return null }, //<--- 個別に定義
-    completePath() { return '/' + this.namespace + 'EditComplete' },
+    completePath() { return '/' + this.namespace + PATH_LIST.EDIT_COMPLETE },
   },
 }

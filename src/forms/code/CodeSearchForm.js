@@ -1,5 +1,5 @@
 import { BaseForm } from '@/lib';
-import { TextFormItem, SearchSelectFormItem, SortFormItem, FlagFormItem } from '@/forms/items';
+import { TextFormItem, SelectFormItem, SortFormItem, FlagFormItem } from '@/forms/items';
 import { set } from '@/helpers/list';
 
 export class CodeSearchForm extends BaseForm {
@@ -22,7 +22,7 @@ export class CodeSearchForm extends BaseForm {
     };
 
     super();
-    this.addItem('categoryKey', new SearchSelectFormItem(categoryKey, codeCategories));
+    this.addItem('categoryKey', new SelectFormItem(categoryKey, codeCategories, false));
     this.addItem('codeKey', new TextFormItem(codeKey));
     this.addItem('codeAlias', new TextFormItem(codeAlias));
     this.addItem('isInvalid', new FlagFormItem(isInvalid));

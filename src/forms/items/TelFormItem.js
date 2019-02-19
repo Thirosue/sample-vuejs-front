@@ -9,11 +9,11 @@ export class TelFormItem extends BaseFormItem {
   }
 
   _addValidators() {
-    this.addValidator({
-      message: '入力が必須の項目です',
-      validator: this._isEmptyValidator,
-      stop: true,
-    });
+    //this.addValidator({
+    //  message: '入力が必須の項目です',
+    //  validator: this._isEmptyValidator,
+    //  stop: true,
+    //});
 
     this.addValidator({
       message: '電話番号を入力してください',

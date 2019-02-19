@@ -6,6 +6,7 @@ import { Config } from '@/conf/config';
 import { isAllowAction, checkSession } from '@/module/auth';
 import { setAccessLog } from '@/module/statistics';
 import { SESSION_GETTER_TYPES } from '@/store/modules/session';
+import { buildPath } from '@/helpers/path';
 
 import SystemError from '@/view/error/SystemError';
 import BadRequest from '@/view/error/BadRequest';
@@ -27,6 +28,13 @@ import CodeRegister from '@/view/code/CodeRegister';
 Vue.use(Router);
 
 const StateRoot = store.state;
+
+/* namespace */
+const NAMESPACE_STAFF = 'staff';
+const NAMESPACE_CODE = 'code';
+
+const STAFF = buildPath(NAMESPACE_STAFF);
+const CODE = buildPath(NAMESPACE_CODE);
 
 export default new Router({
   routes: [
@@ -66,53 +74,63 @@ export default new Router({
       component: PasswordEdit
     },
     {
-      path: StateRoot.staff.listPath,
+      path: STAFF.LIST,
       name: 'StaffList',
       component: StaffList
     },
     {
-      path: StateRoot.staff.editPath,
-      name: 'StaffEdit',
-      component: StaffEdit
-    },
-    {
-      path: StateRoot.staff.detailPath + "/:id",
+      path: STAFF.DETAIL + "/:id",
       name: 'StaffDetail',
       component: StaffDetail
     },
     {
-      path: '/staffEditComplete',
+      path: STAFF.EDIT,
+      name: 'StaffEdit',
+      component: StaffEdit
+    },
+    {
+      path: STAFF.EDIT_COMPLETE,
       name: 'StaffEditComplete',
       component: Complete
     },
     {
-      path: StateRoot.staff.registerPath,
+      path: STAFF.REGISTER,
       name: 'StaffRegister',
       component: StaffRegister
     },
     {
-      path: StateRoot.code.listPath,
+      path: STAFF.REGISTER_COMPLETE,
+      name: 'StaffRegisterComplete',
+      component: Complete
+    },
+    {
+      path: CODE.LIST,
       name: 'CodeList',
       component: CodeList
     },
     {
-      path: StateRoot.code.detailPath + "/:id",
+      path: CODE.DETAIL + "/:id",
       name: 'CodeDetail',
       component: CodeDetail
     },
     {
-      path: StateRoot.code.editPath,
+      path: CODE.EDIT,
       name: 'CodeEdit',
       component: CodeEdit
     },
     {
-      path: StateRoot.code.registerPath,
+      path: CODE.EDIT_COMPLETE,
+      name: 'CodeEditComplete',
+      component: Complete
+    },
+    {
+      path: CODE.REGISTER,
       name: 'CodeRegister',
       component: CodeRegister
     },
     {
-      path: '/codeEditComplete',
-      name: 'CodeEditComplete',
+      path: CODE.REGISTER_COMPLETE,
+      name: 'CodeRegisterComplete',
       component: Complete
     },
   ]

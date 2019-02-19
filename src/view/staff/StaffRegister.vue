@@ -15,38 +15,94 @@
       <div class="sample-detail-area">
         <table class="table is-bordered is-striped is-narrow is-fullwidth" >
           <tbody>
-            <tr v-for="(result, index) in columns" v-bind:key="index" v-if="result.type!=='ignore'">
-              <th>{{result.key | decode}}</th>
+            <tr>
+              <th>苗字</th>
               <td>
-                <div class="control">
-                  <sample-input :hasLabel="false" :id="result.key" :type="getType(result.type)" :label="result.key | decode" :name="result.key"
-                    v-on:error="setError(result.key, $event)" :min="result.min" :max="result.max" :required="result.required" :numeric="result.numeric" />
-                </div>
+                <form-input
+                  id="lastName"
+                  v-model.trim="form.items.lastName.value"
+                  v-bind:formItem="form.items.lastName"
+                  v-bind:maxlength="form.items.lastName.maxlength"
+                  autocomplete="off"
+                  dirty
+                  touched
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>名前</th>
+              <td>
+                <form-input
+                  id="firstName"
+                  v-model.trim="form.items.firstName.value"
+                  v-bind:formItem="form.items.firstName"
+                  v-bind:maxlength="form.items.firstName.maxlength"
+                  autocomplete="off"
+                  dirty
+                  touched
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td>
+                <form-input
+                  id="email"
+                  v-model.trim="form.items.email.value"
+                  v-bind:formItem="form.items.email"
+                  v-bind:maxlength="form.items.email.maxlength"
+                  type="email"
+                  autocomplete="off"
+                  dirty
+                  touched
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>Tel</th>
+              <td>
+                <form-input
+                  id="tel"
+                  v-model.trim="form.items.tel.value"
+                  v-bind:formItem="form.items.tel"
+                  autocomplete="off"
+                  dirty
+                  touched
+                />
               </td>
             </tr>
             <tr>
               <th>パスワード</th>
               <td>
-                <sample-input id="password" type="password" label="パスワード" name="password" :hasLabel="false"
-                    :required="true" v-on:error="setError('password', $event)" />
+                <form-input
+                  id="password"
+                  v-model.trim="form.items.password.value"
+                  v-bind:formItem="form.items.password"
+                  type="password"
+                  autocomplete="off"
+                  dirty
+                  touched
+                />
               </td>
             </tr>
             <tr>
               <th>パスワード（確認用）</th>
               <td>
-                <sample-input id="password2" type="password" label="パスワード（確認用）" name="password2" :hasLabel="false"
-                    :required="true" v-on:error="setError('password2', $event)" />
+                <form-input
+                  id="passwordConfirm"
+                  v-model.trim="form.items.passwordConfirm.value"
+                  v-bind:formItem="form.items.passwordConfirm"
+                  type="password"
+                  autocomplete="off"
+                  dirty
+                  touched
+                />
               </td>
             </tr>
           </tbody>
         </table>
-        <!--コンポーネント初期化直後、errors.has()が動作しない-->
-        <!--<div v-if="errors.has('passwordRelationCheck')" class="notification is-danger">-->
-        <div v-if="passwordRelationCheckMsg" class="notification is-danger">
-          {{ passwordRelationCheckMsg.msg }}
-        </div>
         <div class="field is-grouped is-grouped-centered">
-          <button id="form-submit" class="button is-link" type="submit" v-disable="hasError" v-on:click.stop.prevent="create">登録</button>
+          <button id="form-submit" class="button is-link" type="submit" :disabled="form.invalid" v-on:click.stop.prevent="create">登録</button>
         </div>
       </div>
     </div>
@@ -56,49 +112,34 @@
 </template>
 
 <script>
-import BaseRegister from '@/view/base/Register'
-import BaseValidate from '@/view/base/Validate'
-import ViewSettings from '@/conf/ViewSettings'
-import Message from '@/conf/message'
-
-const PASSWORD_RELATION_CHECK = 'passwordRelationCheck'
+import _ from 'lodash';
+import { staffApi } from '@/module/api';
+import { apiHandleErr } from '@/module/errorHandler';
+import BaseRegister from '@/view/base/Register';
+import { StaffRegisterForm } from '@/forms';
 
 export default {
   name: 'StaffRegister',
-  mixins: [BaseRegister,BaseValidate],
-  data: () => {
+  mixins: [BaseRegister],
+
+  data() {
+    const form = new StaffRegisterForm();
     return {
-    }
+      form,
+    };
   },
-  created() {
+
+  mounted() {
     console.log('start StaffRegister!')
-    this.$validator.attach({ 
-      name: PASSWORD_RELATION_CHECK,
-      alias: '2つのパスワード',
-      rules: 'sameValue'});
   },
-  beforeDestroy() {
-    this.$validator.detach({name: PASSWORD_RELATION_CHECK})
-  },
+
   methods: {
-    async doValidate() {
-      const password = document.querySelector("[data-key='password']").value
-      const password2 = document.querySelector("[data-key='password2']").value
-      const checkResult = await this.$validator.validate(PASSWORD_RELATION_CHECK, {item1: password, item2: password2})
-      return checkResult
-    },
-    customizeData(modifiedData) {
-      modifiedData['password'] = document.querySelector("[data-key='password']").value
-    },
+    callApi: data => staffApi.create(data),//OverRide
   },
+
   computed: {
     screenId: () => "STAFF_REGISTER", //OverRide
-    store() { return this.$store.state.staff }, //OverRide
-    columSetting() { return ViewSettings.Staff }, //OverRide
-    passwordRelationCheckMsg() { return this.errors.items.find(err=>err.field === PASSWORD_RELATION_CHECK) },
-  },
-  filters: {
-    decode: (key) => ViewSettings.decode(key, ViewSettings.Staff)
+    namespace: () => "staff", //OverRide
   },
 }
 </script>

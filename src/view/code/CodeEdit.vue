@@ -21,11 +21,11 @@
             </tr>
             <tr>
               <th>コード分類キー</th>
-              <td>{{form.items.categoryKey.value}}</td>
+              <td>{{form.items.categoryKeyText.value}}</td>
             </tr>
             <tr>
               <th>コード分類名</th>
-              <td>{{form.items.categoryName.value}}</td>
+              <td>{{form.items.categoryNameText.value}}</td>
             </tr>
             <tr>
               <th>コードキー</th>
@@ -179,7 +179,7 @@ import BaseEdit from '@/view/base/Edit';
 import { CodeUpdateForm } from '@/forms';
 
 export default {
-  name: 'StaffEdit',
+  name: 'CodeEdit',
   mixins: [BaseEdit],
 
   data() {

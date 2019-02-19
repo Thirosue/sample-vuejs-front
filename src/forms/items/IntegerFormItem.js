@@ -3,7 +3,7 @@ import { isEmptyString, isInteger } from '@/helpers/validators';
 
 export class IntegerFormItem extends BaseFormItem {
   constructor(value = null, required = false) {
-    super(Number(value));
+    super(value ? Number(value) : null);
     this.required = required;
 
     this._addValidators();

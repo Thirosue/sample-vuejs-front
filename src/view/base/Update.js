@@ -2,6 +2,7 @@ import { COMMON_MESSAGE } from '@/conf/message';
 import { Config } from '@/conf/config';
 import { isErrorPath } from '@/helpers/pathHelper';
 import { FormInput, FormSelect, FormCheckbox } from '@/components/form';
+import { PATH_LIST } from '@/helpers/path';
 
 export default {
   components: {
@@ -43,7 +44,7 @@ export default {
 
   computed: {
     namespace: () => null, //<--- 個別に定義
-    listPath() { return '/' + this.namespace + 'List' },
+    listPath() { return '/' + this.namespace + PATH_LIST.LIST },
     completePath: () => null, //<--- 個別に定義
   },
 }

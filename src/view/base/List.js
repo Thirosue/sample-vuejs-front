@@ -6,6 +6,7 @@ import { apiHandleErr } from '@/module/errorHandler';
 import { Config } from '@/conf/config';
 import { COMMON_MESSAGE } from '@/conf/message';
 import { FORM_MUTATION_TYPES } from '@/store/modules/form';
+import { PATH_LIST } from '@/helpers/path';
 
 export default {
   components: {
@@ -77,7 +78,7 @@ export default {
     namespace: () => null, //<--- 個別に定義
     fileProperties: () => ['ファイル名記載', 'ファイルヘッダ定義設定'], //<--- 個別に定義
     columSetting: () => null, //<--- 個別に定義
-    updateScreenId() { return ['EditComplete', 'RegisterComplete'].map(str => '/' + this.namespace + str) },
+    updateScreenId() { return [PATH_LIST.EDIT_COMPLETE, PATH_LIST.REGISTER_COMPLETE].map(str => '/' + this.namespace + str) },
     where() { return this.form.notNullValues() },
     labels() { return _.orderBy(this.columSetting, 'order').map(row=>row.value) },
     resultKeys() { return _.orderBy(this.columSetting, 'order').map(row=>row.key) },

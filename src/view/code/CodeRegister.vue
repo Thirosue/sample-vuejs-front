@@ -18,86 +18,159 @@
             <tr>
               <th>コード分類キー</th>
               <td>
+                <form-select
+                  id="codeCategoryId"
+                  v-model.trim="form.items.codeCategoryId.value"
+                  v-bind:formItem="form.items.codeCategoryId"
+                  touched
+                />
               </td>
             </tr>
             <tr>
               <th>コードキー</th>
               <td>
-                <sample-input :hasLabel="false" id="codeKey" v-model="editData.codeKey" type="text" label="コードキー" name="codeKey"
-                    v-on:error="setError('codeKey', $event)" :max="50" :required="true" />
+                <form-input
+                  id="codeKey"
+                  v-model.trim="form.items.codeKey.value"
+                  v-bind:formItem="form.items.codeKey"
+                  v-bind:maxlength="form.items.codeValue.maxlength"
+                  dirty
+                  touched
+                />
               </td>
             </tr>
             <tr>
               <th>コード値</th>
               <td>
-                <sample-input :hasLabel="false" id="codeValue" v-model="editData.codeValue" type="text" label="コード値" name="codeValue"
-                    v-on:error="setError('codeValue', $event)" :max="100" :required="true" />
+                <form-input
+                  id="codeValue"
+                  v-model.trim="form.items.codeValue.value"
+                  v-bind:formItem="form.items.codeValue"
+                  v-bind:maxlength="form.items.codeValue.maxlength"
+                  dirty
+                  touched
+                />
               </td>
             </tr>
             <tr>
               <th>コードエイリアス</th>
               <td>
-                <sample-input :hasLabel="false" id="codeAlias" v-model="editData.codeAlias" type="text" label="コードエイリアス" name="codeAlias"
-                    v-on:error="setError('codeAlias', $event)" :max="100" :required="false" />
+                <form-input
+                  id="codeAlias"
+                  v-model.trim="form.items.codeAlias.value"
+                  v-bind:formItem="form.items.codeAlias"
+                  v-bind:maxlength="form.items.codeAlias.maxlength"
+                  dirty
+                  touched
+                />
               </td>
             </tr>
             <tr>
               <th>属性1</th>
               <td>
-                <sample-input :hasLabel="false" id="attribute1" v-model="editData.attribute1" type="text" label="属性1" name="attribute1"
-                    v-on:error="setError('attribute1', $event)" :max="2" :required="false" />
+                <form-input
+                  id="attribute1"
+                  v-model.trim="form.items.attribute1.value"
+                  v-bind:formItem="form.items.attribute1"
+                  v-bind:maxlength="form.items.attribute1.maxlength"
+                  dirty
+                  touched
+                />
               </td>
             </tr>
             <tr>
               <th>属性2</th>
               <td>
-                <sample-input :hasLabel="false" id="attribute2" v-model="editData.attribute2" type="text" label="属性2" name="attribute2"
-                    v-on:error="setError('attribute2', $event)" :max="2" :required="false" />
+                <form-input
+                  id="attribute2"
+                  v-model.trim="form.items.attribute2.value"
+                  v-bind:formItem="form.items.attribute2"
+                  v-bind:maxlength="form.items.attribute2.maxlength"
+                  dirty
+                  touched
+                />
               </td>
             </tr>
             <tr>
               <th>属性3</th>
               <td>
-                <sample-input :hasLabel="false" id="attribute3" v-model="editData.attribute3" type="text" label="属性3" name="attribute3"
-                    v-on:error="setError('attribute3', $event)" :max="2" :required="false" />
+                <form-input
+                  id="attribute3"
+                  v-model.trim="form.items.attribute3.value"
+                  v-bind:formItem="form.items.attribute3"
+                  v-bind:maxlength="form.items.attribute3.maxlength"
+                  dirty
+                  touched
+                />
               </td>
             </tr>
             <tr>
               <th>属性4</th>
               <td>
-                <sample-input :hasLabel="false" id="attribute4" v-model="editData.attribute4" type="text" label="属性4" name="attribute4"
-                    v-on:error="setError('attribute4', $event)" :max="2" :required="false" />
+                <form-input
+                  id="attribute4"
+                  v-model.trim="form.items.attribute4.value"
+                  v-bind:formItem="form.items.attribute4"
+                  v-bind:maxlength="form.items.attribute4.maxlength"
+                  dirty
+                  touched
+                />
               </td>
             </tr>
             <tr>
               <th>属性5</th>
               <td>
-                <sample-input :hasLabel="false" id="attribute5" v-model="editData.attribute5" type="text" label="属性5" name="attribute5"
-                    v-on:error="setError('attribute5', $event)" :max="2" :required="false" />
+                <form-input
+                  id="attribute5"
+                  v-model.trim="form.items.attribute5.value"
+                  v-bind:formItem="form.items.attribute5"
+                  v-bind:maxlength="form.items.attribute5.maxlength"
+                  dirty
+                  touched
+                />
               </td>
             </tr>
             <tr>
               <th>属性6</th>
               <td>
-                <sample-input :hasLabel="false" id="attribute6" v-model="editData.attribute6" type="text" label="属性6" name="attribute6"
-                    v-on:error="setError('attribute6', $event)" :max="2" :required="false" />
+                <form-input
+                  id="attribute6"
+                  v-model.trim="form.items.attribute6.value"
+                  v-bind:formItem="form.items.attribute6"
+                  v-bind:maxlength="form.items.attribute6.maxlength"
+                  dirty
+                  touched
+                />
               </td>
             </tr>
             <tr>
               <th>表示順</th>
               <td>
-                <sample-input :hasLabel="false" id="displayOrder" v-model="editData.displayOrder" type="text" label="表示順" name="displayOrder"
-                    v-on:error="setError('displayOrder', $event)" :required="true" :numeric="true" />
+                <form-input
+                  id="displayOrder"
+                  v-model.trim="form.items.displayOrder.value"
+                  v-bind:formItem="form.items.displayOrder"
+                  type="number"
+                  dirty
+                  touched
+                />
               </td>
             </tr>
             <tr>
               <th>無効フラグ</th>
-              <td><input type="checkbox" v-model="editData.isInvalid"></td>
+              <td>
+                <form-checkbox
+                  id="isInvalid"
+                  v-model.trim="form.items.isInvalid.value"
+                  v-bind:formItem="form.items.isInvalid"
+                  type="checkbox"
+                />
+              </td>
             </tr>
           </tbody>
         </table>
         <div class="field is-grouped is-grouped-centered">
-          <button id="form-submit" class="button is-link" type="submit" v-disabled="submitTrigger" v-on:click.stop.prevent="create">登録</button>
+          <button id="form-submit" class="button is-link" type="submit" :disabled="form.invalid" v-on:click.stop.prevent="create">登録</button>
         </div>
       </div>
     </div>
@@ -107,69 +180,38 @@
 </template>
 
 <script>
-import store from '@/store'
-import BaseRegister from '@/view/base/Register'
-import BaseValidate from '@/view/base/Validate'
-import ViewSettings from '@/conf/ViewSettings'
-import Message from '@/conf/message'
+import store from '@/store';
+import _ from 'lodash';
+import BaseRegister from '@/view/base/Register';
+import { codeApi } from '@/module/api';
+import { apiHandleErr } from '@/module/errorHandler';
+import { convertKeys } from '@/helpers/form';
+import { CodeUpdateForm } from '@/forms';
 
 export default {
-  name: 'StaffRegister',
-  mixins: [BaseRegister,BaseValidate],
-  directives: {
-    disabled: {
-      deep: true,
-      bind: (el, binding, vnode) => {
-        el.disabled = true
-        el.style.opacity = 0.5 //TODO disableが有効にならないための暫定対応
-      },
-      update: (el, binding, vnode) => {
-        el.style.opacity = null
-        if(binding.value.existsEmptyNode() || binding.value.hasError) {
-          el.disabled = true
-        } else {
-          el.disabled = false
-        }
-      }
-    },
-  },
-  data: () => {
-    return {
-      editData: {
-        codeCategoryId: 1,
-        codeKey: null,
-        codeValue: null,
-        codeAlias: null,
-        attribute1: null,
-        attribute2: null,
-        attribute3: null,
-        attribute4: null,
-        attribute5: null,
-        attribute6: null,
-        displayOrder: null,
-        isInvalid: false,
-      }
-    }
-  },
-  mounted() {
-    console.log('start StaffRegister!')
-  },
-  methods: {
-    async create() {
-      if(this.existsEmptyNode() || this.hasError) return 
+  name: 'CodeRegister',
+  mixins: [BaseRegister],
 
-      this.doRegist(this.editData)
-    },
+  data() {
+    const codeCategories = store.state.master.codeCategories.map(val=>convertKeys(val, ['id', 'value'],  ['category_name', 'text'])); //APIの返戻を整形
+    const form = new CodeUpdateForm({}, codeCategories);
+    console.log(form);
+    return {
+      form,
+    };
   },
+
+  mounted() {
+    console.log('start CodeRegister!')
+  },
+
+  methods: {
+    callApi: data => codeApi.create(data),//OverRide
+  },
+
   computed: {
     screenId: () => "CODE_REGISTER", //OverRide
-    store() { return this.$store.state.code }, //OverRide
-    submitTrigger() {
-      return {
-        existsEmptyNode: this.existsEmptyNode,
-        hasError: this.hasError
-      }
-    }
+    namespace: () => "code", //OverRide
   },
 }
 </script>

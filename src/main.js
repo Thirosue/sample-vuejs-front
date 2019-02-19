@@ -8,14 +8,6 @@ import store from '@/store'
 
 Vue.config.productionTip = false
 
-// for validate
-import VeeValidate, { Validator } from 'vee-validate'
-import ja from 'vee-validate/dist/locale/ja'
-import validMessage from '@/module/validate'
-Validator.localize('ja', ja);
-//デフォルトメッセージを上書き
-Vue.use(VeeValidate, validMessage.validMessage)
-
 // add plugin for global
 import MyApplicationPlugin from '@/module/plugin/application'
 Vue.use(MyApplicationPlugin)
@@ -47,10 +39,6 @@ Vue.component('sample-navbar', NavBar)
 Vue.component('sample-footer', Footer)
 Vue.component('sample-pager', Pager)
 Vue.component('sample-searching', Searching)
-
-import InputField from '@/components/form/InputField'
-
-Vue.component('sample-input', InputField)
 
 /* eslint-disable no-new */
 new Vue({
