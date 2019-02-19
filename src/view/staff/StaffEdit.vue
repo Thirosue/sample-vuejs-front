@@ -102,10 +102,11 @@ export default {
   },
 
   methods: {
+    callFindById: id => staffApi.findById(id),//OverRide
     callUpdate: data => staffApi.update(data),//OverRide
     async initForm(id) {
-      const response = await staffApi.findById(id).catch(apiHandleErr);
-      this.form = new StaffUpdateForm(_.head(response.data));
+      const data = await this.getData(id);
+      this.form = new StaffUpdateForm(data);
     },
   },
 

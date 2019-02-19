@@ -194,10 +194,11 @@ export default {
   },
 
   methods: {
+    callFindById: id => codeApi.findById(id),//OverRide
     callUpdate: data => codeApi.update(data),//OverRide
     async initForm(id) {
-      const response = await codeApi.findById(id).catch(apiHandleErr);
-      this.form = new CodeUpdateForm(_.head(response.data));
+      const data = await this.getData(id);
+      this.form = new CodeUpdateForm(data);
     },
   },
 

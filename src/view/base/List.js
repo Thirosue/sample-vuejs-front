@@ -5,7 +5,6 @@ import { createFile } from '@/module/download';
 import { apiHandleErr } from '@/module/errorHandler';
 import { Config } from '@/conf/config';
 import { COMMON_MESSAGE } from '@/conf/message';
-import { FORM_MUTATION_TYPES } from '@/store/modules/form';
 import { PATH_LIST } from '@/helpers/path';
 
 export default {
@@ -67,9 +66,6 @@ export default {
       if (this.results.length > 0) {
         createFile(this.fileProperties[0], 'text/plain', this.fileProperties[1], this.results);
       }
-    },
-    routeEdit() {
-      //TODO 改訂番号を詰めて、編集画面へ
     }
   },
   

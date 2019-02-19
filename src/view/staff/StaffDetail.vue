@@ -10,7 +10,7 @@
           </h1>
         </div>
         <div class="field is-grouped is-grouped-right">
-          <router-link class="button is-link" type="submit" v-bind:to="'/' + namespace + 'Edit?id=' + data.id">編集</router-link>
+          <a class="button is-link" type="submit" v-on:click="goEdit">編集</a>
         </div>
       </div>
     </section>

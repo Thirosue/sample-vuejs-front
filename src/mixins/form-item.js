@@ -123,9 +123,9 @@ export const formItemMixin = {
 
     onKeyUpHandler() {
       if(is.not.null(this.searchHandler)) {
-        this.searchHandler(1); //1ページ目固定
+        this.searchHandler.call(null, 1); //1ページ目固定
       } else if(is.not.null(this.keyUpHandler)) {
-        this.keyUpHandler();
+        this.keyUpHandler.call(null);
       }
     },
 
