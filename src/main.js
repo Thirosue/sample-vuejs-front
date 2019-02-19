@@ -25,9 +25,7 @@ Vue.filter('filter_Flag', filter.Flag )
 // add directive for global
 import directive from '@/module/directive'
 
-Vue.directive('disable', directive.disable )
 Vue.directive('focus', directive.focus )
-Vue.directive('required', directive.required )
 
 // add compornent for global
 import NavBar from '@/components/layouts/Navbar'
