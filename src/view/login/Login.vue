@@ -21,6 +21,7 @@
         autocomplete="email"
         dirty
         touched
+        v-bind:keyUpHandler="signin"
       />
       <form-input
         id="password"
@@ -31,6 +32,7 @@
         autocomplete="password"
         dirty
         touched
+        v-bind:keyUpHandler="signin"
       />
 
       <div v-if="errMsg" class="notification is-danger">

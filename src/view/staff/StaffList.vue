@@ -18,6 +18,7 @@
         v-model.trim="form.items.firstName.value"
         v-bind:formItem="form.items.firstName"
         label="名前"
+        v-bind:searchHandler="search"
       />
 
       <form-input
@@ -25,6 +26,7 @@
         v-model.trim="form.items.lastName.value"
         v-bind:formItem="form.items.lastName"
         label="苗字"
+        v-bind:searchHandler="search"
       />
 
       <form-input
@@ -32,6 +34,7 @@
         v-model.trim="form.items.email.value"
         v-bind:formItem="form.items.email"
         label="Email"
+        v-bind:searchHandler="search"
       />
 
       <form-input
@@ -39,6 +42,7 @@
         v-model.trim="form.items.tel.value"
         v-bind:formItem="form.items.tel"
         label="Tell"
+        v-bind:searchHandler="search"
       />
 
       <div class="field is-grouped is-grouped-right">

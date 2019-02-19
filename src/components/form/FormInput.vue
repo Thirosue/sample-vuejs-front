@@ -14,6 +14,7 @@
         }"
         v-on:input="handleInput"
         v-on:blur="handleBlur"
+        v-on:keyup.enter="onKeyUpHandler"
       >
     </div>
     <article v-show="showError" class="message is-danger">

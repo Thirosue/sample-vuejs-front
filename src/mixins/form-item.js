@@ -42,6 +42,14 @@ export const formItemMixin = {
       type: Boolean,
       default: false,
     },
+    searchHandler: {
+      type: Function,
+      default: null
+    },
+    keyUpHandler: {
+      type: Function,
+      default: null
+    },
   },
 
   data() {
@@ -111,6 +119,14 @@ export const formItemMixin = {
         this.states.touchedAfterDirty = true;
       }
       this.validate();
+    },
+
+    onKeyUpHandler() {
+      if(is.not.null(this.searchHandler)) {
+        this.searchHandler(1); //1ページ目固定
+      } else if(is.not.null(this.keyUpHandler)) {
+        this.keyUpHandler();
+      }
     },
 
     validate() {

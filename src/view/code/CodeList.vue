@@ -25,6 +25,7 @@
         v-model.trim="form.items.codeKey.value"
         v-bind:formItem="form.items.codeKey"
         label="コード値"
+        v-bind:searchHandler="search"
       />
 
       <form-input
@@ -32,6 +33,7 @@
         v-model.trim="form.items.codeAlias.value"
         v-bind:formItem="form.items.codeAlias"
         label="コードエイリアス"
+        v-bind:searchHandler="search"
       />
 
       <form-checkbox
