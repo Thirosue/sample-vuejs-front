@@ -1,8 +1,10 @@
+
 import { COMMON_MESSAGE } from '@/conf/message';
 import { Config } from '@/conf/config';
 import { isErrorPath } from '@/helpers/pathHelper';
 import { FormInput, FormSelect, FormCheckbox } from '@/components/form';
 import { PATH_LIST } from '@/helpers/path';
+import { sleep } from '@/helpers/timerHelper'
 
 export default {
   components: {
@@ -39,7 +41,14 @@ export default {
   },
 
   created () {
+    console.log('BaseUpdate start ...')
     document.cookie = Config.FUNCTION_ID + this.screenId;
+  },
+
+  async mounted() {
+    //フォームを強制リフレッシュ
+    this.form.resetState();
+    await sleep(100);
     this.form.updateState();
   },
 

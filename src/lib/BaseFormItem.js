@@ -97,6 +97,7 @@ export class BaseFormItem {
   }
 
   _createInitialState() {
+    this._invalid = false;
     this._states = {
       dirty: false,
     };

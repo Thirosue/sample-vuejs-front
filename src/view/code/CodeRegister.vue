@@ -196,7 +196,6 @@ export default {
   data() {
     const codeCategories = store.state.master.codeCategories.map(val=>convertKeys(val, ['id', 'value'],  ['category_name', 'text'])); //APIの返戻を整形
     const form = new CodeUpdateForm({}, codeCategories);
-    console.log(form);
     return {
       form,
     };

@@ -82,6 +82,12 @@ export class BaseForm {
                     );
   }
 
+  resetState() {
+    Object.keys(this._items).forEach(key=>this._items[key].resetStates());
+    this._invalid = this._checkItemsInvalid();
+    return this;
+  }
+
   updateState() {
     Object.keys(this._items).forEach(key=>this._items[key].validate());
     this._invalid = this._checkItemsInvalid();

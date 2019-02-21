@@ -70,13 +70,11 @@ import { apiHandleErr } from '@/module/errorHandler';
 import { Config } from '@/conf/config';
 import { staffApi } from '@/module/api';
 import { COMMON_MESSAGE, PASSWORD_MESSAGE } from '@/conf/message';
-
-const _handleError = error => {
-  console.log(error);
-
-}
+import BaseUpdate from '@/view/base/Update';
 
 export default {
+  mixins: [BaseUpdate],
+
   components: {
     FormInput,
   },
