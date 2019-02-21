@@ -14,8 +14,11 @@ export default {
   },
 
   beforeRouteLeave (to, from, next) {
-    //更新完了、エラーの場合は、確認ダイアログスキップ
-    if(to.path === this.completePath || isErrorPath(to.path)){
+    // 以下の場合は、確認ダイアログをスキップする
+    //  + 完了画面への遷移
+    //  + エラーの場合
+    //  + フォームを1回も編集していない場合
+    if(to.path === this.completePath || isErrorPath(to.path) || !this.form.isDirty())  {
       next();
     } else {
       this.$showModal(

@@ -75,11 +75,15 @@ export class BaseForm {
 
   notNullValues() {
     return Object.entries(this.values())
-                    .filter(([name, val]) => !is.empty(val) && !is.null(val)) //空文字を除去
+                    .filter(([name, val]) => is.not.empty(val) && is.not.null(val)) //空文字を除去
                     .reduce(
                       (o, [name, val]) => ({...o, [name]: val}),
                       {}
                     );
+  }
+
+  isDirty() {
+    return Object.keys(this._items).some(key=>this._items[key].states.dirty);
   }
 
   resetState() {
