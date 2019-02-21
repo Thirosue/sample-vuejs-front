@@ -1,17 +1,12 @@
 import is from 'is_js'
 
-export const isEmptyString = value => {
-  return String(value).length === 0;
-};
+export const isNotEmptyString = value => is.not.empty(value);
+export const isEmail = value => is.email(value);
 
 export const isTel = value => {
   if(String(value).length === 0) { return true; }
   const tel = value.replace(/[━.*‐.*―.*－.*\-.*ー.*\-]/gi,'');
   return tel.match(/^(0[5-9]0[0-9]{8}|0[1-9][1-9][0-9]{7})$/);
-};
-
-export const isEmail = value => {
-  return is.email(value);
 };
 
 export const isExpectLength = (value, { max = Infinity, min = 0 } = {}) => {

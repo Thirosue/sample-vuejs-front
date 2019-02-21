@@ -22,15 +22,15 @@ export default {
   methods: {
     callFindById: id => { /* callApi */ }, //<--- 個別に定義
     callUpdate: id => { /* callApi */ }, //<--- 個別に定義
-    async getData(id) {
+    async initForm(id) {
       if(is.not.empty(this.cache)) {
-        const tmp = { ...this.cache };
+        this.form.setValues(this.cache);
         this.$store.commit(FORM_MUTATION_TYPES.CLEAR_VALUES); //初回のみキャッシュ
-        return tmp;
+      } else {
+        console.log('cache not hit! call api');
+        const response = await this.callFindById(id).catch(apiHandleErr);
+        this.form.setValues(_.head(response.data));
       }
-      console.log('cache not hit! call api');
-      const response = await this.callFindById(id).catch(apiHandleErr);
-      return _.head(response.data);
     },
     update() {
       this.callUpdate(this.form.values())

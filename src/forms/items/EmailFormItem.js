@@ -11,12 +11,6 @@ export class EmailFormItem extends BaseFormItem {
 
   _addValidators() {
     this.addValidator({
-      message: '入力が必須の項目です',
-      validator: this._isEmptyValidator,
-      stop: true,
-    });
-
-    this.addValidator({
       message: 'メールアドレスを入力してください',
       validator: this._isEmailValidator,
     });
@@ -25,10 +19,6 @@ export class EmailFormItem extends BaseFormItem {
       message: `${this.maxlength - 1}文字以内で入力してください`,
       validator: this._isExpectLengthValidator,
     });
-  }
-
-  _isEmptyValidator(value) {
-    return isEmptyString(value) === false;
   }
 
   _isEmailValidator(value) {

@@ -60,7 +60,7 @@ export class BaseForm {
   }
 
   setValues(newValues) {
-    Object.entries(newValues).forEach(([name, value]) => {
+    Object.entries(newValues).filter(([name])=>is.not.undefined(this._items[name])).forEach(([name, value]) => {
       this._items[name].value = value;
     });
   }
@@ -83,6 +83,7 @@ export class BaseForm {
   }
 
   updateState() {
+    Object.keys(this._items).forEach(key=>this._items[key].validate());
     this._invalid = this._checkItemsInvalid();
     return this;
   }

@@ -1,5 +1,5 @@
 import { BaseFormItem } from '@/lib';
-import { isEmptyString, isExpectLength } from '@/helpers/validators';
+import { isNotEmptyString, isExpectLength } from '@/helpers/validators';
 
 export class PasswordFormItem extends BaseFormItem {
   constructor(value = '') {
@@ -24,7 +24,7 @@ export class PasswordFormItem extends BaseFormItem {
   }
 
   _isEmptyValidator(value) {
-    return isEmptyString(value) === false;
+    return isNotEmptyString(value);
   }
 
   _isExpectLengthValidator(value) {

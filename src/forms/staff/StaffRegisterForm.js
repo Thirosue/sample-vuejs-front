@@ -1,5 +1,5 @@
 import { BaseForm } from '@/lib';
-import { NameFormItem, EmailFormItem, TelFormItem, PasswordFormItem } from '@/forms/items';
+import { TextFormItem, EmailFormItem, TelFormItem, PasswordFormItem } from '@/forms/items';
 
 export class StaffRegisterForm extends BaseForm {
   constructor({
@@ -11,8 +11,8 @@ export class StaffRegisterForm extends BaseForm {
     passwordConfirm = '',
   } = {}) {
     super();
-    this.addItem('lastName', new NameFormItem(lastName));
-    this.addItem('firstName', new NameFormItem(firstName));
+    this.addItem('lastName', new TextFormItem(lastName));
+    this.addItem('firstName', new TextFormItem(firstName));
     this.addItem('email', new EmailFormItem(email));
     this.addItem('tel', new TelFormItem(tel));
     this.addItem('password', new PasswordFormItem(password));

@@ -40,6 +40,7 @@ export default {
 
   created () {
     document.cookie = Config.FUNCTION_ID + this.screenId;
+    this.form.updateState();
   },
 
   computed: {

@@ -22,8 +22,8 @@
                   id="lastName"
                   v-model.trim="form.items.lastName.value"
                   v-bind:formItem="form.items.lastName"
-                  v-bind:maxlength="form.items.lastName.maxlength"
                   autocomplete="off"
+                  rule="required|range {max: 40}"
                   dirty
                   touched
                 />
@@ -36,8 +36,8 @@
                   id="firstName"
                   v-model.trim="form.items.firstName.value"
                   v-bind:formItem="form.items.firstName"
-                  v-bind:maxlength="form.items.firstName.maxlength"
                   autocomplete="off"
+                  rule="required|range {max: 40}"
                   dirty
                   touched
                 />
@@ -53,6 +53,7 @@
                   v-bind:maxlength="form.items.email.maxlength"
                   type="email"
                   autocomplete="off"
+                  rule="required"
                   dirty
                   touched
                 />
@@ -130,7 +131,7 @@ export default {
   },
 
   mounted() {
-    console.log('start StaffRegister!')
+    console.log('start StaffRegister!');
   },
 
   methods: {

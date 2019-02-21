@@ -1,7 +1,6 @@
 export { SelectFormItem } from './SelectFormItem';
 export { RowsFormItem } from './RowsFormItem';
 export { SortFormItem } from './SortFormItem';
-export { NameFormItem } from './NameFormItem';
 export { EmailFormItem } from './EmailFormItem';
 export { TelFormItem } from './TelFormItem';
 export { PasswordFormItem } from './PasswordFormItem';

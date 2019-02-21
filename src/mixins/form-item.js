@@ -1,5 +1,6 @@
 import is from 'is_js';
 import { BaseFormItem } from '@/lib';
+import { setValidator } from '@/conf/ValidatorMappings';
 
 const createInitialStates = () => {
   return {
@@ -7,6 +8,11 @@ const createInitialStates = () => {
     touchedAfterDirty: false,
   };
 };
+
+const splitFirst = ( value, delimiter ) => {
+  const pos = value.indexOf(delimiter);
+  return pos === -1 ? [ value ] : [ value.substring(0, pos), value.substring(pos).trim() ]
+}
 
 export const formItemMixin = {
   props: {
@@ -42,6 +48,10 @@ export const formItemMixin = {
       type: Boolean,
       default: false,
     },
+    rule: {
+      type: String,
+      required: false,
+    },
     searchHandler: {
       type: Function,
       default: null
@@ -56,6 +66,13 @@ export const formItemMixin = {
     return {
       states: createInitialStates(),
     };
+  },
+
+  created() {
+    if(is.not.undefined(this.rule) && is.not.empty(this.rule)) {
+      const rules = this.rule.split('|');
+      rules.map(value=>splitFirst(value, ' ')).forEach(([_rule, _prop])=>setValidator(this.formItem, _rule, _prop));
+    }
   },
 
   computed: {

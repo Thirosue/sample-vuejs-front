@@ -22,6 +22,7 @@
                   id="codeCategoryId"
                   v-model.trim="form.items.codeCategoryId.value"
                   v-bind:formItem="form.items.codeCategoryId"
+                  rule="required"
                   touched
                 />
               </td>
@@ -33,7 +34,7 @@
                   id="codeKey"
                   v-model.trim="form.items.codeKey.value"
                   v-bind:formItem="form.items.codeKey"
-                  v-bind:maxlength="form.items.codeValue.maxlength"
+                  rule="required|range {max: 50}"
                   dirty
                   touched
                 />
@@ -46,7 +47,7 @@
                   id="codeValue"
                   v-model.trim="form.items.codeValue.value"
                   v-bind:formItem="form.items.codeValue"
-                  v-bind:maxlength="form.items.codeValue.maxlength"
+                  rule="required|range {max: 100}"
                   dirty
                   touched
                 />
@@ -59,7 +60,7 @@
                   id="codeAlias"
                   v-model.trim="form.items.codeAlias.value"
                   v-bind:formItem="form.items.codeAlias"
-                  v-bind:maxlength="form.items.codeAlias.maxlength"
+                  rule="range {max: 100}"
                   dirty
                   touched
                 />
@@ -72,7 +73,7 @@
                   id="attribute1"
                   v-model.trim="form.items.attribute1.value"
                   v-bind:formItem="form.items.attribute1"
-                  v-bind:maxlength="form.items.attribute1.maxlength"
+                  rule="range {max: 2}"
                   dirty
                   touched
                 />
@@ -85,7 +86,7 @@
                   id="attribute2"
                   v-model.trim="form.items.attribute2.value"
                   v-bind:formItem="form.items.attribute2"
-                  v-bind:maxlength="form.items.attribute2.maxlength"
+                  rule="range {max: 2}"
                   dirty
                   touched
                 />
@@ -98,7 +99,7 @@
                   id="attribute3"
                   v-model.trim="form.items.attribute3.value"
                   v-bind:formItem="form.items.attribute3"
-                  v-bind:maxlength="form.items.attribute3.maxlength"
+                  rule="range {max: 2}"
                   dirty
                   touched
                 />
@@ -111,7 +112,7 @@
                   id="attribute4"
                   v-model.trim="form.items.attribute4.value"
                   v-bind:formItem="form.items.attribute4"
-                  v-bind:maxlength="form.items.attribute4.maxlength"
+                  rule="range {max: 2}"
                   dirty
                   touched
                 />
@@ -124,7 +125,7 @@
                   id="attribute5"
                   v-model.trim="form.items.attribute5.value"
                   v-bind:formItem="form.items.attribute5"
-                  v-bind:maxlength="form.items.attribute5.maxlength"
+                  rule="range {max: 2}"
                   dirty
                   touched
                 />
@@ -137,7 +138,7 @@
                   id="attribute6"
                   v-model.trim="form.items.attribute6.value"
                   v-bind:formItem="form.items.attribute6"
-                  v-bind:maxlength="form.items.attribute6.maxlength"
+                  rule="range {max: 2}"
                   dirty
                   touched
                 />

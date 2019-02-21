@@ -10,7 +10,7 @@
       </div>
     </div>
   </section>
-  <div class="container is-fullhd" v-if="form">
+  <div class="container is-fullhd">
     <div class="container is-fullhd">
       <div class="sample-detail-area">
         <table class="table  is-bordered is-striped is-narrow is-fullwidth" >
@@ -22,7 +22,7 @@
                   id="lastName"
                   v-model.trim="form.items.lastName.value"
                   v-bind:formItem="form.items.lastName"
-                  v-bind:maxlength="form.items.lastName.maxlength"
+                  rule="required|range {max: 40}"
                   dirty
                   touched
                 />
@@ -35,7 +35,7 @@
                   id="firstName"
                   v-model.trim="form.items.firstName.value"
                   v-bind:formItem="form.items.firstName"
-                  v-bind:maxlength="form.items.firstName.maxlength"
+                  rule="required|range {max: 40}"
                   dirty
                   touched
                 />
@@ -49,6 +49,7 @@
                   v-model.trim="form.items.email.value"
                   v-bind:formItem="form.items.email"
                   v-bind:maxlength="form.items.email.maxlength"
+                  rule="required"
                   type="email"
                   dirty
                   touched
@@ -104,10 +105,6 @@ export default {
   methods: {
     callFindById: id => staffApi.findById(id),//OverRide
     callUpdate: data => staffApi.update(data),//OverRide
-    async initForm(id) {
-      const data = await this.getData(id);
-      this.form = new StaffUpdateForm(data);
-    },
   },
 
   computed: {
