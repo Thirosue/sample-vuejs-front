@@ -31,10 +31,19 @@ export default {
 
   methods: {
     async setMasterInfo() {
-      if(is.empty(this.codeCategories) && this.$options.name === 'Navbar') {
-        const response = await masterApi.getCodeCategory().catch(apiHandleErr);
-        this.$store.commit(MASTER_MUTATION_TYPES.SET_CODE_CATEGORIES, response.data);
-        console.log(this.codeCategories);
+      if(this.$options.name === 'Navbar') {
+        if(is.empty(this.codeCategories)) {
+          const response = await masterApi.getCodeCategory().catch(apiHandleErr);
+          this.$store.commit(MASTER_MUTATION_TYPES.SET_CODE_CATEGORIES, response.data);
+        }
+        if(is.empty(this.inquiryCategories)) {
+          const response = await masterApi.getInquiryCategory().catch(apiHandleErr);
+          this.$store.commit(MASTER_MUTATION_TYPES.SET_INQUIRY_CATEGORIES, response);
+        }
+        if(is.empty(this.inquiryGenre)) {
+          const response = await masterApi.getInquiryGenre().catch(apiHandleErr);
+          this.$store.commit(MASTER_MUTATION_TYPES.SET_INQUIRY_GENRE, response);
+        }
       }
     },
   },
@@ -44,6 +53,8 @@ export default {
       session: SESSION_GETTER_TYPES.VALUES,
       isLogin: SESSION_GETTER_TYPES.IS_LOGIN,
       codeCategories: MASTER_GETTER_TYPES.CODE_CATEGORIES,
+      inquiryCategories: MASTER_GETTER_TYPES.INQUIRY_CATEGORIES,
+      inquiryGenre: MASTER_GETTER_TYPES.INQUIRY_GENRE,
     }),
     hasState() { return this.$store !== undefined }, //pluginはステートを持たない
     roles() { return this.session.roles ? this.session.roles : [] },

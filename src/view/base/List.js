@@ -1,6 +1,4 @@
-import _ from 'lodash';
-import is from 'is_js';
-import { FormInput, FormSelect, FormCheckbox } from '@/components/form';
+import { FormInput, FormSelect, FormCheckbox, FormMultiCheckbox } from '@/components/form';
 import { createFile } from '@/module/download';
 import { apiHandleErr } from '@/module/errorHandler';
 import { Config } from '@/conf/config';
@@ -12,6 +10,7 @@ export default {
     FormInput,
     FormSelect,
     FormCheckbox,
+    FormMultiCheckbox,
   },
 
   data: () => {
@@ -33,14 +32,15 @@ export default {
 
   beforeRouteUpdate (to, from, next) {
     this.results = [];
-    if(!is.empty(to.query)) {
+    if(!this.$is.empty(to.query)) {
       this.findAll(to.query);
     }
     next()
   },
 
   mounted () {
-    if(!is.empty(this.$router.history.current.query)) {
+    console.log('BaseList start ...');
+    if(!this.$is.empty(this.$router.history.current.query)) {
       this.findAll();
     }
     document.cookie = Config.FUNCTION_ID + this.screenId;
@@ -76,7 +76,7 @@ export default {
     columSetting: () => null, //<--- 個別に定義
     updateScreenId() { return [PATH_LIST.EDIT_COMPLETE, PATH_LIST.REGISTER_COMPLETE].map(str => '/' + this.namespace + str) },
     where() { return this.form.notNullValues() },
-    labels() { return _.orderBy(this.columSetting, 'order').map(row=>row.value) },
-    resultKeys() { return _.orderBy(this.columSetting, 'order').map(row=>row.key) },
+    labels() { return this.$_.orderBy(this.columSetting, 'order').map(row=>row.value) },
+    resultKeys() { return this.$_.orderBy(this.columSetting, 'order').map(row=>row.key) },
   },
 }

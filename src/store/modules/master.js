@@ -3,9 +3,13 @@ import { buildModuleTypes } from '@/helpers/store';
 const moduleName = 'master';
 const GETTER_TYPES = {
   CODE_CATEGORIES: 'CODE_CATEGORIES',
+  INQUIRY_CATEGORIES: 'INQUIRY_CATEGORIES',
+  INQUIRY_GENRE: 'INQUIRY_GENRE',
 };
 const MUTATION_TYPES = {
   SET_CODE_CATEGORIES: 'SET_CODE_CATEGORIES',
+  SET_INQUIRY_CATEGORIES: 'SET_INQUIRY_CATEGORIES',
+  SET_INQUIRY_GENRE: 'SET_INQUIRY_GENRE',
   CLEAR_VALUES: 'CLEAR_VALUES',
 };
 
@@ -23,6 +27,8 @@ export const namespaced = true;
 
 export const state = {
   codeCategories: null,
+  inquiryCategories: null,
+  inquiryGenre: null,
 };
 
 export const getters = {
@@ -32,15 +38,34 @@ export const getters = {
     }
     return state.codeCategories;
   },
+  [GETTER_TYPES.INQUIRY_CATEGORIES](state) {
+    if (state.inquiryCategories === null) {
+      return {};
+    }
+    return state.inquiryCategories;
+  },
+  [GETTER_TYPES.INQUIRY_GENRE](state) {
+    if (state.inquiryGenre === null) {
+      return {};
+    }
+    return state.inquiryGenre;
+  },
 };
 
 export const mutations = {
   [MUTATION_TYPES.SET_CODE_CATEGORIES](state, values) {
     state.codeCategories = values;
   },
+  [MUTATION_TYPES.SET_INQUIRY_CATEGORIES](state, values) {
+    state.inquiryCategories = values;
+  },
+  [MUTATION_TYPES.SET_INQUIRY_GENRE](state, values) {
+    state.inquiryGenre = values;
+  },
 
   [MUTATION_TYPES.CLEAR_VALUES](state) {
-    state.count = 0;
     state.codeCategories = null;
+    state.inquiryCategories = null;
+    state.inquiryGenre = null;
   },
 };

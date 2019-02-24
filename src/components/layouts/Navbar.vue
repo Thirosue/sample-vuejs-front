@@ -24,7 +24,14 @@
       <div class="navbar-item">
         <div class="field is-grouped">
           <p class="control">
-            <router-link class="button is-link" type="submit" v-bind:to="'/passwordEdit'">パスワード変更</router-link>
+            <router-link class="button is-text" type="submit" v-bind:to="'/inquiry'">お問い合わせ</router-link>
+          </p>
+        </div>
+      </div>
+      <div class="navbar-item">
+        <div class="field is-grouped">
+          <p class="control">
+            <router-link class="button is-text" type="submit" v-bind:to="'/passwordEdit'">パスワード変更</router-link>
           </p>
         </div>
       </div>

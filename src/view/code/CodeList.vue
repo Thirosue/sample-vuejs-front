@@ -125,7 +125,6 @@
  * 検索結果を素直に記載するVersion
  */
 import store from '@/store';
-import is from 'is_js';
 import { CodeSearchForm } from '@/forms';
 import { codeApi } from '@/module/api';
 import { convertKeys } from '@/helpers/form';

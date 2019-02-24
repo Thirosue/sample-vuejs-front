@@ -1,5 +1,5 @@
 import router from '@/router'
-import { isUnAuthorizePath } from '@/helpers/pathHelper'
+import { includeList } from '@/helpers/string'
 import { apiHandleErr } from '@/module/errorHandler'
 import { Screenlist } from '@/conf/screenList'
 import { Config } from '@/conf/config'
@@ -14,7 +14,7 @@ const _handleError =  (error) => {
 }
 
 export const checkSession = async path => {
-  if(!isUnAuthorizePath(path)) {
+  if(!includeList(Config.UNAUTHORITHED_PATH, path)) {
     await authApi.checkSession().catch(_handleError);
     console.info('session available!')
   }

@@ -24,6 +24,8 @@ import CodeList from '@/view/code/CodeList';
 import CodeDetail from '@/view/code/CodeDetail';
 import CodeEdit from '@/view/code/CodeEdit';
 import CodeRegister from '@/view/code/CodeRegister';
+import Inquiry from '@/view/system/Inquiry';
+import InquiryList from '@/view/inquiry/InquiryList';
 
 Vue.use(Router);
 
@@ -32,9 +34,11 @@ const StateRoot = store.state;
 /* namespace */
 const NAMESPACE_STAFF = 'staff';
 const NAMESPACE_CODE = 'code';
+const NAMESPACE_INQUIRY = 'inquiry';
 
 const STAFF = buildPath(NAMESPACE_STAFF);
 const CODE = buildPath(NAMESPACE_CODE);
+const INQUIRY = buildPath(NAMESPACE_INQUIRY);
 
 export default new Router({
   routes: [
@@ -72,6 +76,11 @@ export default new Router({
       path: Config.EDIT_PASSWORD,
       name: 'PasswordEdit',
       component: PasswordEdit
+    },
+    {
+      path: Config.INQUIRY,
+      name: 'Inquiry',
+      component: Inquiry
     },
     {
       path: STAFF.LIST,
@@ -132,6 +141,11 @@ export default new Router({
       path: CODE.REGISTER_COMPLETE,
       name: 'CodeRegisterComplete',
       component: Complete
+    },
+    {
+      path: INQUIRY.LIST,
+      name: 'InquiryList',
+      component: InquiryList
     },
   ]
 })

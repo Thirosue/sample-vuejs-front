@@ -1,4 +1,3 @@
-export { SampleForm } from './SampleForm';
 export { PasswordUpdateForm } from './system/PasswordUpdateForm';
 
 export { LoginForm } from './login/LoginForm';
@@ -9,3 +8,5 @@ export { StaffRegisterForm } from './staff/StaffRegisterForm';
 
 export { CodeSearchForm } from './code/CodeSearchForm';
 export { CodeUpdateForm } from './code/CodeUpdateForm';
+
+export { InquirySearchForm } from './inquiry/InquirySearchForm';

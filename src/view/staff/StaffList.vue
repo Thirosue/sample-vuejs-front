@@ -121,7 +121,6 @@ const StaffListSettings = [
   ]
 
  */
-import is from 'is_js';
 import { StaffSearchForm } from '@/forms';
 import { staffApi } from '@/module/api';
 import csvHeader from '@/conf/csvHeader';

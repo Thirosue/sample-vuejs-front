@@ -22,7 +22,7 @@ export class CodeSearchForm extends BaseForm {
     };
 
     super();
-    this.addItem('categoryKey', new SelectFormItem(categoryKey, codeCategories, false));
+    this.addItem('categoryKey', new SelectFormItem(categoryKey, codeCategories));
     this.addItem('codeKey', new TextFormItem(codeKey));
     this.addItem('codeAlias', new TextFormItem(codeAlias));
     this.addItem('isInvalid', new FlagFormItem(isInvalid));

@@ -32,6 +32,9 @@
                 <div class="level-item">
                   <button class="button is-link" type="submit" v-on:click.stop.prevent="openWithTitleAndSuccessAndError">コールバック付き（OK/NG）</button>
                 </div>
+                <div class="level-item">
+                  <button class="button is-link" type="submit" v-on:click.stop.prevent="openWithOutButton">ボタンなし</button>
+                </div>
               </div>
             </nav>
           </div>
@@ -90,6 +93,9 @@ export default {
     },
     openWithTitleAndSuccessAndError() {
       this.$showModal('hoge','title', ()=>{console.log('call success callback!')}, ()=>{console.log('call error callback!')})
+    },
+    openWithOutButton() {
+      this.$showModal('hoge','title', ()=>{}, ()=>{}, false)
     },
     toast() {
       this.$showToast('show simple toast', 'info', 'top')

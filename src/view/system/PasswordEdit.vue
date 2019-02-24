@@ -64,7 +64,6 @@
 </template>
 
 <script>
-import { FormInput } from '@/components/form';
 import { PasswordUpdateForm } from '@/forms';
 import { apiHandleErr } from '@/module/errorHandler';
 import { Config } from '@/conf/config';
@@ -74,10 +73,6 @@ import BaseUpdate from '@/view/base/Update';
 
 export default {
   mixins: [BaseUpdate],
-
-  components: {
-    FormInput,
-  },
 
   data() {
     const form = new PasswordUpdateForm();

@@ -1,4 +1,5 @@
-import is from 'is_js'
+import is from 'is_js';
+import _ from 'lodash';
 import store from '@/store';
 import router from '@/router';
 import { sleep } from '@/helpers/timerHelper'
@@ -15,6 +16,9 @@ export default {
       Vue.mixin({
         mixins: [Application]
       })
+
+      Vue.prototype.$is = is;
+      Vue.prototype.$_ = _;
 
       Vue.prototype.$logout = () => {
         console.log('logouted...');
@@ -48,7 +52,7 @@ export default {
         component.$el.remove()
       };
 
-      Vue.prototype.$showModal = (content, title = undefined, submitCallBack = () => {}, cancelCallBack = () => {}) => {
+      Vue.prototype.$showModal = (content, title = undefined, submitCallBack = () => {}, cancelCallBack = () => {}, bottomVisible = true) => {
         const modal = Vue.extend(Modal)
         const component = new modal({
           data: {
@@ -56,6 +60,7 @@ export default {
             content,
             submitCallBack,
             cancelCallBack,
+            bottomVisible,
           },
         }).$mount()
         document.querySelector("#app").appendChild(component.$el)

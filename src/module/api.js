@@ -8,6 +8,7 @@ const ENDPOINT_LOG = BASE_URL + '/api/log'
 const ENDPOINT_AUTH = BASE_URL + '/api/auth'
 const ENDPOINT_STAFF = BASE_URL + '/api/staff'
 const ENDPOINT_CODE = BASE_URL + '/api/code'
+const ENDPOINT_INQUIRY = BASE_URL + '/api/inquiry'
 
 /*********************
  * Get Settings 
@@ -113,6 +114,8 @@ export const authApi = {
 
 export const masterApi = {
   getCodeCategory: () => _fetchGet(BASE_URL + '/api/codeCategory').then(_toJson),
+  getInquiryCategory: () => _fetchGet(BASE_URL + '/api/inquiry/category').then(_toJson),
+  getInquiryGenre: () => _fetchGet(BASE_URL + '/api/inquiry/genre').then(_toJson),
 }
 
 export const staffApi = {
@@ -130,4 +133,9 @@ export const codeApi = {
   create: data => _fetchPost(ENDPOINT_CODE, data).then(_toJson),
   update: data => _fetchPut(ENDPOINT_CODE, data).then(_toJson),
   delete: id => _fetchDelete(ENDPOINT_CODE + '/' + id).then(_toJson),
+}
+
+export const inquiryApi = {
+  findAll: where => _fetchGet(ENDPOINT_INQUIRY, where).then(_toJson),
+  create: data => _fetchPost(ENDPOINT_INQUIRY, data).then(_toJson),
 }

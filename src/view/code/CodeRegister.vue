@@ -182,7 +182,6 @@
 
 <script>
 import store from '@/store';
-import _ from 'lodash';
 import BaseRegister from '@/view/base/Register';
 import { codeApi } from '@/module/api';
 import { apiHandleErr } from '@/module/errorHandler';

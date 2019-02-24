@@ -11,4 +11,5 @@ export const MenuList = [
     { category: "STAFF", order: 2, id: "STAFF_REGISTER" , name: "担当者登録" , url: "/staffRegister" , roles: [ Config.ADMIN ] },
     { category: "CODE", order: 1, id: "CODE_LIST" , name: "コード一覧" , url: "/codeList", roles: [ Config.ADMIN, Config.OPERATOR ] },
     { category: "CODE", order: 2, id: "CODE_REGISTER" , name: "コード登録" , url: "/codeRegister" , roles: [ Config.ADMIN, Config.OPERATOR ] },
+    { category: "INQUIRY", order: 1, id: "INQUIRY_LIST" , name: "問い合わせ一覧" , url: "/inquiryList", roles: [ Config.ADMIN ] },
 ]

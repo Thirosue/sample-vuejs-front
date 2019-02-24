@@ -1,4 +1,5 @@
 export { SelectFormItem } from './SelectFormItem';
+export { MultiSelectFormItem } from './MultiSelectFormItem';
 export { RowsFormItem } from './RowsFormItem';
 export { SortFormItem } from './SortFormItem';
 export { EmailFormItem } from './EmailFormItem';
