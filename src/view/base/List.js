@@ -1,4 +1,4 @@
-import { FormInput, FormSelect, FormCheckbox, FormMultiCheckbox } from '@/components/form';
+import { FormInput, FormSelect, FormCheckbox, FormMultiCheckbox, FormMultiSelect } from '@/components/form';
 import { createFile } from '@/module/download';
 import { apiHandleErr } from '@/module/errorHandler';
 import { Config } from '@/conf/config';
@@ -11,6 +11,7 @@ export default {
     FormSelect,
     FormCheckbox,
     FormMultiCheckbox,
+    FormMultiSelect,
   },
 
   data: () => {

@@ -2,8 +2,7 @@
   <div class="field">
     <label v-if="label" v-bind:for="id" class="label">{{ label }}</label>
     <div class="select">
-      <select
-        v-model="model"
+      <select multiple
         v-bind:id="id"
         v-bind:name="nameAttr"
         v-bind="$attrs"
@@ -18,6 +17,7 @@
           v-for="(option, index) in formItem.options"
           v-bind:key="`option-${index}`"
           v-bind:value="option.value"
+          :selected="isSelected(formItem.value, option.value)"
         >{{ option.text }}</option>
       </select>
     </div>
@@ -49,12 +49,14 @@ export default {
     },
   },
 
-  computed: {
-    model: {
-      get() {
-        return this.value;
-      },
-      set() {},
+  methods: {
+    isSelected(listValues, _thisValue) { return listValues.includes(_thisValue); },
+    handleInput(evt) {
+      const options = evt.target.querySelectorAll('option');
+      const value = [...options]
+                          .filter(option=>option.selected && this.$is.not.empty(option.value))
+                          .map(option=>option.value);
+      this.$emit('input', value);
     },
   },
 };

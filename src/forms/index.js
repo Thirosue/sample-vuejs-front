@@ -10,3 +10,4 @@ export { CodeSearchForm } from './code/CodeSearchForm';
 export { CodeUpdateForm } from './code/CodeUpdateForm';
 
 export { InquirySearchForm } from './inquiry/InquirySearchForm';
+export { InquirySearchForm2 } from './inquiry/InquirySearchForm2';

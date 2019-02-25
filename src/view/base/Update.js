@@ -2,7 +2,7 @@
 import { COMMON_MESSAGE } from '@/conf/message';
 import { Config } from '@/conf/config';
 import { includeList } from '@/helpers/string'
-import { FormInput, FormSelect, FormCheckbox, FormMultiCheckbox } from '@/components/form';
+import { FormInput, FormSelect, FormCheckbox, FormMultiCheckbox, FormMultiSelect } from '@/components/form';
 import { PATH_LIST } from '@/helpers/path';
 import { sleep } from '@/helpers/timerHelper'
 
@@ -12,6 +12,7 @@ export default {
     FormSelect,
     FormCheckbox,
     FormMultiCheckbox,
+    FormMultiSelect,
   },
 
   beforeRouteLeave (to, from, next) {

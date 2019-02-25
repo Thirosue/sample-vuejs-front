@@ -116,6 +116,7 @@ export const masterApi = {
   getCodeCategory: () => _fetchGet(BASE_URL + '/api/codeCategory').then(_toJson),
   getInquiryCategory: () => _fetchGet(BASE_URL + '/api/inquiry/category').then(_toJson),
   getInquiryGenre: () => _fetchGet(BASE_URL + '/api/inquiry/genre').then(_toJson),
+  getSex: () => _fetchGet(BASE_URL + '/api/inquiry/sex').then(_toJson),
 }
 
 export const staffApi = {

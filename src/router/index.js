@@ -26,6 +26,7 @@ import CodeEdit from '@/view/code/CodeEdit';
 import CodeRegister from '@/view/code/CodeRegister';
 import Inquiry from '@/view/system/Inquiry';
 import InquiryList from '@/view/inquiry/InquiryList';
+import InquiryList2 from '@/view/inquiry/InquiryList2';
 
 Vue.use(Router);
 
@@ -146,6 +147,11 @@ export default new Router({
       path: INQUIRY.LIST,
       name: 'InquiryList',
       component: InquiryList
+    },
+    {
+      path: INQUIRY.LIST + '2',
+      name: 'InquiryList2',
+      component: InquiryList2
     },
   ]
 })

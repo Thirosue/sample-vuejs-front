@@ -5,11 +5,13 @@ const GETTER_TYPES = {
   CODE_CATEGORIES: 'CODE_CATEGORIES',
   INQUIRY_CATEGORIES: 'INQUIRY_CATEGORIES',
   INQUIRY_GENRE: 'INQUIRY_GENRE',
+  SEX: 'SEX',
 };
 const MUTATION_TYPES = {
   SET_CODE_CATEGORIES: 'SET_CODE_CATEGORIES',
   SET_INQUIRY_CATEGORIES: 'SET_INQUIRY_CATEGORIES',
   SET_INQUIRY_GENRE: 'SET_INQUIRY_GENRE',
+  SET_SEX: 'SET_SEX',
   CLEAR_VALUES: 'CLEAR_VALUES',
 };
 
@@ -29,6 +31,7 @@ export const state = {
   codeCategories: null,
   inquiryCategories: null,
   inquiryGenre: null,
+  sex: null,
 };
 
 export const getters = {
@@ -50,6 +53,12 @@ export const getters = {
     }
     return state.inquiryGenre;
   },
+  [GETTER_TYPES.SEX](state) {
+    if (state.sex === null) {
+      return {};
+    }
+    return state.sex;
+  },
 };
 
 export const mutations = {
@@ -62,10 +71,14 @@ export const mutations = {
   [MUTATION_TYPES.SET_INQUIRY_GENRE](state, values) {
     state.inquiryGenre = values;
   },
+  [MUTATION_TYPES.SET_SEX](state, values) {
+    state.sex = values;
+  },
 
   [MUTATION_TYPES.CLEAR_VALUES](state) {
     state.codeCategories = null;
     state.inquiryCategories = null;
     state.inquiryGenre = null;
+    state.sex = null;
   },
 };

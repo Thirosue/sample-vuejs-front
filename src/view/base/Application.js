@@ -1,5 +1,3 @@
-import is from 'is_js';
-import _ from 'lodash';
 import { mapGetters } from 'vuex';
 import { Config } from '@/conf/config';
 import { SESSION_GETTER_TYPES } from '@/store/modules/session';
@@ -32,17 +30,21 @@ export default {
   methods: {
     async setMasterInfo() {
       if(this.$options.name === 'Navbar') {
-        if(is.empty(this.codeCategories)) {
+        if(this.$is.empty(this.codeCategories)) {
           const response = await masterApi.getCodeCategory().catch(apiHandleErr);
           this.$store.commit(MASTER_MUTATION_TYPES.SET_CODE_CATEGORIES, response.data);
         }
-        if(is.empty(this.inquiryCategories)) {
+        if(this.$is.empty(this.inquiryCategories)) {
           const response = await masterApi.getInquiryCategory().catch(apiHandleErr);
           this.$store.commit(MASTER_MUTATION_TYPES.SET_INQUIRY_CATEGORIES, response);
         }
-        if(is.empty(this.inquiryGenre)) {
+        if(this.$is.empty(this.inquiryGenre)) {
           const response = await masterApi.getInquiryGenre().catch(apiHandleErr);
           this.$store.commit(MASTER_MUTATION_TYPES.SET_INQUIRY_GENRE, response);
+        }
+        if(this.$is.empty(this.sex)) {
+          const response = await masterApi.getSex().catch(apiHandleErr);
+          this.$store.commit(MASTER_MUTATION_TYPES.SET_SEX, response);
         }
       }
     },
@@ -55,20 +57,21 @@ export default {
       codeCategories: MASTER_GETTER_TYPES.CODE_CATEGORIES,
       inquiryCategories: MASTER_GETTER_TYPES.INQUIRY_CATEGORIES,
       inquiryGenre: MASTER_GETTER_TYPES.INQUIRY_GENRE,
+      sex: MASTER_GETTER_TYPES.SEX,
     }),
     hasState() { return this.$store !== undefined }, //pluginはステートを持たない
     roles() { return this.session.roles ? this.session.roles : [] },
     menuCategories() { 
       const categories = _getTargetList(MenuCategoryList, this.roles);
-      return _.chain(categories)
-              .sortBy('order')
-              .value();
+      return this.$_.chain(categories)
+                      .sortBy('order')
+                      .value();
     },
     menus() { 
       const menuList = _getTargetList(MenuList, this.roles);
-      return _.chain(menuList)
-              .sortBy('order')
-              .value();
+      return this.$_.chain(menuList)
+                      .sortBy('order')
+                      .value();
     },
     hasAdmin() { return this.session.roles.some(role => role === Config.ADMIN) },
   },
