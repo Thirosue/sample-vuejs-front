@@ -2,9 +2,8 @@ import { BaseFormItem } from '@/lib';
 import { isInteger } from '@/helpers/validators';
 
 export class IntegerFormItem extends BaseFormItem {
-  constructor(value = null, required = false) {
+  constructor(value = null) {
     super(value ? Number(value) : null);
-    this.required = required;
 
     this._addValidators();
   }

@@ -1,4 +1,4 @@
-import { isEmpty } from '@/helpers/is';
+import { isEmpty } from '@/helpers/validators';
 
 export const decode = ( code, options ) => {
   if(isEmpty(code)) return ''

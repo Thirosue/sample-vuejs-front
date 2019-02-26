@@ -8,4 +8,5 @@ export { PasswordFormItem } from './PasswordFormItem';
 export { TextFormItem } from './TextFormItem';
 export { IntegerFormItem } from './IntegerFormItem';
 export { BooleanFormItem } from './BooleanFormItem';
+export { DateFormItem } from './DateFormItem';
 export { FlagFormItem } from './FlagFormItem';

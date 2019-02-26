@@ -1,7 +1,7 @@
 <template>
   <div>
-    <label v-bind:for="id">{{ label }}</label>
-    <textarea
+    <label v-if="label" v-bind:for="id">{{ label }}</label>
+    <textarea class="textarea"
       v-model="model"
       v-bind:id="id"
       v-bind:name="nameAttr"

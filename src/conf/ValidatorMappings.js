@@ -1,10 +1,10 @@
 import is from 'is_js';
 import { createObj } from '@/helpers/object';
 import * as ValidatorSettings from '@/helpers/validator';
-import { isNotEmptyString } from '@/helpers/validators';
+import { isNotEmpty } from '@/helpers/validators';
 
 const _SimpleValidatorMappings = [
-  {key: 'required', validator: isNotEmptyString, message: '入力が必須の項目です' },
+  {key: 'required', validator: isNotEmpty, message: '入力が必須の項目です' },
 ]
 
 const _CustomValidatorMappings = [

@@ -19,6 +19,7 @@
         label="メールアドレス（必須）"
         type="email"
         autocomplete="email"
+        rule="required"
         dirty
         touched
         v-bind:keyUpHandler="signin"

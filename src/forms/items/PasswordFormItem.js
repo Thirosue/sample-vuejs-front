@@ -1,5 +1,5 @@
 import { BaseFormItem } from '@/lib';
-import { isNotEmptyString, isExpectLength } from '@/helpers/validators';
+import { isNotEmpty, isExpectLength } from '@/helpers/validators';
 
 export class PasswordFormItem extends BaseFormItem {
   constructor(value = '') {
@@ -13,7 +13,7 @@ export class PasswordFormItem extends BaseFormItem {
   _addValidators() {
     this.addValidator({
       message: '入力が必須の項目です',
-      validator: this._isEmptyValidator,
+      validator: isNotEmpty,
       stop: true,
     });
 
@@ -21,10 +21,6 @@ export class PasswordFormItem extends BaseFormItem {
       message: `${this.minlength}~${this.maxlength - 1}文字で入力してください`,
       validator: this._isExpectLengthValidator,
     });
-  }
-
-  _isEmptyValidator(value) {
-    return isNotEmptyString(value);
   }
 
   _isExpectLengthValidator(value) {

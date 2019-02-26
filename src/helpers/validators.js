@@ -1,6 +1,9 @@
-import is from 'is_js'
+import is from 'is_js';
+import moment from 'moment';
 
-export const isNotEmptyString = value => is.not.empty(value);
+export const isEmpty = value => ( is.empty(value) || is.null(value) || is.undefined(value) );
+export const isNotEmpty = value => !isEmpty(value);
+
 export const isEmail = value => is.email(value);
 
 export const isTel = value => {
@@ -28,3 +31,11 @@ export const isInteger = value => {
 export const isFlag = value => {
   return ['0','1'].includes(value);
 };
+
+export const isDate = value => {
+  if(isEmpty(value)) {
+    return false;
+  } else {
+    return moment(value).isValid();
+  }
+}
