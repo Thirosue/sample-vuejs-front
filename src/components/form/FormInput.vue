@@ -2,7 +2,7 @@
   <div class="field">
     <label v-if="label" v-bind:for="id" class="label">{{ label }}</label>
     <div class="control">
-      <input 
+      <input
         class="input"
         v-bind:type="type"
         v-bind:id="id"

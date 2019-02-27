@@ -47,8 +47,8 @@ export default {
   methods: {
     isChecked(listValues, _thisValue) { return listValues.includes(_thisValue); },
     handleInput(model, evt) {
-      const value = evt.target.value;
-      if(evt.target.checked) {
+      const { value } = evt.target;
+      if (evt.target.checked) {
         model.push(value);
       } else {
         model = this.$_.without(model, value);

@@ -14,7 +14,7 @@
         v-on:blur="handleBlur"
       >
         <option value="">選択してください</option>
-        <option 
+        <option
           v-for="(option, index) in formItem.options"
           v-bind:key="`option-${index}`"
           v-bind:value="option.value"

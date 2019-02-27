@@ -20,7 +20,7 @@ export class StaffSearchForm extends BaseForm {
     this.addItem('email', new TextFormItem(email));
     this.addItem('tel', new TextFormItem(tel));
 
-    //for list search
+    // for list search
     set(this, rows, page);
     this.addItem('sort', new SortFormItem(sort, getSortList(ListSettings.StaffListSettings)));
   }

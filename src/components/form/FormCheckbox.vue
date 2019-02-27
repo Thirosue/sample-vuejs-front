@@ -2,7 +2,7 @@
   <div class="field">
     <label v-bind:for="id" class="label">{{ label }}</label>
     <div class="control">
-      <input 
+      <input
         v-bind:type="type"
         v-bind:id="id"
         v-bind:name="nameAttr"
@@ -46,7 +46,7 @@ export default {
     handleInput(evt) {
       const trueValue = evt.target.getAttribute('true-value');
       const falseValue = evt.target.getAttribute('false-value');
-      if(trueValue && falseValue) {
+      if (trueValue && falseValue) {
         this.$emit('input', evt.target.checked ? trueValue : falseValue);
       } else {
         this.$emit('input', evt.target.checked);

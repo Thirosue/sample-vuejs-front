@@ -2,22 +2,20 @@ import is from 'is_js';
 import { BaseFormItem } from '@/lib';
 import { setValidator } from '@/conf/ValidatorMappings';
 
-const createInitialStates = () => {
-  return {
-    touched: false,
-    touchedAfterDirty: false,
-  };
-};
+const createInitialStates = () => ({
+  touched: false,
+  touchedAfterDirty: false,
+});
 
-const splitFirst = ( value, delimiter ) => {
+const splitFirst = (value, delimiter) => {
   const pos = value.indexOf(delimiter);
-  return pos === -1 ? [ value ] : [ value.substring(0, pos), value.substring(pos).trim() ]
-}
+  return pos === -1 ? [value] : [value.substring(0, pos), value.substring(pos).trim()];
+};
 
 export const formItemMixin = {
   props: {
     value: {
-      //type: String,
+      // type: String,
       required: true,
     },
     id: {
@@ -54,11 +52,11 @@ export const formItemMixin = {
     },
     searchHandler: {
       type: Function,
-      default: null
+      default: null,
     },
     keyUpHandler: {
       type: Function,
-      default: null
+      default: null,
     },
   },
 
@@ -69,9 +67,9 @@ export const formItemMixin = {
   },
 
   created() {
-    if(is.not.undefined(this.rule) && is.not.empty(this.rule)) {
+    if (is.not.undefined(this.rule) && is.not.empty(this.rule)) {
       const rules = this.rule.split('|');
-      rules.map(value=>splitFirst(value, ' ')).forEach(([_rule, _prop])=>setValidator(this.formItem, _rule, _prop));
+      rules.map(value => splitFirst(value, ' ')).forEach(([_rule, _prop]) => setValidator(this.formItem, _rule, _prop));
     }
   },
 
@@ -126,7 +124,7 @@ export const formItemMixin = {
 
   methods: {
     handleInput(evt) {
-      const value = evt.target.value;
+      const { value } = evt.target;
       this.$emit('input', value);
     },
 
@@ -139,9 +137,9 @@ export const formItemMixin = {
     },
 
     onKeyUpHandler() {
-      if(is.not.null(this.searchHandler)) {
-        this.searchHandler.call(null, 1); //1ページ目固定
-      } else if(is.not.null(this.keyUpHandler)) {
+      if (is.not.null(this.searchHandler)) {
+        this.searchHandler.call(null, 1); // 1ページ目固定
+      } else if (is.not.null(this.keyUpHandler)) {
         this.keyUpHandler.call(null);
       }
     },

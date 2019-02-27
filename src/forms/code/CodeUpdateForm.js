@@ -1,5 +1,7 @@
 import { BaseForm } from '@/lib';
-import { TextFormItem, IntegerFormItem, BooleanFormItem, SelectFormItem } from '@/forms/items';
+import {
+  TextFormItem, IntegerFormItem, BooleanFormItem, SelectFormItem,
+} from '@/forms/items';
 
 export class CodeUpdateForm extends BaseForm {
   constructor({

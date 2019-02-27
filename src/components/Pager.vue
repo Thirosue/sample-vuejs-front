@@ -28,143 +28,143 @@ export default {
   props: {
     pageCount: {
       type: Number,
-      required: true
+      required: true,
     },
     initialPage: {
       type: Number,
-      default: 0
+      default: 0,
     },
     forcePage: {
-      type: Number
+      type: Number,
     },
     clickHandler: {
       type: Function,
-      default: () => {}
+      default: () => {},
     },
     pageRange: {
       type: Number,
-      default: 3
+      default: 3,
     },
     marginPages: {
       type: Number,
-      default: 1
+      default: 1,
     },
     prevText: {
       type: String,
-      default: 'Previous'
+      default: 'Previous',
     },
     nextText: {
       type: String,
-      default: 'Next page'
+      default: 'Next page',
     },
     breakViewText: {
       type: String,
-      default: '…'
+      default: '…',
     },
     containerClass: {
       type: String,
-      default: 'pagination'
+      default: 'pagination',
     },
     pageClass: {
       type: String,
-      default: 'page-item' //not used
+      default: 'page-item', // not used
     },
     pageLinkClass: {
       type: String,
-      default: 'pagination-link'
+      default: 'pagination-link',
     },
     prevClass: {
       type: String,
-      default: 'page-item' //not used
+      default: 'page-item', // not used
     },
     prevLinkClass: {
       type: String,
-      default: 'pagination-previous'
+      default: 'pagination-previous',
     },
     nextClass: {
       type: String,
-      default: 'page-item' //not used
+      default: 'page-item', // not used
     },
     nextLinkClass: {
       type: String,
-      default: 'pagination-next'
+      default: 'pagination-next',
     },
     breakViewClass: {
-      type: String
+      type: String,
     },
     breakViewLinkClass: {
-      type: String
+      type: String,
     },
     activeClass: {
       type: String,
-      default: 'is-current'
+      default: 'is-current',
     },
     disabledClass: {
       type: String,
-      default: 'disabled'
+      default: 'disabled',
     },
     noLiSurround: {
       type: Boolean,
-      default: false
+      default: false,
     },
     firstLastButton: {
       type: Boolean,
-      default: true
+      default: true,
     },
     firstButtonText: {
       type: String,
-      default: 'First Page'
+      default: 'First Page',
     },
     lastButtonText: {
       type: String,
-      default: 'Last Page'
+      default: 'Last Page',
     },
     hidePrevNext: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
   data() {
     return {
       selected: this.initialPage,
-      rows: this.initialRows
-    }
+      rows: this.initialRows,
+    };
   },
   beforeUpdate() {
-    if (this.forcePage === undefined) return
+    if (this.forcePage === undefined) return;
     if (this.forcePage !== this.selected) {
-      this.selected = this.forcePage
+      this.selected = this.forcePage;
     }
   },
   computed: {
-    pages: function () {
-      let items = {}
+    pages() {
+      const items = {};
       if (this.pageCount <= this.pageRange) {
         for (let index = 0; index < this.pageCount; index++) {
-          let page = {
-            index: index,
+          const page = {
+            index,
             content: index + 1,
-            selected: index === this.selected
-          }
-          items[index] = page
+            selected: index === this.selected,
+          };
+          items[index] = page;
         }
       } else {
-        const halfPageRange = Math.floor(this.pageRange / 2)
-        let setPageItem = index => {
-          let page = {
-            index: index,
+        const halfPageRange = Math.floor(this.pageRange / 2);
+        const setPageItem = (index) => {
+          const page = {
+            index,
             content: index + 1,
-            selected: index === this.selected
-          }
-          items[index] = page
-        }
-        let setBreakView = index => {
-          let breakView = {
+            selected: index === this.selected,
+          };
+          items[index] = page;
+        };
+        const setBreakView = (index) => {
+          const breakView = {
             disabled: true,
-            breakView: true
-          }
-          items[index] = breakView
-        }
+            breakView: true,
+          };
+          items[index] = breakView;
+        };
         // 1st - loop thru low end of margin pages
         for (let i = 0; i < this.marginPages; i++) {
           setPageItem(i);
@@ -184,55 +184,55 @@ export default {
         }
         // Check if there is breakView in the left of selected range
         if (selectedRangeLow > this.marginPages) {
-          setBreakView(selectedRangeLow - 1)
+          setBreakView(selectedRangeLow - 1);
         }
         // Check if there is breakView in the right of selected range
         if (selectedRangeHigh + 1 < this.pageCount - this.marginPages) {
-          setBreakView(selectedRangeHigh + 1)
+          setBreakView(selectedRangeHigh + 1);
         }
         // 3rd - loop thru high end of margin pages
         for (let i = this.pageCount - 1; i >= this.pageCount - this.marginPages; i--) {
           setPageItem(i);
         }
       }
-      return items
-    }
+      return items;
+    },
   },
   methods: {
     handlePageSelected(selected) {
-      if (this.selected === selected) return
-      this.selected = selected
-      this.clickHandler(this.selected + 1)
+      if (this.selected === selected) return;
+      this.selected = selected;
+      this.clickHandler(this.selected + 1);
     },
     prevPage() {
-      if (this.selected <= 0) return
-      this.selected--
-      this.clickHandler(this.selected + 1)
+      if (this.selected <= 0) return;
+      this.selected--;
+      this.clickHandler(this.selected + 1);
     },
     nextPage() {
-      if (this.selected >= this.pageCount - 1) return
-      this.selected++
-      this.clickHandler(this.selected + 1)
+      if (this.selected >= this.pageCount - 1) return;
+      this.selected++;
+      this.clickHandler(this.selected + 1);
     },
     firstPageSelected() {
-      return this.selected === 0
+      return this.selected === 0;
     },
     lastPageSelected() {
-      return (this.selected === this.pageCount - 1) || (this.pageCount === 0)
+      return (this.selected === this.pageCount - 1) || (this.pageCount === 0);
     },
     selectFirstPage() {
-      this.selected = 0
-      this.clickHandler(this.selected + 1)
+      this.selected = 0;
+      this.clickHandler(this.selected + 1);
     },
     selectLastPage() {
-      this.selected = this.pageCount
-      this.clickHandler(this.selected)
+      this.selected = this.pageCount;
+      this.clickHandler(this.selected);
     },
     changeRows(rows) {
-      this.clickHandler(1, rows)
-    }
-  }
-}
+      this.clickHandler(1, rows);
+    },
+  },
+};
 </script>
 
 <style lang="css" scoped>

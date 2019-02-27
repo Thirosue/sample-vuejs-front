@@ -7,11 +7,10 @@ export class ChildUpdateForm extends BaseForm {
     sex = '',
     birthDay = '',
   } = {},
-  sexEnum = [],
-  ) {
-    if(sex.length === 0){
-      throw new Error(`[ChildUpdateForm] sexEnum must not be empty`);
-    };
+  sexEnum = []) {
+    if (sex.length === 0) {
+      throw new Error('[ChildUpdateForm] sexEnum must not be empty');
+    }
 
     super();
     this.addItem('name', new TextFormItem(name));

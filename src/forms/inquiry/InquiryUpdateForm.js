@@ -1,5 +1,7 @@
 import { BaseForm } from '@/lib';
-import { EmailFormItem, TextFormItem, SelectFormItem, MultiSelectFormItem } from '@/forms/items';
+import {
+  EmailFormItem, TextFormItem, SelectFormItem, MultiSelectFormItem,
+} from '@/forms/items';
 import { isNotEmpty } from '@/helpers/validators';
 
 export class InquiryUpdateForm extends BaseForm {
@@ -14,15 +16,15 @@ export class InquiryUpdateForm extends BaseForm {
   categoriyOptions = [],
   genreOptions = [],
   sexEnum = []) {
-    if(categoriyOptions.length === 0){
-      throw new Error(`[InquiryUpdateForm] categoriyOptions must not be empty`);
-    };
-    if(genreOptions.length === 0){
-      throw new Error(`[InquiryUpdateForm] genreOptions must not be empty`);
-    };
-    if(sexEnum.length === 0){
-      throw new Error(`[InquiryUpdateForm] sex sexEnum not be empty`);
-    };
+    if (categoriyOptions.length === 0) {
+      throw new Error('[InquiryUpdateForm] categoriyOptions must not be empty');
+    }
+    if (genreOptions.length === 0) {
+      throw new Error('[InquiryUpdateForm] genreOptions must not be empty');
+    }
+    if (sexEnum.length === 0) {
+      throw new Error('[InquiryUpdateForm] sex sexEnum not be empty');
+    }
 
     super();
     this.addItem('name', new TextFormItem(name));
@@ -58,7 +60,7 @@ export class InquiryUpdateForm extends BaseForm {
       this.items.category.options.length - 1
     ].value;
 
-    this.items.category.addValueObserver(value => {
+    this.items.category.addValueObserver((value) => {
       if (value === categoryOtherValue) {
         this.items.title.addValidator({
           message,

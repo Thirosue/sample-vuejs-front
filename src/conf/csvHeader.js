@@ -5,7 +5,7 @@ const STAFF_LIST = [
   { key: 'lastName', value: '苗字' },
   { key: 'email', value: 'email' },
   { key: 'tel', value: 'Tel' },
-]
+];
 
 const CODE_LIST = [
   { key: 'id', value: 'コードID' },
@@ -16,9 +16,9 @@ const CODE_LIST = [
   { key: 'codeAlias', value: 'コードエイリアス' },
   { key: 'displayOrder', value: '表示順' },
   { key: 'isInvalid', value: '無効フラグ' },
-]
+];
 
 export default {
   STAFF_LIST,
   CODE_LIST,
-}
+};

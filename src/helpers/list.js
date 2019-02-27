@@ -1,4 +1,4 @@
-import is from 'is_js'
+import is from 'is_js';
 import { Config } from '@/conf/config';
 import { TextFormItem, RowsFormItem } from '@/forms/items';
 

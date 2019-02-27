@@ -7,29 +7,27 @@
 
 <script>
 export default {
-  data:() => {
-    return {
-      info: 'info',
-      position: 'top',
-      content: null,
-      px: null,
-    }
-  },
+  data: () => ({
+    info: 'info',
+    position: 'top',
+    content: null,
+    px: null,
+  }),
   beforeDestroy() {
-    this.$el.remove()
+    this.$el.remove();
   },
   methods: {
-    close() { 
-      this.$destroy()
+    close() {
+      this.$destroy();
     },
   },
   computed: {
-    positionStyle() { 
-      if(this.position === 'top') return { top: this.px }
-      return { bottom: this.px }
+    positionStyle() {
+      if (this.position === 'top') return { top: this.px };
+      return { bottom: this.px };
     },
   },
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

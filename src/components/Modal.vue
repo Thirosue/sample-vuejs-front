@@ -19,36 +19,34 @@
 
 <script>
 export default {
-  data:() => {
-    return {
-      title: null, 
-      content: null,
-      submitCallBack: () => {},
-      cancelCallBack: () => {},
-      bottomVisible: true,
-    }
-  },
+  data: () => ({
+    title: null,
+    content: null,
+    submitCallBack: () => {},
+    cancelCallBack: () => {},
+    bottomVisible: true,
+  }),
   beforeDestroy() {
-    this.$el.remove()
+    this.$el.remove();
   },
   methods: {
-    modalSubmit() { 
-      this.submitCallBack()
-      this.close()
+    modalSubmit() {
+      this.submitCallBack();
+      this.close();
     },
-    modalCancel() { 
-      this.cancelCallBack()
-      this.close()
+    modalCancel() {
+      this.cancelCallBack();
+      this.close();
     },
-    close() { 
-      this.$el.classList.remove('is-active')
-      this.$destroy()
+    close() {
+      this.$el.classList.remove('is-active');
+      this.$destroy();
     },
   },
   computed: {
-    blankCancelCallBack() { return ( this.cancelCallBack.toString().indexOf('{') + 1 ) === this.cancelCallBack.toString().indexOf('}') },
+    blankCancelCallBack() { return (this.cancelCallBack.toString().indexOf('{') + 1) === this.cancelCallBack.toString().indexOf('}'); },
   },
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

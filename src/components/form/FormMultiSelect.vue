@@ -13,7 +13,7 @@
         v-on:blur="handleBlur"
       >
         <option value="">選択してください</option>
-        <option 
+        <option
           v-for="(option, index) in formItem.options"
           v-bind:key="`option-${index}`"
           v-bind:value="option.value"
@@ -54,8 +54,8 @@ export default {
     handleInput(evt) {
       const options = evt.target.querySelectorAll('option');
       const value = [...options]
-                          .filter(option=>option.selected && this.$is.not.empty(option.value))
-                          .map(option=>option.value);
+        .filter(option => option.selected && this.$is.not.empty(option.value))
+        .map(option => option.value);
       this.$emit('input', value);
     },
   },

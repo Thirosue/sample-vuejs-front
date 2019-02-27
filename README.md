@@ -1,4 +1,4 @@
-# sample-front
+# vue-sample-app
 
 [![Build Status](https://travis-ci.org/Thirosue/sample-vuejs-front.svg?branch=master)](https://travis-ci.org/Thirosue/sample-vuejs-front)
 
@@ -43,49 +43,40 @@ $ ./clean_docker
 
 ## FrontEnd
 
-### Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
+## Project setup
+```
+yarn install
 ```
 
-## Test
-
-### e2e 
-
-use testcafe
-
-#### required
-
+### Compiles and hot-reloads for development
 ```
-$ npm install -g testcafe
-$ testcafe -v
-0.21.1
+yarn run serve
 ```
 
-#### run
-
+### Compiles and minifies for production
 ```
-$ npm run e2e
+yarn run build
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### Run your tests
+```
+yarn run test
+```
+
+### Lints and fixes files
+```
+yarn run lint
+```
+
+### Run your end-to-end tests
+```
+yarn run test:e2e
+```
+
+### Run your unit tests
+```
+yarn run test:unit
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

@@ -12,19 +12,19 @@ export class InquirySearchForm extends BaseForm {
   } = {},
   categoryOptions = [],
   genreOptions = []) {
-    if(categoryOptions.length === 0){
-      throw new Error(`[InquirySearchForm] categoryOptions must not be empty`);
-    };
-    if(genreOptions.length === 0){
-      throw new Error(`[InquirySearchForm] genreOptions must not be empty`);
-    };
+    if (categoryOptions.length === 0) {
+      throw new Error('[InquirySearchForm] categoryOptions must not be empty');
+    }
+    if (genreOptions.length === 0) {
+      throw new Error('[InquirySearchForm] genreOptions must not be empty');
+    }
 
     super();
     this.addItem('category', new SelectFormItem(category, categoryOptions));
     this.addItem('genre', new MultiSelectFormItem(genre, genreOptions));
     this.addItem('title', new TextFormItem(title));
 
-    //for list search
+    // for list search
     set(this, rows, page);
   }
 }

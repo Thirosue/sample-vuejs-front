@@ -10,17 +10,17 @@ export class InquirySearchForm2 extends BaseForm {
   } = {},
   categoriyOptions = [],
   genreOptions = []) {
-    if(categoriyOptions.length === 0){
-      throw new Error(`[InquirySearchForm] categoriyOptions must not be empty`);
-    };
-    if(genreOptions.length === 0){
-      throw new Error(`[InquirySearchForm] genreOptions must not be empty`);
-    };
+    if (categoriyOptions.length === 0) {
+      throw new Error('[InquirySearchForm] categoriyOptions must not be empty');
+    }
+    if (genreOptions.length === 0) {
+      throw new Error('[InquirySearchForm] genreOptions must not be empty');
+    }
 
     super();
     this.addItem('genre', new MultiSelectFormItem(genre, genreOptions));
 
-    //for list search
+    // for list search
     set(this, rows, page);
   }
 }

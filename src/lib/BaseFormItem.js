@@ -52,9 +52,7 @@ export class BaseFormItem {
   }
 
   removeValidator({ message }) {
-    const index = this._validators.findIndex(validator => {
-      return validator.message === message;
-    });
+    const index = this._validators.findIndex(validator => validator.message === message);
     if (index === -1) {
       return;
     }
@@ -78,14 +76,14 @@ export class BaseFormItem {
   }
 
   addValueObserver(observer) {
-    this._valueObservers.push(value => {
+    this._valueObservers.push((value) => {
       observer.call(this, value);
     });
     return this;
   }
 
   addInvalidObserver(observer) {
-    this._invalidObservers.push(invalid => {
+    this._invalidObservers.push((invalid) => {
       observer.call(null, invalid);
     });
     return this;
@@ -113,13 +111,13 @@ export class BaseFormItem {
   }
 
   _notifyInvalidObservers(invalid) {
-    this._invalidObservers.forEach(observer => {
+    this._invalidObservers.forEach((observer) => {
       observer(invalid);
     });
   }
 
   _notifyValueObserver(value) {
-    this._valueObservers.forEach(observer => {
+    this._valueObservers.forEach((observer) => {
       observer(value);
     });
   }

@@ -1,5 +1,7 @@
 import { BaseForm } from '@/lib';
-import { TextFormItem, EmailFormItem, TelFormItem, PasswordFormItem } from '@/forms/items';
+import {
+  TextFormItem, EmailFormItem, TelFormItem, PasswordFormItem,
+} from '@/forms/items';
 
 export class StaffRegisterForm extends BaseForm {
   constructor({
@@ -16,7 +18,7 @@ export class StaffRegisterForm extends BaseForm {
     this.addItem('email', new EmailFormItem(email));
     this.addItem('tel', new TelFormItem(tel));
     this.addItem('password', new PasswordFormItem(password));
-    this.addItem('passwordConfirm',new PasswordFormItem(passwordConfirm));
+    this.addItem('passwordConfirm', new PasswordFormItem(passwordConfirm));
 
     this._addRelationshipValidator();
   }

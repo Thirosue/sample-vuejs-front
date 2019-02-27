@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { Config } from '@/conf/config'
+import { Config } from '@/conf/config';
 
 export default {
   name: 'Navbar',
@@ -59,7 +59,7 @@ export default {
       this.$router.push(Config.LOGOUT_PATH);
     },
   },
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

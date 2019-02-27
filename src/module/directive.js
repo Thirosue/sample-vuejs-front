@@ -1,5 +1,5 @@
-const focus = el => el.focus()
+const focus = el => el.focus();
 
 export default {
-    focus,
-}
+  focus,
+};

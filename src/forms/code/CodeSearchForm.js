@@ -1,5 +1,7 @@
 import { BaseForm } from '@/lib';
-import { TextFormItem, SelectFormItem, SortFormItem, FlagFormItem } from '@/forms/items';
+import {
+  TextFormItem, SelectFormItem, SortFormItem, FlagFormItem,
+} from '@/forms/items';
 import { set } from '@/helpers/list';
 
 export class CodeSearchForm extends BaseForm {
@@ -14,12 +16,12 @@ export class CodeSearchForm extends BaseForm {
   } = {},
   codeCategories = [],
   codeSortItems = []) {
-    if(codeCategories.length === 0){
-      throw new Error(`[CodeSearchForm] codeCategories must not be empty`);
-    };
-    if(codeSortItems.length === 0){
-      throw new Error(`[CodeSearchForm] codeSortItems must not be empty`);
-    };
+    if (codeCategories.length === 0) {
+      throw new Error('[CodeSearchForm] codeCategories must not be empty');
+    }
+    if (codeSortItems.length === 0) {
+      throw new Error('[CodeSearchForm] codeSortItems must not be empty');
+    }
 
     super();
     this.addItem('categoryKey', new SelectFormItem(categoryKey, codeCategories));
@@ -27,7 +29,7 @@ export class CodeSearchForm extends BaseForm {
     this.addItem('codeAlias', new TextFormItem(codeAlias));
     this.addItem('isInvalid', new FlagFormItem(isInvalid));
 
-    //for list search
+    // for list search
     set(this, rows, page);
     this.addItem('sort', new SortFormItem(sort, codeSortItems));
   }

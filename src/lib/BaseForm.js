@@ -24,7 +24,7 @@ export class BaseForm {
       );
     }
     this._items[name] = item;
-    this._items[name].addInvalidObserver(invalid => {
+    this._items[name].addInvalidObserver((invalid) => {
       this._updateState(invalid);
     });
     this.updateState();
@@ -32,10 +32,10 @@ export class BaseForm {
   }
 
   addRelationshipValidator({ names, validator, message }) {
-    names.filter(name => name in this._items === false).forEach(name => {
+    names.filter(name => name in this._items === false).forEach((name) => {
       throw new Error(`[BaseForm] ${name} is not set item`);
     });
-    names.forEach(name => {
+    names.forEach((name) => {
       this._items[name].addValueObserver(() => {
         if (validator.call(this)) {
           this._removeMessages(names, message);
@@ -48,52 +48,52 @@ export class BaseForm {
   }
 
   _addMessages(names, message) {
-    names.forEach(name => {
+    names.forEach((name) => {
       this._items[name].addMessage(message);
     });
   }
 
   _removeMessages(names, message) {
-    names.forEach(name => {
+    names.forEach((name) => {
       this._items[name].removeMessage(message);
     });
   }
 
   setValues(newValues) {
-    Object.entries(newValues).filter(([name])=>is.not.undefined(this._items[name])).forEach(([name, value]) => {
+    Object.entries(newValues).filter(([name]) => is.not.undefined(this._items[name])).forEach(([name, value]) => {
       this._items[name].value = value;
     });
   }
 
   values() {
     return Object.entries(this.items)
-                    .reduce(
-                      (o, [name, item]) => ({...o, [name]: item.value}),
-                      {}
-                    ); 
+      .reduce(
+        (o, [name, item]) => ({ ...o, [name]: item.value }),
+        {},
+      );
   }
 
   notNullValues() {
     return Object.entries(this.values())
-                    .filter(([name, val]) => is.not.empty(val) && is.not.null(val)) //空文字を除去
-                    .reduce(
-                      (o, [name, val]) => ({...o, [name]: val}),
-                      {}
-                    );
+      .filter(([name, val]) => is.not.empty(val) && is.not.null(val)) // 空文字を除去
+      .reduce(
+        (o, [name, val]) => ({ ...o, [name]: val }),
+        {},
+      );
   }
 
   isDirty() {
-    return Object.keys(this._items).some(key=>this._items[key].states.dirty);
+    return Object.keys(this._items).some(key => this._items[key].states.dirty);
   }
 
   resetState() {
-    Object.keys(this._items).forEach(key=>this._items[key].resetStates());
+    Object.keys(this._items).forEach(key => this._items[key].resetStates());
     this._invalid = this._checkItemsInvalid();
     return this;
   }
 
   updateState() {
-    Object.keys(this._items).forEach(key=>this._items[key].validate());
+    Object.keys(this._items).forEach(key => this._items[key].validate());
     this._invalid = this._checkItemsInvalid();
     return this;
   }

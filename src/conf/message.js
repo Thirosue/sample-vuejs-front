@@ -1,7 +1,7 @@
 export const COMMON_MESSAGE = {
-    SUCCESS: '処理が正常終了しました',
-    CLEAR_CONFIRM: '編集中の内容は失われます。\nよろしいですか。',
-    UPDATED: '更新が完了しました',
+  SUCCESS: '処理が正常終了しました',
+  CLEAR_CONFIRM: '編集中の内容は失われます。\nよろしいですか。',
+  UPDATED: '更新が完了しました',
 };
 
 export const LOGIN_MESSAGE = {

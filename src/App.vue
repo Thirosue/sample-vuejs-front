@@ -4,11 +4,5 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'App'
-}
-</script>
-
-<style src="../static/css/custominze.css">
+<style lang="scss">
 </style>

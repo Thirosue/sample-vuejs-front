@@ -1,14 +1,14 @@
 import is from 'is_js';
 import moment from 'moment';
 
-export const isEmpty = value => ( is.empty(value) || is.null(value) || is.undefined(value) );
+export const isEmpty = value => (is.empty(value) || is.null(value) || is.undefined(value));
 export const isNotEmpty = value => !isEmpty(value);
 
 export const isEmail = value => is.email(value);
 
-export const isTel = value => {
-  if(String(value).length === 0) { return true; }
-  const tel = value.replace(/[━.*‐.*―.*－.*\-.*ー.*\-]/gi,'');
+export const isTel = (value) => {
+  if (String(value).length === 0) { return true; }
+  const tel = value.replace(/[━.*‐.*―.*－.*\-.*ー.*\-]/gi, '');
   return tel.match(/^(0[5-9]0[0-9]{8}|0[1-9][1-9][0-9]{7})$/);
 };
 
@@ -23,19 +23,16 @@ export const isExpectLength = (value, { max = Infinity, min = 0 } = {}) => {
   return true;
 };
 
-export const isInteger = value => {
+export const isInteger = (value) => {
   const num = Number(value);
-  return is.integer(num) && -2147483648 <= num && num <= 2147483647;
+  return is.integer(num) && num >= -2147483648 && num <= 2147483647;
 };
 
-export const isFlag = value => {
-  return ['0','1'].includes(value);
-};
+export const isFlag = value => ['0', '1'].includes(value);
 
-export const isDate = value => {
-  if(isEmpty(value)) {
+export const isDate = (value) => {
+  if (isEmpty(value)) {
     return false;
-  } else {
-    return moment(value).isValid();
   }
-}
+  return moment(value).isValid();
+};
