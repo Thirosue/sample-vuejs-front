@@ -47,7 +47,11 @@
       />
 
       <div class="field is-grouped is-grouped-right">
-        <button id="form-submit" class="button is-link" type="submit" v-on:click.stop.prevent="search(1)">Search</button>
+        <button
+          id="form-submit"
+          class="button is-link"
+          type="submit"
+          v-on:click.stop.prevent="search(1)">Search</button>
       </div>
     </div>
 
@@ -78,12 +82,19 @@
             />
           </p>
           <p class="level-item">
-            <button class="button is-primary" type="submit" v-on:click.stop.prevent="downloadList">CSV Download</button>
+            <button
+              class="button is-primary"
+              type="submit"
+              v-on:click.stop.prevent="downloadList">CSV Download</button>
           </p>
         </div>
       </nav>
 
-      <sample-pager v-bind:initial-page="page" v-bind:page-count="totalPage" v-bind:click-handler="search" :resultCount="count"></sample-pager><!-- pager -->
+      <sample-pager
+        :initial-page="page"
+        :page-count="totalPage"
+        :click-handler="search"
+        :resultCount="count"></sample-pager><!-- pager -->
       <hr>
 
       <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
@@ -103,7 +114,9 @@
         <tbody>
           <tr v-for="(result, index) in results" v-bind:key="index">
             <td>{{index+1}}</td>
-            <td><router-link v-bind:to="'/' + namespace + '/' + result.id">{{result.id}}</router-link></td>
+            <td>
+              <router-link :to="'/' + namespace + '/' + result.id">{{result.id}}</router-link>
+            </td>
             <td>{{result.categoryKey}}</td>
             <td>{{result.categoryName}}</td>
             <td>{{result.codeKey}}</td>
@@ -126,10 +139,9 @@
  */
 import store from '@/store';
 import { CodeSearchForm } from '@/forms';
-import { codeApi } from '@/module/api';
+import { codeApi } from '@/module/Api';
 import { convertKeys } from '@/helpers/form';
 import csvHeader from '@/conf/csvHeader';
-import ListSettings from '@/conf/ListSettings';
 import BaseList from '@/views/base/List';
 
 const CodeSortItems = [
@@ -144,8 +156,13 @@ export default {
   mixins: [BaseList],
 
   data() {
-    const codeCategories = store.state.master.codeCategories.map(val => convertKeys(val, ['category_key', 'value'], ['category_name', 'text'])); // APIの返戻を整形
-    const form = new CodeSearchForm(this.$router.history.current.query, codeCategories, CodeSortItems); // dataオプションでは、mapGetters 利用不可
+    // APIの返戻を整形
+    const codeCategories = store.state.master.codeCategories.map(val => convertKeys(val, ['category_key', 'value'], ['category_name', 'text']));
+    const form = new CodeSearchForm(
+      this.$router.history.current.query,
+      codeCategories,
+      CodeSortItems,
+    ); // dataオプションでは、mapGetters 利用不可
     return {
       form,
     };

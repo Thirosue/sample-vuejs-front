@@ -1,4 +1,4 @@
-export class BaseFormItem {
+export default class BaseFormItem {
   constructor(value = '') {
     this._value = value;
     this._messages = [];
@@ -53,11 +53,10 @@ export class BaseFormItem {
 
   removeValidator({ message }) {
     const index = this._validators.findIndex(validator => validator.message === message);
-    if (index === -1) {
-      return;
+    if (index !== -1) {
+      this._validators.splice(index, 1);
+      this.removeMessage(message);
     }
-    this._validators.splice(index, 1);
-    this.removeMessage(message);
     return this;
   }
 

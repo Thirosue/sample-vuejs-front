@@ -1,8 +1,7 @@
 import is from 'is_js';
-import _ from 'lodash';
-import { BaseFormItem } from './BaseFormItem';
+import BaseFormItem from './BaseFormItem';
 
-export class BaseForm {
+export default class BaseForm {
   constructor() {
     this._items = {};
     this._invalid = false;
@@ -60,9 +59,10 @@ export class BaseForm {
   }
 
   setValues(newValues) {
-    Object.entries(newValues).filter(([name]) => is.not.undefined(this._items[name])).forEach(([name, value]) => {
-      this._items[name].value = value;
-    });
+    Object.entries(newValues)
+      .filter(([name]) => is.not.undefined(this._items[name])).forEach(([name, value]) => {
+        this._items[name].value = value;
+      });
   }
 
   values() {
@@ -75,7 +75,7 @@ export class BaseForm {
 
   notNullValues() {
     return Object.entries(this.values())
-      .filter(([name, val]) => is.not.empty(val) && is.not.null(val)) // 空文字を除去
+      .filter(([, val]) => is.not.empty(val) && is.not.null(val)) // 空文字を除去
       .reduce(
         (o, [name, val]) => ({ ...o, [name]: val }),
         {},

@@ -5,15 +5,13 @@ import { MASTER_GETTER_TYPES, MASTER_MUTATION_TYPES } from '@/store/modules/mast
 import { MenuCategoryList } from '@/conf/menuCategoryList';
 import { MenuList } from '@/conf/menuList';
 import { Screenlist } from '@/conf/screenList';
-import { masterApi } from '@/module/api';
-import { apiHandleErr } from '@/module/errorHandler';
-
-const _getTargetList = (targetList, roles) => targetList.filter(row => row.roles.some(role => role === 'all' || roles.includes(role)));
+import { masterApi } from '@/module/Api';
+import ErrorHandler from '@/module/ErrorHandler';
 
 export default {
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {});
-  },
+  // beforeRouteEnter(to, from, next) {
+  //  next((vm) => {});
+  // },
 
   beforeRouteLeave(to, from, next) {
     next();
@@ -31,23 +29,24 @@ export default {
     async setMasterInfo() {
       if (this.$options.name === 'Navbar') {
         if (this.$is.empty(this.codeCategories)) {
-          const response = await masterApi.getCodeCategory().catch(apiHandleErr);
+          const response = await masterApi.getCodeCategory().catch(ErrorHandler.apiHandleErr);
           this.$store.commit(MASTER_MUTATION_TYPES.SET_CODE_CATEGORIES, response.data);
         }
         if (this.$is.empty(this.inquiryCategories)) {
-          const response = await masterApi.getInquiryCategory().catch(apiHandleErr);
+          const response = await masterApi.getInquiryCategory().catch(ErrorHandler.apiHandleErr);
           this.$store.commit(MASTER_MUTATION_TYPES.SET_INQUIRY_CATEGORIES, response);
         }
         if (this.$is.empty(this.inquiryGenre)) {
-          const response = await masterApi.getInquiryGenre().catch(apiHandleErr);
+          const response = await masterApi.getInquiryGenre().catch(ErrorHandler.apiHandleErr);
           this.$store.commit(MASTER_MUTATION_TYPES.SET_INQUIRY_GENRE, response);
         }
         if (this.$is.empty(this.sex)) {
-          const response = await masterApi.getSex().catch(apiHandleErr);
+          const response = await masterApi.getSex().catch(ErrorHandler.apiHandleErr);
           this.$store.commit(MASTER_MUTATION_TYPES.SET_SEX, response);
         }
       }
     },
+    getTargetList: (targetList, roles) => targetList.filter(row => row.roles.some(role => role === 'all' || roles.includes(role))),
   },
 
   computed: {
@@ -62,13 +61,13 @@ export default {
     hasState() { return this.$store !== undefined; }, // pluginはステートを持たない
     roles() { return this.session.roles ? this.session.roles : []; },
     menuCategories() {
-      const categories = _getTargetList(MenuCategoryList, this.roles);
+      const categories = this.getTargetList(MenuCategoryList, this.roles);
       return this.$_.chain(categories)
         .sortBy('order')
         .value();
     },
     menus() {
-      const menuList = _getTargetList(MenuList, this.roles);
+      const menuList = this.getTargetList(MenuList, this.roles);
       return this.$_.chain(menuList)
         .sortBy('order')
         .value();

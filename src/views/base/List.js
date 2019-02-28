@@ -1,8 +1,8 @@
 import {
   FormInput, FormSelect, FormCheckbox, FormMultiCheckbox, FormMultiSelect,
 } from '@/components/form';
-import { createFile } from '@/module/download';
-import { apiHandleErr } from '@/module/errorHandler';
+import createFile from '@/module/download';
+import ErrorHandler from '@/module/ErrorHandler';
 import { Config } from '@/conf/config';
 import { COMMON_MESSAGE } from '@/conf/message';
 import { PATH_LIST } from '@/helpers/path';
@@ -48,7 +48,7 @@ export default {
   },
 
   methods: {
-    callApi: (where) => { /* callApi */ }, // <--- 個別に定義
+    // callApi: where => { /* callApi */ }, // <--- 個別に定義
     search(page) {
       if (page) {
         this.form.items.page.value = page;
@@ -57,7 +57,7 @@ export default {
     },
     async findAll() {
       console.log(`search... conditions = ${JSON.stringify(this.where)}`);
-      const response = await this.callApi(this.where).catch(apiHandleErr);
+      const response = await this.callApi(this.where).catch(ErrorHandler.apiHandleErr);
       this.results = response.data;
       this.count = response.count;
       this.page = response.page - 1;

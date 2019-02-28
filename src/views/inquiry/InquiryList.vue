@@ -36,7 +36,11 @@
       />
 
       <div class="field is-grouped is-grouped-right">
-        <button id="form-submit" class="button is-link" type="submit" v-on:click.stop.prevent="search(1)">Search</button>
+        <button
+          id="form-submit"
+          class="button is-link"
+          type="submit"
+          v-on:click.stop.prevent="search(1)">Search</button>
       </div>
     </div>
 
@@ -61,10 +65,14 @@
         </div>
       </nav>
 
-      <sample-pager v-bind:initial-page="page" v-bind:page-count="totalPage" v-bind:click-handler="search" :resultCount="count"></sample-pager><!-- pager -->
+      <sample-pager
+        :initial-page="page"
+        :page-count="totalPage"
+        :click-handler="search"
+        :resultCount="count"></sample-pager><!-- pager -->
       <hr>
 
-      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" style="table-layout: fixed;">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
         <thead>
           <tr>
             <th>#</th>
@@ -94,11 +102,11 @@
   </div>
   <transition name="bounce">
     <div class="modal is-active" v-if="showModal">
-      <div class="modal-background" v-on:click.stop.prevent="showModal = !showModal"></div>
+      <div class="modal-background" @click.stop="showModal = !showModal"></div>
       <div class="modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">問い合わせ内容</p>
-          <button class="delete" aria-label="close" v-on:click.stop.prevent="showModal = !showModal"></button>
+          <button class="delete" aria-label="close" @click.stop="showModal = !showModal"></button>
         </header>
         <section class="modal-card-body">
           <p style="white-space: pre-line;">{{content}}</p>
@@ -115,7 +123,7 @@
 <script>
 import store from '@/store';
 import { InquirySearchForm } from '@/forms';
-import { inquiryApi } from '@/module/api';
+import { inquiryApi } from '@/module/Api';
 import { decode } from '@/helpers/code';
 import BaseList from '@/views/base/List';
 
@@ -127,7 +135,11 @@ export default {
   mixins: [BaseList],
 
   data() {
-    const form = new InquirySearchForm(this.$router.history.current.query, inquiryCategories, inquiryGenre);
+    const form = new InquirySearchForm(
+      this.$router.history.current.query,
+      inquiryCategories,
+      inquiryGenre,
+    );
     return {
       form,
       showModal: false,

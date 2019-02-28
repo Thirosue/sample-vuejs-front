@@ -88,14 +88,27 @@
         </table>
         <!--
         <div class="field is-grouped is-grouped-centered">
-          <button id="form-submit" class="button is-link" type="submit" v-on:click.stop.prevent="addChildren">子供追加</button>
+          <button
+            id="form-submit"
+            class="button is-link"
+            type="submit"
+            v-on:click.stop.prevent="addChildren">子供追加</button>
         </div>
         <div class="field is-grouped is-grouped-centered">
-          <button id="form-submit" class="button is-link" type="submit" v-on:click.stop.prevent="removeChildren">子供削除</button>
+          <button
+            id="form-submit"
+            class="button is-link"
+            type="submit"
+            v-on:click.stop.prevent="removeChildren">子供削除</button>
         </div>
         -->
         <div class="field is-grouped is-grouped-centered">
-          <button id="form-submit" class="button is-link" type="submit" :disabled="form.invalid" v-on:click.stop.prevent="create">登録</button>
+          <button
+            id="form-submit"
+            class="button is-link"
+            type="submit"
+            :disabled="form.invalid"
+            v-on:click.stop.prevent="create">登録</button>
         </div>
       </div>
     </div>
@@ -106,9 +119,9 @@
 
 <script>
 import store from '@/store';
-import { apiHandleErr } from '@/module/errorHandler';
+import ErrorHandler from '@/module/ErrorHandler';
 import { InquiryUpdateForm } from '@/forms';
-import { inquiryApi } from '@/module/api';
+import { inquiryApi } from '@/module/Api';
 import { COMMON_MESSAGE } from '@/conf/message';
 import BaseRegister from '@/views/base/Register';
 
@@ -130,8 +143,8 @@ export default {
     create() {
       console.log(this.form.notNullValues());
       inquiryApi.create(this.form.notNullValues())
-        .then(() => this.$showModal(COMMON_MESSAGE.UPDATED, '', () => location.reload()))
-        .catch(apiHandleErr);
+        .then(() => this.$showModal(COMMON_MESSAGE.UPDATED, '', () => window.location.reload()))
+        .catch(ErrorHandler.apiHandleErr);
     },
     addChildren() {
       this.form.addChildren();

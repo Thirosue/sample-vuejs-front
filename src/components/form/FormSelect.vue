@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { formItemMixin } from '@/mixins';
+import formItemMixin from '@/mixins/form-item';
 import { BaseSelectFormItem } from '@/lib';
 
 export default {

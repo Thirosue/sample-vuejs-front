@@ -41,7 +41,12 @@
       </div>
 
       <div class="field is-grouped is-grouped-centered">
-        <button id="form-submit" class="button is-link" type="submit" :disabled="form.invalid" v-on:click.prevent="signin">Login</button>
+        <button
+          id="form-submit"
+          class="button is-link"
+          type="submit"
+          :disabled="form.invalid"
+          v-on:click.prevent="signin">Login</button>
       </div>
     </div>
   </div>
@@ -52,12 +57,11 @@
 <script>
 import { FormInput } from '@/components/form';
 import { LoginForm } from '@/forms';
-import { FORM_GETTER_TYPES, FORM_MUTATION_TYPES } from '@/store/modules/form';
 import { SESSION_GETTER_TYPES, SESSION_MUTATION_TYPES } from '@/store/modules/session';
 import { Config } from '@/conf/config';
-import { apiHandleErr } from '@/module/errorHandler';
-import { COMMON_MESSAGE, LOGIN_MESSAGE } from '@/conf/message';
-import { authApi } from '@/module/api';
+import ErrorHandler from '@/module/ErrorHandler';
+import { LOGIN_MESSAGE } from '@/conf/message';
+import { authApi } from '@/module/Api';
 
 export default {
   name: 'Login',
@@ -99,7 +103,7 @@ export default {
           if (error.response.status === 401) {
             this.errMsg = LOGIN_MESSAGE.ERR_AUTH;
           } else {
-            apiHandleErr(error.response);
+            ErrorHandler.apiHandleErr(error.response);
           }
         });
     },

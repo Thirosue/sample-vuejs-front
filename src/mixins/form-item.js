@@ -12,7 +12,7 @@ const splitFirst = (value, delimiter) => {
   return pos === -1 ? [value] : [value.substring(0, pos), value.substring(pos).trim()];
 };
 
-export const formItemMixin = {
+const formItemMixin = {
   props: {
     value: {
       // type: String,
@@ -154,3 +154,5 @@ export const formItemMixin = {
     },
   },
 };
+
+export default formItemMixin;

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { buildModuleTypes } from '@/helpers/store';
 
 const moduleName = 'session';

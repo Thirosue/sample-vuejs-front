@@ -162,7 +162,12 @@
           </tbody>
         </table>
         <div class="field is-grouped is-grouped-centered">
-          <button id="form-submit" class="button is-link" type="submit" :disabled="form.invalid" v-on:click.stop.prevent="update">更新</button>
+          <button
+            id="form-submit"
+            class="button is-link"
+            type="submit"
+            :disabled="form.invalid"
+            v-on:click.stop.prevent="update">更新</button>
         </div>
       </div>
     </div>
@@ -172,8 +177,7 @@
 </template>
 
 <script>
-import { codeApi } from '@/module/api';
-import { apiHandleErr } from '@/module/errorHandler';
+import { codeApi } from '@/module/Api';
 import BaseEdit from '@/views/base/Edit';
 import { CodeUpdateForm } from '@/forms';
 

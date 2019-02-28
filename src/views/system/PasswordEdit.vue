@@ -54,7 +54,12 @@
         </div>
 
         <div class="field is-grouped is-grouped-centered">
-          <button id="form-submit" class="button is-link" type="submit" :disabled="form.invalid" v-on:click.stop.prevent="changePassword">更新</button>
+          <button
+            id="form-submit"
+            class="button is-link"
+            type="submit"
+            :disabled="form.invalid"
+            v-on:click.stop.prevent="changePassword">更新</button>
         </div>
       </div>
     </div>
@@ -65,9 +70,8 @@
 
 <script>
 import { PasswordUpdateForm } from '@/forms';
-import { apiHandleErr } from '@/module/errorHandler';
-import { Config } from '@/conf/config';
-import { staffApi } from '@/module/api';
+import ErrorHandler from '@/module/ErrorHandler';
+import { staffApi } from '@/module/Api';
 import { COMMON_MESSAGE, PASSWORD_MESSAGE } from '@/conf/message';
 import BaseUpdate from '@/views/base/Update';
 
@@ -91,7 +95,7 @@ export default {
           if (error.response.status === 400) {
             this.errMsg = PASSWORD_MESSAGE.SAME_PASSWORD;
           } else {
-            apiHandleErr(error.response);
+            ErrorHandler.apiHandleErr(error.response);
           }
         });
     },

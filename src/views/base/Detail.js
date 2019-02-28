@@ -1,6 +1,6 @@
-import { apiHandleErr } from '@/module/errorHandler';
+import ErrorHandler from '@/module/ErrorHandler';
+import createView from '@/helpers/view';
 import { Config } from '@/conf/config';
-import { createView } from '@/helpers/view';
 import { FORM_MUTATION_TYPES } from '@/store/modules/form';
 import { PATH_LIST } from '@/helpers/path';
 
@@ -15,9 +15,9 @@ export default {
     this.findById(this.$route.params.id);
   },
   methods: {
-    callApi: (id) => { /* callApi */ }, // <--- 個別に定義
+    // callApi: id => { /* callApi */ }, // <--- 個別に定義
     async findById(id) {
-      const response = await this.callApi(id).catch(apiHandleErr);
+      const response = await this.callApi(id).catch(ErrorHandler.apiHandleErr);
       this.data = this.$_.head(response.data);
     },
     results() {

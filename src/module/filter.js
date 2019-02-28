@@ -1,3 +1,4 @@
+import is from 'is_js';
 import _ from 'lodash';
 import moment from 'moment';
 
@@ -9,7 +10,7 @@ const joinComma = list => _.join(list, ', ');
 const joinSpace = list => _.join(list, ' ');
 
 // カンマ表示
-const AddComma = value => ((value || Number(value) === NaN) ? Number(value).toLocaleString() : value);
+const AddComma = value => ((value && is.number(value)) ? Number(value).toLocaleString() : value);
 const Flag = value => ((value === '1' || value) ? '有り' : '無し');
 
 export default {

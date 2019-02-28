@@ -1,4 +1,5 @@
 /* eslint-disable */
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
@@ -26,14 +27,10 @@ const store = new Vuex.Store({
 
   mutations: {
     [SET_STACKTRACE](state, stackTrace) {
-      state.stackTrace = Object.assign({}, state.stackTrace, stackTrace);
+      state.stackTrace = stackTrace;
     },
     loadStart(state) { state.loading = true; },
     loadEnd(state) { state.loading = false; },
-  },
-
-  actions: {
-    [SET_STACKTRACE](commit, stackTrace) { commit(SET_STACKTRACE, stackTrace); },
   },
 
   strict: process.env.NODE_ENV !== 'production',

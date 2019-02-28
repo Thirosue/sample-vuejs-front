@@ -22,7 +22,11 @@
       />
 
       <div class="field is-grouped is-grouped-right">
-        <button id="form-submit" class="button is-link" type="submit" v-on:click.stop.prevent="search(1)">Search</button>
+        <button
+          id="form-submit"
+          class="button is-link"
+          type="submit"
+          v-on:click.stop.prevent="search(1)">Search</button>
       </div>
     </div>
 
@@ -47,10 +51,14 @@
         </div>
       </nav>
 
-      <sample-pager v-bind:initial-page="page" v-bind:page-count="totalPage" v-bind:click-handler="search" :resultCount="count"></sample-pager><!-- pager -->
+      <sample-pager
+        :initial-page="page"
+        :page-count="totalPage"
+        :click-handler="search"
+        :resultCount="count"></sample-pager><!-- pager -->
       <hr>
 
-      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" style="table-layout: fixed;">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
         <thead>
           <tr>
             <th>#</th>
@@ -83,7 +91,7 @@
 <script>
 import store from '@/store';
 import { InquirySearchForm2 } from '@/forms';
-import { inquiryApi } from '@/module/api';
+import { inquiryApi } from '@/module/Api';
 import { decode } from '@/helpers/code';
 import BaseList from '@/views/base/List';
 
@@ -95,7 +103,11 @@ export default {
   mixins: [BaseList],
 
   data() {
-    const form = new InquirySearchForm2(this.$router.history.current.query, inquiryCategories, inquiryGenre);
+    const form = new InquirySearchForm2(
+      this.$router.history.current.query,
+      inquiryCategories,
+      inquiryGenre,
+    );
     return {
       form,
     };

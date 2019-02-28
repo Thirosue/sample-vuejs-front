@@ -2,134 +2,143 @@ import is from 'is_js';
 import 'whatwg-fetch';
 import querystring from 'querystring';
 
-const HOST = location.origin;
-const BASE_URL = `${HOST}/admin`;
-const ENDPOINT_LOG = `${BASE_URL}/api/log`;
-const ENDPOINT_AUTH = `${BASE_URL}/api/auth`;
-const ENDPOINT_STAFF = `${BASE_URL}/api/staff`;
-const ENDPOINT_CODE = `${BASE_URL}/api/code`;
-const ENDPOINT_INQUIRY = `${BASE_URL}/api/inquiry`;
+class Api {
+  /** *******************
+   * Get Settings
+   * ****************** */
+  static makeGetUrl
+    = (base, where) => base + (is.empty(where) ? '' : `?${querystring.stringify(where)}`);
 
-/** *******************
- * Get Settings
- * ****************** */
-const _makeGetUrl = (base, where) => base + (is.empty(where) ? '' : `?${querystring.stringify(where)}`);
+  // get filter
+  /* filter implements */
+  static searchEnd = response => response;
 
-// get filter
-/* filter implements */
-const _searchEnd = response => response;
+  static checkStatus = (response) => {
+    if (response.status >= 200 && response.status < 300) {
+      return response;
+    }
+    const error = new Error(response.statusText);
+    error.response = response;
+    throw error;
+  };
 
+  static toJson = response => response.json();
 
-const _checkStatus = (response) => {
-  if (response.status >= 200 && response.status < 300) {
+  static toText = response => response.text();
+
+  static fetchGet
+    = (base, where = {}) => window.fetch(this.makeGetUrl(base, where), {
+      method: 'GET',
+    }).then(this.searchEnd).then(this.checkStatus);
+
+  /** *******************
+   * Post/Put Settings
+   * ****************** */
+  static submitButton = () => document.querySelectorAll('.button');
+
+  static updateHeader = ({
+    'X-Requested-With': 'csrf', // csrf header
+    'Content-Type': 'application/json',
+  });
+
+  static updateStartFilter = () => {
+    if (this.submitButton()) {
+      [...this.submitButton()].forEach((button) => { button.setAttribute('disabled', 'disabled'); });
+    }
+  };
+
+  static updateEndFilter = () => {
+    if (this.submitButton()) {
+      [...this.submitButton()].forEach((button) => { button.removeAttribute('disabled'); });
+    }
+  };
+
+  static updatehEnd = (response) => {
+    this.updateEndFilter();
     return response;
-  }
-  const error = new Error(response.statusText);
-  error.response = response;
-  throw error;
-};
+  };
 
-const _toJson = response => response.json();
-const _toText = response => response.text();
+  static postBase = (url, data) => {
+    this.updateStartFilter();
+    return window.fetch(url, {
+      method: 'POST',
+      headers: this.updateHeader,
+      body: JSON.stringify(data),
+    });
+  };
 
-const _fetchGet = (base, where = {}) => window.fetch(_makeGetUrl(base, where), {
-  method: 'GET',
-}).then(_searchEnd).then(_checkStatus);
+  static putBase = (url, data) => {
+    this.updateStartFilter();
+    return window.fetch(url, {
+      method: 'PUT',
+      headers: this.updateHeader,
+      body: JSON.stringify(data),
+    });
+  };
 
-/** *******************
- * Post/Put Settings
- * ****************** */
-const _submitButton = () => document.querySelectorAll('.button');
-const _updateHeader = ({
-  'X-Requested-With': 'csrf', // csrf header
-  'Content-Type': 'application/json',
-});
+  static fetchPost =
+            (url, data) => this.postBase(url, data).then(this.updatehEnd).then(this.checkStatus);
 
-const _updateStartFilter = () => {
-  if (_submitButton()) {
-    Array.from(_submitButton()).forEach(button => button.disabled = true);
-  }
-};
+  static fetchPut =
+            (url, data) => this.putBase(url, data).then(this.updatehEnd).then(this.checkStatus);
 
-const _updateEndFilter = () => {
-  if (_submitButton()) {
-    Array.from(_submitButton()).forEach(button => button.disabled = '');
-  }
-};
+  /** *******************
+   * Delete Settings
+   * ****************** */
+  static fetchDelete = url => window.fetch(url, {
+    method: 'DELETE',
+    headers: this.updateHeader,
+  }).then(this.checkStatus);
+}
 
-const _updatehEnd = (response) => {
-  _updateEndFilter();
-  return response;
-};
-
-const _postBase = (url, data) => {
-  _updateStartFilter();
-  return window.fetch(url, {
-    method: 'POST',
-    headers: _updateHeader,
-    body: JSON.stringify(data),
-  });
-};
-
-const _putBase = (url, data) => {
-  _updateStartFilter();
-  return window.fetch(url, {
-    method: 'PUT',
-    headers: _updateHeader,
-    body: JSON.stringify(data),
-  });
-};
-
-const _fetchPost = (url, data) => _postBase(url, data).then(_updatehEnd).then(_checkStatus);
-const _fetchPut = (url, data) => _putBase(url, data).then(_updatehEnd).then(_checkStatus);
-
-/** *******************
- * Delete Settings
- * ****************** */
-const _fetchDelete = url => window.fetch(url, {
-  method: 'DELETE',
-  headers: _updateHeader,
-}).then(_checkStatus);
+const API_CONFIG = {};
+API_CONFIG.HOST = window.location.origin;
+API_CONFIG.BASE_URL = `${API_CONFIG.HOST}/admin`;
+API_CONFIG.ENDPOINT_LOG = `${API_CONFIG.BASE_URL}/api/log`;
+API_CONFIG.ENDPOINT_AUTH = `${API_CONFIG.BASE_URL}/api/auth`;
+API_CONFIG.ENDPOINT_STAFF = `${API_CONFIG.BASE_URL}/api/staff`;
+API_CONFIG.ENDPOINT_CODE = `${API_CONFIG.BASE_URL}/api/code`;
+API_CONFIG.ENDPOINT_INQUIRY = `${API_CONFIG.BASE_URL}/api/inquiry`;
 
 /** *******************
  * API Settings
  * ****************** */
 export const logApi = {
-  access: path => _fetchGet(`${ENDPOINT_LOG}/access`, path),
-  error: data => _fetchPost(`${ENDPOINT_LOG}/error`, data),
+  access: path => Api.fetchGet(`${API_CONFIG.ENDPOINT_LOG}/access`, path),
+  error: data => Api.fetchPost(`${API_CONFIG.ENDPOINT_LOG}/error`, data),
 };
 
 export const authApi = {
-  doAuth: loginInfo => _fetchPost(ENDPOINT_AUTH, loginInfo).then(_toJson),
-  checkSession: () => _fetchPut(ENDPOINT_AUTH).then(_toJson),
-  logout: () => _fetchDelete(ENDPOINT_AUTH).then(_toJson),
+  doAuth: loginInfo => Api.fetchPost(API_CONFIG.ENDPOINT_AUTH, loginInfo).then(Api.toJson),
+  checkSession: () => Api.fetchPut(API_CONFIG.ENDPOINT_AUTH).then(Api.toJson),
+  logout: () => Api.fetchDelete(API_CONFIG.ENDPOINT_AUTH).then(Api.toJson),
 };
 
 export const masterApi = {
-  getCodeCategory: () => _fetchGet(`${BASE_URL}/api/codeCategory`).then(_toJson),
-  getInquiryCategory: () => _fetchGet(`${BASE_URL}/api/inquiry/category`).then(_toJson),
-  getInquiryGenre: () => _fetchGet(`${BASE_URL}/api/inquiry/genre`).then(_toJson),
-  getSex: () => _fetchGet(`${BASE_URL}/api/inquiry/sex`).then(_toJson),
+  getCodeCategory: () => Api.fetchGet(`${API_CONFIG.BASE_URL}/api/codeCategory`).then(Api.toJson),
+  getInquiryCategory: () => Api.fetchGet(`${API_CONFIG.BASE_URL}/api/inquiry/category`).then(Api.toJson),
+  getInquiryGenre: () => Api.fetchGet(`${API_CONFIG.BASE_URL}/api/inquiry/genre`).then(Api.toJson),
+  getSex: () => Api.fetchGet(`${API_CONFIG.BASE_URL}/api/inquiry/sex`).then(Api.toJson),
 };
 
 export const staffApi = {
-  findAll: where => _fetchGet(ENDPOINT_STAFF, where).then(_toJson),
-  findById: id => _fetchGet(`${ENDPOINT_STAFF}/${id}`).then(_toJson),
-  create: data => _fetchPost(ENDPOINT_STAFF, data).then(_toJson),
-  update: data => _fetchPut(ENDPOINT_STAFF, data).then(_toJson),
-  delete: id => _fetchDelete(`${ENDPOINT_STAFF}/${id}`).then(_toJson),
-  changePassword: data => _fetchPost(`${ENDPOINT_STAFF}/updatePassword`, data).then(_toJson),
+  findAll: where => Api.fetchGet(API_CONFIG.ENDPOINT_STAFF, where).then(Api.toJson),
+  findById: id => Api.fetchGet(`${API_CONFIG.ENDPOINT_STAFF}/${id}`).then(Api.toJson),
+  create: data => Api.fetchPost(API_CONFIG.ENDPOINT_STAFF, data).then(Api.toJson),
+  update: data => Api.fetchPut(API_CONFIG.ENDPOINT_STAFF, data).then(Api.toJson),
+  delete: id => Api.fetchDelete(`${API_CONFIG.ENDPOINT_STAFF}/${id}`).then(Api.toJson),
+  changePassword: data => Api.fetchPost(`${API_CONFIG.ENDPOINT_STAFF}/updatePassword`, data).then(Api.toJson),
 };
 
 export const codeApi = {
-  findAll: where => _fetchGet(ENDPOINT_CODE, where).then(_toJson),
-  findById: id => _fetchGet(`${ENDPOINT_CODE}/${id}`).then(_toJson),
-  create: data => _fetchPost(ENDPOINT_CODE, data).then(_toJson),
-  update: data => _fetchPut(ENDPOINT_CODE, data).then(_toJson),
-  delete: id => _fetchDelete(`${ENDPOINT_CODE}/${id}`).then(_toJson),
+  findAll: where => Api.fetchGet(API_CONFIG.ENDPOINT_CODE, where).then(Api.toJson),
+  findById: id => Api.fetchGet(`${API_CONFIG.ENDPOINT_CODE}/${id}`).then(Api.toJson),
+  create: data => Api.fetchPost(API_CONFIG.ENDPOINT_CODE, data).then(Api.toJson),
+  update: data => Api.fetchPut(API_CONFIG.ENDPOINT_CODE, data).then(Api.toJson),
+  delete: id => Api.fetchDelete(`${API_CONFIG.ENDPOINT_CODE}/${id}`).then(Api.toJson),
 };
 
 export const inquiryApi = {
-  findAll: where => _fetchGet(ENDPOINT_INQUIRY, where).then(_toJson),
-  create: data => _fetchPost(ENDPOINT_INQUIRY, data).then(_toJson),
+  findAll: where => Api.fetchGet(API_CONFIG.ENDPOINT_INQUIRY, where).then(Api.toJson),
+  create: data => Api.fetchPost(API_CONFIG.ENDPOINT_INQUIRY, data).then(Api.toJson),
 };

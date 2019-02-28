@@ -46,7 +46,7 @@ const Staff = [
 ]
 
  */
-import { staffApi } from '@/module/api';
+import { staffApi } from '@/module/Api';
 import BaseDetail from '@/views/base/Detail';
 import ViewSettings from '@/conf/ViewSettings';
 

@@ -103,7 +103,12 @@
           </tbody>
         </table>
         <div class="field is-grouped is-grouped-centered">
-          <button id="form-submit" class="button is-link" type="submit" :disabled="form.invalid" v-on:click.stop.prevent="create">登録</button>
+          <button
+            id="form-submit"
+            class="button is-link"
+            type="submit"
+            :disabled="form.invalid"
+            v-on:click.stop.prevent="create">登録</button>
         </div>
       </div>
     </div>
@@ -113,8 +118,7 @@
 </template>
 
 <script>
-import { staffApi } from '@/module/api';
-import { apiHandleErr } from '@/module/errorHandler';
+import { staffApi } from '@/module/Api';
 import BaseRegister from '@/views/base/Register';
 import { StaffRegisterForm } from '@/forms';
 

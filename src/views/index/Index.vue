@@ -21,19 +21,34 @@
             <nav class="level">
               <div class="level-right">
                 <div class="level-item">
-                  <button class="button is-link" type="submit" v-on:click.stop.prevent="open">シンプル</button>
+                  <button
+                    class="button is-link"
+                    type="submit"
+                    @click="open">シンプル</button>
                 </div>
                 <div class="level-item">
-                  <button class="button is-link" type="submit" v-on:click.stop.prevent="openWithTitle">タイトル付き</button>
+                  <button
+                    class="button is-link"
+                    type="submit"
+                    @click="openWithTitle">タイトル付き</button>
                 </div>
                 <div class="level-item">
-                  <button class="button is-link" type="submit" v-on:click.stop.prevent="openWithTitleAndSuccess">コールバック付き（OK）</button>
+                  <button
+                    class="button is-link"
+                    type="submit"
+                    @click="openWithTitleAndSuccess">コールバック付き（OK）</button>
                 </div>
                 <div class="level-item">
-                  <button class="button is-link" type="submit" v-on:click.stop.prevent="openWithTitleAndSuccessAndError">コールバック付き（OK/NG）</button>
+                  <button
+                    class="button is-link"
+                    type="submit"
+                    @click="openWithTitleAndSuccessAndError">コールバック付き（OK/NG）</button>
                 </div>
                 <div class="level-item">
-                  <button class="button is-link" type="submit" v-on:click.stop.prevent="openWithOutButton">ボタンなし</button>
+                  <button
+                    class="button is-link"
+                    type="submit"
+                    @click="openWithOutButton">ボタンなし</button>
                 </div>
               </div>
             </nav>
@@ -49,13 +64,22 @@
             <nav class="level">
               <div class="level-right">
                 <div class="level-item">
-                  <button class="button is-link" type="submit" v-on:click.stop.prevent="toast">トップ</button>
+                  <button
+                    class="button is-link"
+                    type="submit"
+                    @click.stop.prevent="toast">トップ</button>
                 </div>
                 <div class="level-item">
-                  <button class="button is-link" type="submit" v-on:click.stop.prevent="toastBottom">ボトム ※要位置調整</button>
+                  <button
+                    class="button is-link"
+                    type="submit"
+                    @click="toastBottom">ボトム ※要位置調整</button>
                 </div>
                 <div class="level-item">
-                  <button class="button is-link" type="submit" v-on:click.stop.prevent="toastWith5Second">トップ（5秒まち）</button>
+                  <button
+                    class="button is-link"
+                    type="submit"
+                    @click="toastWith5Second">トップ（5秒まち）</button>
                 </div>
               </div>
             </nav>
@@ -69,7 +93,7 @@
 
 <script>
 import { Config } from '@/conf/config';
-import { COMMON_MESSAGE, LOGIN_MESSAGE } from '@/conf/message';
+import { LOGIN_MESSAGE } from '@/conf/message';
 
 export default {
   beforeRouteEnter(to, from, next) {

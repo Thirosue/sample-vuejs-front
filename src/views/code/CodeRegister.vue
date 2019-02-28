@@ -171,7 +171,12 @@
           </tbody>
         </table>
         <div class="field is-grouped is-grouped-centered">
-          <button id="form-submit" class="button is-link" type="submit" :disabled="form.invalid" v-on:click.stop.prevent="create">登録</button>
+          <button
+            id="form-submit"
+            class="button is-link"
+            type="submit"
+            :disabled="form.invalid"
+            v-on:click.stop.prevent="create">登録</button>
         </div>
       </div>
     </div>
@@ -183,8 +188,7 @@
 <script>
 import store from '@/store';
 import BaseRegister from '@/views/base/Register';
-import { codeApi } from '@/module/api';
-import { apiHandleErr } from '@/module/errorHandler';
+import { codeApi } from '@/module/Api';
 import { convertKeys } from '@/helpers/form';
 import { CodeUpdateForm } from '@/forms';
 
@@ -193,7 +197,8 @@ export default {
   mixins: [BaseRegister],
 
   data() {
-    const codeCategories = store.state.master.codeCategories.map(val => convertKeys(val, ['id', 'value'], ['category_name', 'text'])); // APIの返戻を整形
+    // APIの返戻を整形
+    const codeCategories = store.state.master.codeCategories.map(val => convertKeys(val, ['id', 'value'], ['category_name', 'text']));
     const form = new CodeUpdateForm({}, codeCategories);
     return {
       form,

@@ -1,15 +1,17 @@
+/* eslint-disable */
+
 import is from 'is_js';
 import _ from 'lodash';
 import store from '@/store';
 import router from '@/router';
-import { sleep } from '@/helpers/timer';
-import Modal from '@/components/Modal';
-import Toast from '@/components/Toast';
+import timer from '@/helpers/timer';
 import Application from '@/views/base/Application';
-import { authApi } from '@/module/api';
+import { authApi } from '@/module/Api';
 import { Config } from '@/conf/config';
 import { SESSION_MUTATION_TYPES } from '@/store/modules/session';
 import { MASTER_MUTATION_TYPES } from '@/store/modules/master';
+import Modal from '@/components/Modal.vue';
+import Toast from '@/components/Toast.vue';
 
 export default {
   install: (Vue) => {
@@ -45,10 +47,10 @@ export default {
         },
       }).$mount();
       document.querySelector('#app').appendChild(component.$el);
-      await sleep(duration);
+      await timer.sleep(duration);
       component.$el.classList.remove('toast');
       component.$el.classList.add('fadeout');
-      await sleep(1500);
+      await timer.sleep(1500);
       component.$el.remove();
     };
 

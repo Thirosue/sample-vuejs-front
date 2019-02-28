@@ -1,31 +1,51 @@
 import _ from 'lodash';
 import moment from 'moment';
-import { logApi } from '@/module/api';
+import { logApi } from '@/module/Api';
 import { Config } from '@/conf/config';
 
-const _getAccessLog = () => JSON.parse(sessionStorage.getItem('accesslog')) || [];
-const _setAccessLog = accesslog => sessionStorage.setItem('accesslog', JSON.stringify(accesslog));
+export default class Statistics {
+  constructor() {
+    window.setInterval(async () => {
+      const processing = this.constructor.getAccessLog();
+      const successes = await this.constructor.logging(processing);
 
-const _sendServer = async () => {
-  let accesslog = _getAccessLog();
-  for (let i = 0; i < accesslog.length; i++) {
-    await logApi.access({ path: accesslog[i].path })
-      .then(() => {
-        accesslog[i].pushed = true;
-        console.log(`push success! path=(${accesslog[i].path})`);
-      })
-      .catch((err) => {
-        accesslog[i].retry++;
+      const retries = _.xor(processing, successes);
+      retries.forEach((r) => {
+        const target = { ...r };
+        target.retry += 1;
+        return target;
       });
+
+      this.constructor.setAccessLog(retries.filter(r => r.retry < Config.LOG_RETRY_MAX));
+    }, 3000);
   }
-  accesslog = accesslog.filter(log => !log.pushed && log.retry < Config.LOG_RETRY_MAX);
-  _setAccessLog(accesslog);
-};
 
-window.setInterval(_sendServer, 5000);
+  static getAccessLog() {
+    return JSON.parse(sessionStorage.getItem('accesslog')) || [];
+  }
 
-export const setAccessLog = (path) => {
-  const accesslog = _getAccessLog();
-  accesslog.push(({ timestamp: moment().format(), path, retry: 0 }));
-  _setAccessLog(accesslog);
-};
+  static setAccessLog(accesslog) {
+    return sessionStorage.setItem('accesslog', JSON.stringify(accesslog));
+  }
+
+  static logging(targets) {
+    const results = [];
+    targets.forEach(accesslog => results.push(this.callAPi(accesslog)));
+    return Promise.all(results);
+  }
+
+  static callAPi(accesslog) {
+    return logApi.access({ path: accesslog.path })
+      .then(() => {
+        console.log(`push success! path=(${accesslog.path})`);
+        return accesslog;
+      })
+      .catch(() => []);
+  }
+
+  setAccessLog(path) {
+    const accesslog = this.constructor.getAccessLog();
+    accesslog.push(({ timestamp: moment().format(), path, retry: 0 }));
+    this.constructor.setAccessLog(accesslog);
+  }
+}

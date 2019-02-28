@@ -1,6 +1,6 @@
 import is from 'is_js';
 import { createObj } from '@/helpers/object';
-import * as ValidatorSettings from '@/helpers/validator';
+import ValidatorSettings from '@/helpers/validator';
 import { isNotEmpty } from '@/helpers/validators';
 
 const _SimpleValidatorMappings = [

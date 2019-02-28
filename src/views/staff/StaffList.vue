@@ -46,7 +46,11 @@
       />
 
       <div class="field is-grouped is-grouped-right">
-        <button id="form-submit" class="button is-link" type="submit" v-on:click.stop.prevent="search(1)">Search</button>
+        <button
+          id="form-submit"
+          class="button is-link"
+          type="submit"
+          v-on:click.stop.prevent="search(1)">Search</button>
       </div>
     </div>
 
@@ -77,12 +81,19 @@
             />
           </p>
           <p class="level-item">
-            <button class="button is-primary" type="submit" v-on:click.stop.prevent="downloadList">CSV Download</button>
+            <button
+              class="button is-primary"
+              type="submit"
+              v-on:click.stop.prevent="downloadList">CSV Download</button>
           </p>
         </div>
       </nav>
 
-      <sample-pager v-bind:initial-page="page" v-bind:page-count="totalPage" v-bind:click-handler="search" :resultCount="count"></sample-pager><!-- pager -->
+      <sample-pager
+        :initial-page="page"
+        :page-count="totalPage"
+        :click-handler="search"
+        :resultCount="count"></sample-pager><!-- pager -->
       <hr>
 
       <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
@@ -96,7 +107,9 @@
           <tr v-for="(result, rownum) in results" v-bind:key="rownum">
             <td>{{rownum+1}}</td>
             <td v-for="(key, j) in resultKeys" v-bind:key="j">
-              <router-link v-if="key==='id'" v-bind:to="'/' + namespace + '/' +  result.id">{{result.id}}</router-link>
+              <router-link
+                v-if="key==='id'"
+                :to="'/' + namespace + '/' +  result.id">{{result.id}}</router-link>
               <template v-else>{{result[key]}}</template>
             </td>
           </tr>
@@ -122,7 +135,7 @@ const StaffListSettings = [
 
  */
 import { StaffSearchForm } from '@/forms';
-import { staffApi } from '@/module/api';
+import { staffApi } from '@/module/Api';
 import csvHeader from '@/conf/csvHeader';
 import ListSettings from '@/conf/ListSettings';
 import BaseList from '@/views/base/List';

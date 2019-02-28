@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { formItemMixin } from '@/mixins';
+import formItemMixin from '@/mixins/form-item';
 
 export default {
   mixins: [formItemMixin],

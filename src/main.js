@@ -4,34 +4,34 @@ import router from '@/router';
 import store from '@/store';
 import './registerServiceWorker';
 
-Vue.config.productionTip = false;
-
 // add plugin for global
 import MyApplicationPlugin from '@/module/plugin/application';
-Vue.use(MyApplicationPlugin);
 
 // add filter for global
 import filter from '@/module/filter';
 
-Vue.filter('YYYYMMDD', filter.YYYYMMDD );
-Vue.filter('YYMMDD_YYYYMMDD', filter.YYMMDD_YYYYMMDD );
-Vue.filter('YYYYMMDDHHmm', filter.YYYYMMDDHHmm );
-Vue.filter('YYYYMMDDHHmmss', filter.YYYYMMDDHHmmss );
-Vue.filter('joinComma', filter.joinComma );
-Vue.filter('joinSpace', filter.joinSpace );
-Vue.filter('AddComma', filter.AddComma);
-Vue.filter('Flag', filter.Flag );
-
 // add directive for global
 import directive from '@/module/directive';
 
-Vue.directive('focus', directive.focus );
-
 // add compornent for global
-import NavBar from '@/components/layouts/Navbar';
-import Footer from '@/components/layouts/Footer';
-import Pager from '@/components/Pager';
-import Searching from '@/components/Searching';
+import NavBar from '@/components/layouts/Navbar.vue';
+import Footer from '@/components/layouts/Footer.vue';
+import Pager from '@/components/Pager.vue';
+import Searching from '@/components/Searching.vue';
+
+Vue.config.productionTip = false;
+Vue.use(MyApplicationPlugin);
+
+Vue.filter('YYYYMMDD', filter.YYYYMMDD);
+Vue.filter('YYMMDD_YYYYMMDD', filter.YYMMDD_YYYYMMDD);
+Vue.filter('YYYYMMDDHHmm', filter.YYYYMMDDHHmm);
+Vue.filter('YYYYMMDDHHmmss', filter.YYYYMMDDHHmmss);
+Vue.filter('joinComma', filter.joinComma);
+Vue.filter('joinSpace', filter.joinSpace);
+Vue.filter('AddComma', filter.AddComma);
+Vue.filter('Flag', filter.Flag);
+
+Vue.directive('focus', directive.focus);
 
 Vue.component('sample-navbar', NavBar);
 Vue.component('sample-footer', Footer);

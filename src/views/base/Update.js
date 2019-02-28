@@ -6,7 +6,7 @@ import {
   FormInput, FormSelect, FormCheckbox, FormMultiCheckbox, FormMultiSelect, FormTextarea,
 } from '@/components/form';
 import { PATH_LIST } from '@/helpers/path';
-import { sleep } from '@/helpers/timer';
+import timer from '@/helpers/timer';
 
 export default {
   components: {
@@ -23,7 +23,9 @@ export default {
     //  + 完了画面への遷移
     //  + エラーの場合
     //  + フォームを1回も編集していない場合
-    if (to.path === this.completePath || includeList(Config.ERROR_PATH, to.path) || !this.form.isDirty()) {
+    if (to.path === this.completePath
+                  || includeList(Config.ERROR_PATH, to.path)
+                  || !this.form.isDirty()) {
       next();
     } else {
       this.$showModal(
@@ -54,7 +56,7 @@ export default {
   async mounted() {
     // フォームを強制リフレッシュ
     this.form.resetState();
-    await sleep(100);
+    await timer.sleep(100);
     this.form.updateState();
   },
 

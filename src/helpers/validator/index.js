@@ -1,1 +1,3 @@
-export { createLengthValidator } from './length';
+import createLengthValidator from './length';
+
+export default { createLengthValidator };
