@@ -58,7 +58,7 @@
 import { FormInput } from '@/components/form';
 import { LoginForm } from '@/forms';
 import { SESSION_GETTER_TYPES, SESSION_MUTATION_TYPES } from '@/store/modules/session';
-import { Config } from '@/conf/config';
+import Config from '@/conf/Config';
 import ErrorHandler from '@/module/ErrorHandler';
 import { LOGIN_MESSAGE } from '@/conf/message';
 import { authApi } from '@/module/Api';

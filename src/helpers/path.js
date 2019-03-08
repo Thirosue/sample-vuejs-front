@@ -7,7 +7,14 @@ export const PATH_LIST = {
   REGISTER_COMPLETE: 'RegisterComplete',
 };
 
-export const buildPath = namespace => Object.entries(PATH_LIST).reduce((pathMapping, [type, value]) => {
-  pathMapping[type] = `/${namespace}${value}`;
-  return pathMapping;
-}, {});
+export function buildPath(namespace) {
+  return Object.entries(PATH_LIST)
+    .reduce(
+      (pathMapping, [type, value]) => {
+        const mapping = pathMapping;
+        mapping[type] = `/${namespace}${value}`;
+        return mapping;
+      },
+      {},
+    );
+}

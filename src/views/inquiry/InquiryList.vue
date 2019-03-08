@@ -124,17 +124,17 @@
 import store from '@/store';
 import { InquirySearchForm } from '@/forms';
 import { inquiryApi } from '@/module/Api';
-import { decode } from '@/helpers/code';
+import { decode } from '@/helpers';
 import BaseList from '@/views/base/List';
-
-const { inquiryCategories } = store.state.master;
-const { inquiryGenre } = store.state.master;
 
 export default {
   name: 'InquriyList',
   mixins: [BaseList],
 
   data() {
+    const { inquiryCategories } = store.state.master;
+    const { inquiryGenre } = store.state.master;
+
     const form = new InquirySearchForm(
       this.$router.history.current.query,
       inquiryCategories,

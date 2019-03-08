@@ -1,7 +1,7 @@
 import { BaseFormItem } from '@/lib';
 import { isFlag } from '@/helpers/validators';
 
-export class FlagFormItem extends BaseFormItem {
+export default class FlagFormItem extends BaseFormItem {
   constructor(value = '') {
     super(value);
 
@@ -12,12 +12,8 @@ export class FlagFormItem extends BaseFormItem {
     if (this._value) {
       this.addValidator({
         message: '不正な操作が行われました',
-        validator: this._Flag,
+        validator: isFlag,
       });
     }
-  }
-
-  _Flag(value) {
-    return isFlag(value);
   }
 }

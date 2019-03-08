@@ -2,8 +2,8 @@ import is from 'is_js';
 import { mapGetters } from 'vuex';
 import BaseUpdate from '@/views/base/Update';
 import ErrorHandler from '@/module/ErrorHandler';
-import { Config } from '@/conf/config';
-import { PATH_LIST } from '@/helpers/path';
+import Config from '@/conf/Config';
+import { PATH_LIST } from '@/helpers';
 import { FORM_GETTER_TYPES, FORM_MUTATION_TYPES } from '@/store/modules/form';
 
 export default {

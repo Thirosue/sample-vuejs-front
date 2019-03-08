@@ -1,7 +1,7 @@
 import { BaseForm } from '@/lib';
 import { PasswordFormItem } from '@/forms/items';
 
-export class PasswordUpdateForm extends BaseForm {
+export default class PasswordUpdateForm extends BaseForm {
   constructor({ password = '', passwordConfirm = '' } = {}) {
     super();
     this.addItem('password', new PasswordFormItem(password).validate());

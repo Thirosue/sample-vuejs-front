@@ -44,4 +44,34 @@ describe('Validators', () => {
       expect(validators.isNotEmpty(null)).toBe(false);
     });
   });
+
+  describe('isTel', () => {
+    it('1', () => {
+      expect(validators.isTel('1')).toBe(false);
+    });
+
+    it('090-1234-567', () => {
+      expect(validators.isTel('090-1234-567')).toBe(false);
+    });
+
+    it('090-123-5678', () => {
+      expect(validators.isTel('090-123-5678')).toBe(false);
+    });
+
+    it('09012345678', () => {
+      expect(validators.isTel('09012345678')).toBe(true);
+    });
+
+    it('090-1234-5678', () => {
+      expect(validators.isTel('090-1234-5678')).toBe(true);
+    });
+
+    it('0312345678', () => {
+      expect(validators.isTel('0312345678')).toBe(true);
+    });
+
+    it('03-1234-5678', () => {
+      expect(validators.isTel('03-1234-5678')).toBe(true);
+    });
+  });
 });

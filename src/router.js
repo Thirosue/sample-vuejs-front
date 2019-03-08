@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from '@/store';
-import { Config } from '@/conf/config';
+import Config from '@/conf/Config';
 import Auth from '@/module/Auth';
 import Statistics from '@/module/Statistics';
 import { SESSION_GETTER_TYPES } from '@/store/modules/session';
-import { buildPath } from '@/helpers/path';
+import { buildPath } from '@/helpers';
 
 import SystemError from '@/views/error/SystemError.vue';
 import BadRequest from '@/views/error/BadRequest.vue';

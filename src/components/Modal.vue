@@ -10,8 +10,14 @@
       <span v-html="content"></span>
     </section>
     <footer class="modal-card-foot" v-if="bottomVisible">
-      <button class="button is-success" v-on:click.stop.prevent="modalSubmit">OK</button>
-      <button v-if="!blankCancelCallBack" class="button" v-on:click.stop.prevent="modalCancel">Cancel</button>
+      <button
+        class="button is-success"
+        @click.stop.prevent="modalSubmit"
+      >OK</button>
+      <button v-if="!blankCancelCallBack"
+        class="button"
+        @click.stop.prevent="modalCancel"
+      >Cancel</button>
     </footer>
   </div>
 </div>

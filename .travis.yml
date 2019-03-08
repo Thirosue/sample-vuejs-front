@@ -12,5 +12,6 @@ cache: yarn
 script:
   - rm -rf node_modules/
   - yarn
+  - yarn lint
   - yarn test:unit
   - yarn build

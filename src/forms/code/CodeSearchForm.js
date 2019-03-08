@@ -1,17 +1,17 @@
+import Config from '@/conf/Config';
 import { BaseForm } from '@/lib';
 import {
-  TextFormItem, SelectFormItem, SortFormItem, FlagFormItem,
+  TextFormItem, SelectFormItem, SortFormItem, FlagFormItem, RowsFormItem,
 } from '@/forms/items';
-import { set } from '@/helpers/list';
 
-export class CodeSearchForm extends BaseForm {
+export default class CodeSearchForm extends BaseForm {
   constructor({
     categoryKey = '',
     codeKey = '',
     codeAlias = '',
     isInvalid = '',
-    rows = '',
-    page = '',
+    rows = Config.DEFAULT_ROWS,
+    page = '1',
     sort = '',
   } = {},
   codeCategories = [],
@@ -29,8 +29,8 @@ export class CodeSearchForm extends BaseForm {
     this.addItem('codeAlias', new TextFormItem(codeAlias));
     this.addItem('isInvalid', new FlagFormItem(isInvalid));
 
-    // for list search
-    set(this, rows, page);
+    this.addItem('rows', new RowsFormItem(rows));
+    this.addItem('page', new TextFormItem(page));
     this.addItem('sort', new SortFormItem(sort, codeSortItems));
   }
 }

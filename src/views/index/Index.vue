@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import { Config } from '@/conf/config';
+import Config from '@/conf/Config';
 import { LOGIN_MESSAGE } from '@/conf/message';
 
 export default {

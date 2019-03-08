@@ -1,7 +1,7 @@
 import { BaseForm } from '@/lib';
 import { TextFormItem, EmailFormItem, TelFormItem } from '@/forms/items';
 
-export class StaffUpdateForm extends BaseForm {
+export default class StaffUpdateForm extends BaseForm {
   constructor({
     id = '',
     lastName = '',

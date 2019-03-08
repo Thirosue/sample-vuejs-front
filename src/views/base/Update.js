@@ -1,12 +1,10 @@
 
 import { COMMON_MESSAGE } from '@/conf/message';
-import { Config } from '@/conf/config';
-import { includeList } from '@/helpers/string';
+import Config from '@/conf/Config';
+import { PATH_LIST, includeList, sleep } from '@/helpers';
 import {
   FormInput, FormSelect, FormCheckbox, FormMultiCheckbox, FormMultiSelect, FormTextarea,
 } from '@/components/form';
-import { PATH_LIST } from '@/helpers/path';
-import timer from '@/helpers/timer';
 
 export default {
   components: {
@@ -56,7 +54,7 @@ export default {
   async mounted() {
     // フォームを強制リフレッシュ
     this.form.resetState();
-    await timer.sleep(100);
+    await sleep(100);
     this.form.updateState();
   },
 

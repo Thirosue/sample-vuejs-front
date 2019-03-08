@@ -1,9 +1,9 @@
 <template>
   <div>
-		<div class="spinner" v-show="searching">
+    <div class="spinner" v-show="searching">
       <div class="cube1"></div>
       <div class="cube2"></div>
-		</div>
+    </div>
     <div v-show="noresult">
       <article class="message is-info">
         <div class="message-header">
@@ -14,7 +14,7 @@
         </div>
       </article>
     </div>
-	</div>
+  </div>
 </template>
 
 <script>

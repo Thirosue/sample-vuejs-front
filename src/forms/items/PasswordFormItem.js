@@ -1,7 +1,7 @@
 import { BaseFormItem } from '@/lib';
 import { isNotEmpty, isExpectLength } from '@/helpers/validators';
 
-export class PasswordFormItem extends BaseFormItem {
+export default class PasswordFormItem extends BaseFormItem {
   constructor(value = '') {
     super(value);
     this.minlength = 8;

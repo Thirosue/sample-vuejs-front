@@ -1,16 +1,29 @@
-export { PasswordUpdateForm } from './system/PasswordUpdateForm';
+/* eslint-disable */
 
-export { LoginForm } from './login/LoginForm';
+import PasswordUpdateForm from './system/PasswordUpdateForm';
+export { PasswordUpdateForm };
 
-export { StaffSearchForm } from './staff/StaffSearchForm';
-export { StaffUpdateForm } from './staff/StaffUpdateForm';
-export { StaffRegisterForm } from './staff/StaffRegisterForm';
+import LoginForm from './login/LoginForm';
+export { LoginForm };
 
-export { CodeSearchForm } from './code/CodeSearchForm';
-export { CodeUpdateForm } from './code/CodeUpdateForm';
+import StaffSearchForm from './staff/StaffSearchForm';
+import StaffUpdateForm from './staff/StaffUpdateForm';
+import StaffRegisterForm from './staff/StaffRegisterForm';
+export { StaffSearchForm };
+export { StaffUpdateForm };
+export { StaffRegisterForm };
 
-export { InquirySearchForm } from './inquiry/InquirySearchForm';
-export { InquirySearchForm2 } from './inquiry/InquirySearchForm2';
-export { InquiryUpdateForm } from './inquiry/InquiryUpdateForm';
+import CodeSearchForm from './code/CodeSearchForm';
+import CodeUpdateForm from './code/CodeUpdateForm';
+export { CodeSearchForm };
+export { CodeUpdateForm };
 
-export { ChildUpdateForm } from './inquiry/ChildUpdateForm';
+import InquirySearchForm from './inquiry/InquirySearchForm';
+import InquirySearchForm2 from './inquiry/InquirySearchForm2';
+import InquiryUpdateForm from './inquiry/InquiryUpdateForm';
+export { InquirySearchForm };
+export { InquirySearchForm2 };
+export { InquiryUpdateForm };
+
+import ChildUpdateForm from './inquiry/ChildUpdateForm';
+export { ChildUpdateForm };

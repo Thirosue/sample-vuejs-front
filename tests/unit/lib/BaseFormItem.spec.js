@@ -115,6 +115,45 @@ describe('BaseFormItem', () => {
       expect(baseFormItem.messages).toContain('empty');
     });
 
+    it('validate, stop options is true', () => {
+      baseFormItem.addValidator({
+        validator(value) {
+          return value.length > 0;
+        },
+        message: 'empty',
+        stop: true,
+      });
+      baseFormItem.addValidator({
+        validator(value) {
+          return value.length > 0;
+        },
+        message: 'empty2',
+      });
+
+      baseFormItem.value = '';
+
+      expect(baseFormItem.messages).toEqual(['empty']);
+    });
+
+    it('validate, stop options is false', () => {
+      baseFormItem.addValidator({
+        validator(value) {
+          return value.length > 0;
+        },
+        message: 'empty',
+      });
+      baseFormItem.addValidator({
+        validator(value) {
+          return value.length > 0;
+        },
+        message: 'empty2',
+      });
+
+      baseFormItem.value = '';
+
+      expect(baseFormItem.messages).toEqual(['empty', 'empty2']);
+    });
+
     it('validate, remove message', () => {
       baseFormItem.addValidator({
         validator(value) {

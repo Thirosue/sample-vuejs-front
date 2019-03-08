@@ -189,7 +189,7 @@
 import store from '@/store';
 import BaseRegister from '@/views/base/Register';
 import { codeApi } from '@/module/Api';
-import { convertKeys } from '@/helpers/form';
+import { convertKeys } from '@/helpers';
 import { CodeUpdateForm } from '@/forms';
 
 export default {

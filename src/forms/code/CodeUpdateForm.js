@@ -3,7 +3,7 @@ import {
   TextFormItem, IntegerFormItem, BooleanFormItem, SelectFormItem,
 } from '@/forms/items';
 
-export class CodeUpdateForm extends BaseForm {
+export default class CodeUpdateForm extends BaseForm {
   constructor({
     id = '',
     codeCategoryId = '',

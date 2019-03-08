@@ -1,6 +1,6 @@
 import is from 'is_js';
 import { BaseFormItem } from '@/lib';
-import { setValidator } from '@/conf/ValidatorMappings';
+import ValidatorMappings from '@/conf/ValidatorMappings';
 
 const createInitialStates = () => ({
   touched: false,
@@ -69,7 +69,7 @@ const formItemMixin = {
   created() {
     if (is.not.undefined(this.rule) && is.not.empty(this.rule)) {
       const rules = this.rule.split('|');
-      rules.map(value => splitFirst(value, ' ')).forEach(([_rule, _prop]) => setValidator(this.formItem, _rule, _prop));
+      rules.map(value => splitFirst(value, ' ')).forEach(([_rule, _prop]) => ValidatorMappings.setValidator(this.formItem, _rule, _prop));
     }
   },
 

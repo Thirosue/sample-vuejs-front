@@ -1,6 +1,6 @@
-export { default as FormInput } from './FormInput';
-export { default as FormTextarea } from './FormTextarea';
-export { default as FormSelect } from './FormSelect';
-export { default as FormMultiSelect } from './FormMultiSelect';
-export { default as FormCheckbox } from './FormCheckbox';
-export { default as FormMultiCheckbox } from './FormMultiCheckbox';
+export { default as FormInput } from './FormInput.vue';
+export { default as FormTextarea } from './FormTextarea.vue';
+export { default as FormSelect } from './FormSelect.vue';
+export { default as FormMultiSelect } from './FormMultiSelect.vue';
+export { default as FormCheckbox } from './FormCheckbox.vue';
+export { default as FormMultiCheckbox } from './FormMultiCheckbox.vue';

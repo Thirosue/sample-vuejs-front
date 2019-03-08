@@ -1,4 +1,4 @@
-import { buildPath } from '@/helpers/path';
+import { buildPath } from '@/helpers';
 
 describe('buildPath', () => {
   it('UserList Path', () => {

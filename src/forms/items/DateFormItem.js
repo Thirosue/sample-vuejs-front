@@ -1,7 +1,7 @@
 import { BaseFormItem } from '@/lib';
 import { isDate } from '@/helpers/validators';
 
-export class DateFormItem extends BaseFormItem {
+export default class DateFormItem extends BaseFormItem {
   constructor(value = null) {
     super(value);
 

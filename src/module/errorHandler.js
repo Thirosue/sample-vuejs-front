@@ -1,6 +1,6 @@
 import router from '@/router';
 import store from '@/store';
-import { Config } from '@/conf/config';
+import Config from '@/conf/Config';
 
 export default class ErrorHandler {
   static apiHandleErr(error) {

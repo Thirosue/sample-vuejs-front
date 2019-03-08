@@ -1,32 +1,38 @@
-import is from 'is_js';
-import { createObj } from '@/helpers/object';
+import { createObj } from '@/helpers';
 import ValidatorSettings from '@/helpers/validator';
 import { isNotEmpty } from '@/helpers/validators';
 
-const _SimpleValidatorMappings = [
-  { key: 'required', validator: isNotEmpty, message: '入力が必須の項目です' },
-];
+export default class ValidatorMappings {
+  static SimpleValidatorMappings = [
+    { key: 'required', validator: isNotEmpty, message: '入力が必須の項目です' },
+  ]
 
-const _CustomValidatorMappings = [
-  { key: 'range', create: ValidatorSettings.createLengthValidator },
-];
+  static CustomValidatorMappings = [
+    { key: 'range', create: ValidatorSettings.createLengthValidator },
+  ]
 
-const _getSimpleValidator = key => _SimpleValidatorMappings.find(mapping => mapping.key === key);
-const _getCostomValidator = key => _CustomValidatorMappings.find(mapping => mapping.key === key);
-
-export const setValidator = (formItem, rule, prop) => {
-  const _simpeValidator = _getSimpleValidator(rule);
-  if (_simpeValidator) {
-    formItem.addValidator({
-      message: _simpeValidator.message,
-      validator: _simpeValidator.validator,
-    });
+  static getSimpleValidator(key) {
+    return this.SimpleValidatorMappings.find(mapping => mapping.key === key);
   }
 
-  const _costomValidator = _getCostomValidator(rule);
-  if (_costomValidator) {
-    const _prop = createObj(prop);
-    const _validator = _costomValidator.create.call(null, _prop);
-    formItem.addValidator(_validator);
+  static getCostomValidator(key) {
+    return this.CustomValidatorMappings.find(mapping => mapping.key === key);
   }
-};
+
+  static setValidator = (formItem, rule, prop) => {
+    const simpeValidator = this.getSimpleValidator(rule);
+    if (simpeValidator) {
+      formItem.addValidator({
+        message: simpeValidator.message,
+        validator: simpeValidator.validator,
+      });
+    }
+
+    const costomValidator = this.getCostomValidator(rule);
+    if (costomValidator) {
+      const propObj = createObj(prop);
+      const validator = costomValidator.create.call(null, propObj);
+      formItem.addValidator(validator);
+    }
+  }
+}

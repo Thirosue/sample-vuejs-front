@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { buildModuleTypes } from '@/helpers/store';
+import { buildModuleTypes } from '@/helpers';
 
 const moduleName = 'form';
 const GETTER_TYPES = {

@@ -1,8 +1,8 @@
 import router from '@/router';
-import { includeList } from '@/helpers/string';
+import { includeList } from '@/helpers';
 import ErrorHandler from '@/module/ErrorHandler';
-import { Screenlist } from '@/conf/screenList';
-import { Config } from '@/conf/config';
+import Screenlist from '@/conf/ScreenList';
+import Config from '@/conf/Config';
 import { authApi } from '@/module/Api';
 
 export default class Auth {

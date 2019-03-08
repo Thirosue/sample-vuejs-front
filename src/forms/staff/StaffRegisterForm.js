@@ -3,7 +3,7 @@ import {
   TextFormItem, EmailFormItem, TelFormItem, PasswordFormItem,
 } from '@/forms/items';
 
-export class StaffRegisterForm extends BaseForm {
+export default class StaffRegisterForm extends BaseForm {
   constructor({
     lastName = '',
     firstName = '',

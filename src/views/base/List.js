@@ -3,9 +3,9 @@ import {
 } from '@/components/form';
 import createFile from '@/module/download';
 import ErrorHandler from '@/module/ErrorHandler';
-import { Config } from '@/conf/config';
+import Config from '@/conf/Config';
 import { COMMON_MESSAGE } from '@/conf/message';
-import { PATH_LIST } from '@/helpers/path';
+import { PATH_LIST } from '@/helpers';
 
 export default {
   components: {

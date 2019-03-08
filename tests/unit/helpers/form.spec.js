@@ -1,4 +1,4 @@
-import { convertKeys } from '@/helpers/form';
+import { convertKeys } from '@/helpers';
 
 describe('convertKeys', () => {
   const beforeObj = {

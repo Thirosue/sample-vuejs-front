@@ -125,14 +125,14 @@ import { inquiryApi } from '@/module/Api';
 import { COMMON_MESSAGE } from '@/conf/message';
 import BaseRegister from '@/views/base/Register';
 
-const { inquiryCategories } = store.state.master;
-const { inquiryGenre } = store.state.master;
-const { sex } = store.state.master;
-
 export default {
   mixins: [BaseRegister],
 
   data() {
+    const { inquiryCategories } = store.state.master;
+    const { inquiryGenre } = store.state.master;
+    const { sex } = store.state.master;
+
     const form = new InquiryUpdateForm({}, inquiryCategories, inquiryGenre, sex);
     return {
       form,

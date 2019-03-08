@@ -1,7 +1,7 @@
 import { BaseFormItem } from '@/lib';
 import { isTel } from '@/helpers/validators';
 
-export class TelFormItem extends BaseFormItem {
+export default class TelFormItem extends BaseFormItem {
   constructor(value = '') {
     super(value);
 
@@ -11,11 +11,7 @@ export class TelFormItem extends BaseFormItem {
   _addValidators() {
     this.addValidator({
       message: '電話番号を入力してください',
-      validator: this._isTelValidator,
+      validator: isTel,
     });
-  }
-
-  _isTelValidator(value) {
-    return isTel(value);
   }
 }

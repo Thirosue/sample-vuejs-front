@@ -1,6 +1,6 @@
 import { BaseSelectFormItem } from '@/lib';
 
-export class RowsFormItem extends BaseSelectFormItem {
+export default class RowsFormItem extends BaseSelectFormItem {
   constructor(value = '') {
     super(value);
     this.options = [

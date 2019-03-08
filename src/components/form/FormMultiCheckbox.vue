@@ -2,7 +2,11 @@
   <div class="field">
     <label v-bind:for="id" class="label">{{ label }}</label>
     <div class="control">
-      <label class="checkbox" v-for="(option, index) in formItem.options" v-bind:for="option.text" v-bind:key="`option-${index}`">
+      <label :key="`option-${index}`"
+              :for="option.text"
+              class="checkbox"
+              v-for="(option, index) in formItem.options"
+      >
         <input
           v-bind:type="type"
           v-bind:id="option.text"
@@ -48,12 +52,13 @@ export default {
     isChecked(listValues, _thisValue) { return listValues.includes(_thisValue); },
     handleInput(model, evt) {
       const { value } = evt.target;
+      let mdl = model;
       if (evt.target.checked) {
-        model.push(value);
+        mdl.push(value);
       } else {
-        model = this.$_.without(model, value);
+        mdl = this.$_.without(mdl, value);
       }
-      this.$emit('input', model);
+      this.$emit('input', mdl);
     },
   },
 };

@@ -1,4 +1,14 @@
 /*
  * JSON.parseできない {hoge: 1} とかに対応
  */
-export const createObj = str => (new Function(`return ${str}`))();
+
+/* eslint no-new-func: "off" */
+const createObj = (str) => {
+  try {
+    return (new Function(`return ${str}`))();
+  } catch {
+    return null;
+  }
+};
+
+export default { createObj };

@@ -1,8 +1,7 @@
 import ErrorHandler from '@/module/ErrorHandler';
-import createView from '@/helpers/view';
-import { Config } from '@/conf/config';
+import Config from '@/conf/Config';
 import { FORM_MUTATION_TYPES } from '@/store/modules/form';
-import { PATH_LIST } from '@/helpers/path';
+import { createView, PATH_LIST } from '@/helpers';
 
 export default {
   data: () => ({

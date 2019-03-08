@@ -4,9 +4,9 @@
  * 許可リスト方式
  * 全てのロールに許可する画面は "all" を指定
 */
-import { Config } from '@/conf/config';
+import Config from '@/conf/Config';
 
-export const MenuList = [
+export default [
   {
     category: 'STAFF', order: 1, id: 'STAFF_LIST', name: '担当者一覧', url: '/staffList', roles: [Config.ADMIN],
   },

@@ -1,12 +1,12 @@
+import Config from '@/conf/Config';
 import { BaseForm } from '@/lib';
-import { MultiSelectFormItem } from '@/forms/items';
-import { set } from '@/helpers/list';
+import { MultiSelectFormItem, RowsFormItem, TextFormItem } from '@/forms/items';
 
-export class InquirySearchForm2 extends BaseForm {
+export default class InquirySearchForm2 extends BaseForm {
   constructor({
     genre = [],
-    rows = '',
-    page = '',
+    rows = Config.DEFAULT_ROWS,
+    page = '1',
   } = {},
   categoriyOptions = [],
   genreOptions = []) {
@@ -20,7 +20,7 @@ export class InquirySearchForm2 extends BaseForm {
     super();
     this.addItem('genre', new MultiSelectFormItem(genre, genreOptions));
 
-    // for list search
-    set(this, rows, page);
+    this.addItem('rows', new RowsFormItem(rows));
+    this.addItem('page', new TextFormItem(page));
   }
 }

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export const getSortList = (mapping) => {
+const getSortList = (mapping) => {
   const ascList = mapping.filter(row => row.sort).map((row) => {
     const value = [row.key, 'asc'].join(' ');
     const text = [row.value, '昇順'].join(' ');
@@ -15,3 +15,5 @@ export const getSortList = (mapping) => {
   });
   return _.orderBy(_.concat(ascList, descList), 'order');
 };
+
+export default { getSortList };

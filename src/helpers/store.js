@@ -1,4 +1,13 @@
-export const buildModuleTypes = ({ moduleName, types }) => Object.entries(types).reduce((exportTypes, [type, value]) => {
-  exportTypes[type] = `${moduleName}/${value}`;
-  return exportTypes;
-}, {});
+function buildModuleTypes({ moduleName, types }) {
+  return Object.entries(types)
+    .reduce(
+      (exportTypes, [type, value]) => {
+        const tmpTypes = exportTypes;
+        tmpTypes[type] = `${moduleName}/${value}`;
+        return tmpTypes;
+      },
+      {},
+    );
+}
+
+export default { buildModuleTypes };

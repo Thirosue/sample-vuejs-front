@@ -4,7 +4,7 @@ import {
 } from '@/forms/items';
 import { isNotEmpty } from '@/helpers/validators';
 
-export class InquiryUpdateForm extends BaseForm {
+export default class InquiryUpdateForm extends BaseForm {
   constructor({
     name = '',
     email = '',
@@ -40,12 +40,12 @@ export class InquiryUpdateForm extends BaseForm {
   }
 
   addChildren() {
-    this.childCount++;
+    this.childCount += 1;
     console.log(this.childCount);
   }
 
   removeChildren() {
-    this.childCount--;
+    this.childCount -= 1;
     console.log(this.childCount);
   }
 

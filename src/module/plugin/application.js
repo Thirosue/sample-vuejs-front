@@ -4,10 +4,10 @@ import is from 'is_js';
 import _ from 'lodash';
 import store from '@/store';
 import router from '@/router';
-import timer from '@/helpers/timer';
+import { sleep } from '@/helpers';
 import Application from '@/views/base/Application';
 import { authApi } from '@/module/Api';
-import { Config } from '@/conf/config';
+import Config from '@/conf/Config';
 import { SESSION_MUTATION_TYPES } from '@/store/modules/session';
 import { MASTER_MUTATION_TYPES } from '@/store/modules/master';
 import Modal from '@/components/Modal.vue';
@@ -47,10 +47,10 @@ export default {
         },
       }).$mount();
       document.querySelector('#app').appendChild(component.$el);
-      await timer.sleep(duration);
+      await sleep(duration);
       component.$el.classList.remove('toast');
       component.$el.classList.add('fadeout');
-      await timer.sleep(1500);
+      await sleep(1500);
       component.$el.remove();
     };
 

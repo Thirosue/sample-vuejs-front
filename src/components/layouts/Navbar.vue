@@ -2,7 +2,9 @@
 <nav class="navbar is-light">
   <div class="navbar-brand">
     <a class="navbar-item" href="#">
-      <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
+      <img  width="112" height="28"
+          src="https://bulma.io/images/bulma-logo.png"
+          alt="Bulma: a modern CSS framework based on Flexbox">
     </a>
   </div>
 
@@ -10,12 +12,20 @@
     <div class="navbar-start">
       <router-link class="navbar-item" to="/">Home</router-link>
 
-      <div v-for="(category, i) in menuCategories" v-bind:key="i" class="navbar-item has-dropdown is-hoverable">
+      <div :key="i"
+        class="navbar-item has-dropdown is-hoverable"
+        v-for="(category, i) in menuCategories"
+      >
         <a class="navbar-link" href="javascript:void(0)">
           {{category.name}}
         </a>
         <div class="navbar-dropdown is-boxed">
-          <router-link v-for="(menu, j) in menus" v-bind:key="j" v-if="category.category === menu.category" class="navbar-item" :to="menu.url">{{menu.name}}</router-link>
+          <!-- eslint-disable vue/no-use-v-if-with-v-for -->
+          <router-link :key="j"
+              class="navbar-item"
+              v-if="category.category === menu.category"
+              v-for="(menu, j) in menus" :to="menu.url"
+          >{{menu.name}}</router-link>
         </div>
       </div>
     </div>
@@ -24,14 +34,20 @@
       <div class="navbar-item">
         <div class="field is-grouped">
           <p class="control">
-            <router-link class="button is-text" type="submit" v-bind:to="'/inquiry'">お問い合わせ</router-link>
+            <router-link  type="submit"
+                class="button is-text"
+                v-bind:to="'/inquiry'"
+            >お問い合わせ</router-link>
           </p>
         </div>
       </div>
       <div class="navbar-item">
         <div class="field is-grouped">
           <p class="control">
-            <router-link class="button is-text" type="submit" v-bind:to="'/passwordEdit'">パスワード変更</router-link>
+            <router-link type="submit"
+              class="button is-text"
+              v-bind:to="'/passwordEdit'"
+            >パスワード変更</router-link>
           </p>
         </div>
       </div>
@@ -50,7 +66,7 @@
 </template>
 
 <script>
-import { Config } from '@/conf/config';
+import Config from '@/conf/Config';
 
 export default {
   name: 'Navbar',

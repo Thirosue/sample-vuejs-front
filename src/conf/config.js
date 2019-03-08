@@ -1,7 +1,7 @@
 /**
  * 定数定義
  */
-export const Config = {
+export default {
   DEFAULT_ROWS: '10',
   LOG_RETRY_MAX: 5, // アクセスログ保存のリトライ上限
 

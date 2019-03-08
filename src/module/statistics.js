@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import { logApi } from '@/module/Api';
-import { Config } from '@/conf/config';
+import Config from '@/conf/Config';
 
 export default class Statistics {
   constructor() {

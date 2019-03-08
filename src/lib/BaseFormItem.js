@@ -61,16 +61,17 @@ export default class BaseFormItem {
   }
 
   validate() {
-    for (const { validator, message, stop } of this._validators) {
-      if (validator.call(this, this.value)) {
+    this._validators.some(({ validator, message, stop }) => {
+      if (validator.call(this, this.value) === false) {
+        this.addMessage(message);
+        if (stop === true) {
+          return true; // break
+        }
+      } else {
         this.removeMessage(message);
-        continue;
       }
-      this.addMessage(message);
-      if (stop === true) {
-        break;
-      }
-    }
+      return false;
+    });
     return this;
   }
 

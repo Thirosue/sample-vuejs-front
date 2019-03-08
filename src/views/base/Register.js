@@ -1,6 +1,6 @@
 import ErrorHandler from '@/module/ErrorHandler';
 import BaseUpdate from '@/views/base/Update';
-import { PATH_LIST } from '@/helpers/path';
+import { PATH_LIST } from '@/helpers';
 
 export default {
   mixins: [BaseUpdate],

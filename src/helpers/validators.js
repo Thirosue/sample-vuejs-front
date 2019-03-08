@@ -8,8 +8,9 @@ export const isEmail = value => is.email(value);
 
 export const isTel = (value) => {
   if (String(value).length === 0) { return true; }
-  const tel = value.replace(/[━.*‐.*―.*－.*\-.*ー.*\-]/gi, '');
-  return tel.match(/^(0[5-9]0[0-9]{8}|0[1-9][1-9][0-9]{7})$/);
+  const tel = value.replace(/[━.*‐.*―.*－.*\-.*ー.*-]/gi, '');
+  const result = tel.match(/^(0[5-9]0[0-9]{8}|0[1-9][1-9][0-9]{7})$/);
+  return is.not.null(result);
 };
 
 export const isExpectLength = (value, { max = Infinity, min = 0 } = {}) => {

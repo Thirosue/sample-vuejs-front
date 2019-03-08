@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { buildModuleTypes } from '@/helpers/store';
+import { buildModuleTypes } from '@/helpers';
 
 const moduleName = 'master';
 const GETTER_TYPES = {

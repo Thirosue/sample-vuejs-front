@@ -1,7 +1,7 @@
 import { BaseFormItem } from '@/lib';
 import { isInteger } from '@/helpers/validators';
 
-export class IntegerFormItem extends BaseFormItem {
+export default class IntegerFormItem extends BaseFormItem {
   constructor(value = null) {
     super(value ? Number(value) : null);
 
@@ -12,12 +12,8 @@ export class IntegerFormItem extends BaseFormItem {
     if (this._value) {
       this.addValidator({
         message: '有効な数値を入力してください。',
-        validator: this._isInteger,
+        validator: isInteger,
       });
     }
-  }
-
-  _isInteger(value) {
-    return isInteger(value);
   }
 }

@@ -1,7 +1,7 @@
 import { BaseForm } from '@/lib';
 import { TextFormItem, DateFormItem, SelectFormItem } from '@/forms/items';
 
-export class ChildUpdateForm extends BaseForm {
+export default class ChildUpdateForm extends BaseForm {
   constructor({
     name = '',
     sex = '',

@@ -1,11 +1,11 @@
 import { mapGetters } from 'vuex';
-import { Config } from '@/conf/config';
+import Config from '@/conf/Config';
 import { SESSION_GETTER_TYPES } from '@/store/modules/session';
 import { MASTER_GETTER_TYPES, MASTER_MUTATION_TYPES } from '@/store/modules/master';
-import { MenuCategoryList } from '@/conf/menuCategoryList';
-import { MenuList } from '@/conf/menuList';
-import { Screenlist } from '@/conf/screenList';
 import { masterApi } from '@/module/Api';
+import MenuCategoryList from '@/conf/MenuCategoryList';
+import MenuList from '@/conf/MenuList';
+import Screenlist from '@/conf/ScreenList';
 import ErrorHandler from '@/module/ErrorHandler';
 
 export default {

@@ -4,7 +4,7 @@ import {
   PasswordFormItem,
 } from '../items';
 
-export class LoginForm extends BaseForm {
+export default class LoginForm extends BaseForm {
   constructor({
     email = '',
     password = '',

@@ -1,17 +1,17 @@
+import Config from '@/conf/Config';
 import { BaseForm } from '@/lib';
-import { TextFormItem, SortFormItem } from '@/forms/items';
-import { set } from '@/helpers/list';
-import { getSortList } from '@/helpers/sort';
+import { TextFormItem, SortFormItem, RowsFormItem } from '@/forms/items';
+import { getSortList } from '@/helpers';
 import ListSettings from '@/conf/ListSettings';
 
-export class StaffSearchForm extends BaseForm {
+export default class StaffSearchForm extends BaseForm {
   constructor({
     firstName = '',
     lastName = '',
     email = '',
     tel = '',
-    rows = '',
-    page = '',
+    rows = Config.DEFAULT_ROWS,
+    page = '1',
     sort = '',
   } = {}) {
     super();
@@ -20,8 +20,8 @@ export class StaffSearchForm extends BaseForm {
     this.addItem('email', new TextFormItem(email));
     this.addItem('tel', new TextFormItem(tel));
 
-    // for list search
-    set(this, rows, page);
+    this.addItem('rows', new RowsFormItem(rows));
+    this.addItem('page', new TextFormItem(page));
     this.addItem('sort', new SortFormItem(sort, getSortList(ListSettings.StaffListSettings)));
   }
 }
