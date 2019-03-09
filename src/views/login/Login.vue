@@ -96,6 +96,7 @@ export default {
       console.log(value);
       authApi.doAuth(value)
         .then((response) => {
+          localStorage.clear();
           this.$store.commit(SESSION_MUTATION_TYPES.SET_VALUES, response.data[0]);
           this.$router.push('/');
         })
