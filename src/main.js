@@ -16,8 +16,6 @@ import directive from '@/module/directive';
 // add compornent for global
 import NavBar from '@/components/layouts/Navbar.vue';
 import Footer from '@/components/layouts/Footer.vue';
-import Pager from '@/components/Pager.vue';
-import Searching from '@/components/Searching.vue';
 
 Vue.config.productionTip = false;
 Vue.use(MyApplicationPlugin);
@@ -35,8 +33,6 @@ Vue.directive('focus', directive.focus);
 
 Vue.component('sample-navbar', NavBar);
 Vue.component('sample-footer', Footer);
-Vue.component('sample-pager', Pager);
-Vue.component('sample-searching', Searching);
 
 new Vue({
   router,

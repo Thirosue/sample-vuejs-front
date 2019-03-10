@@ -10,7 +10,17 @@ import * as master from '@/store/modules/master';
 
 Vue.use(Vuex);
 
-const SET_STACKTRACE = 'setStackTrace';
+export const GETTER_TYPES = {
+  GET_STACKTRACE: 'GET_STACKTRACE',
+  GET_SEARCHING: 'GET_SEARCHING',
+  GET_LOADING: 'GET_LOADING',
+};
+
+export const MUTATION_TYPES = {
+  SET_STACKTRACE: 'SET_STACKTRACE',
+  SET_SEARCHING: 'SET_SEARCHING',
+  SET_LOADING: 'SET_LOADING',
+};
 
 const store = new Vuex.Store({
   modules: {
@@ -21,16 +31,33 @@ const store = new Vuex.Store({
 
   state: {
     stackTrace: null,
+    searching: false,
     loading: false,
     mode: process.env.NODE_ENV,
   },
 
+  getters: {
+    [GETTER_TYPES.GET_STACKTRACE](state) {
+      return state.stackTrace;
+    },
+    [GETTER_TYPES.GET_SEARCHING](state) {
+      return state.searching;
+    },
+    [GETTER_TYPES.GET_LOADING](state) {
+      return state.loading;
+    },
+  },
+
   mutations: {
-    [SET_STACKTRACE](state, stackTrace) {
+    [MUTATION_TYPES.SET_STACKTRACE](state, stackTrace) {
       state.stackTrace = stackTrace;
     },
-    loadStart(state) { state.loading = true; },
-    loadEnd(state) { state.loading = false; },
+    [MUTATION_TYPES.SET_SEARCHING](state, searching) {
+      state.searching = searching;
+    },
+    [MUTATION_TYPES.SET_LOADING](state, loading) {
+      state.loading = loading;
+    },
   },
 
   strict: process.env.NODE_ENV !== 'production',

@@ -14,8 +14,6 @@ import directive from '@/module/directive';
 // add compornent for global
 import NavBar from '@/components/layouts/Navbar.vue';
 import Footer from '@/components/layouts/Footer.vue';
-import Pager from '@/components/Pager.vue';
-import Searching from '@/components/Searching.vue';
 
 const _localVue = () => {
   const localVue = createLocalVue();
@@ -37,8 +35,6 @@ const _localVue = () => {
 
   localVue.component('sample-navbar', NavBar);
   localVue.component('sample-footer', Footer);
-  localVue.component('sample-pager', Pager);
-  localVue.component('sample-searching', Searching);
 
   return localVue;
 } 

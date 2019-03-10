@@ -1,11 +1,14 @@
 import {
   FormInput, FormSelect, FormCheckbox, FormMultiCheckbox, FormMultiSelect,
 } from '@/components/form';
+import ListResults from '@/components/layouts/ListResults.vue';
+import Pager from '@/components/Pager.vue';
 import createFile from '@/module/download';
 import ErrorHandler from '@/module/ErrorHandler';
 import Config from '@/conf/Config';
 import { COMMON_MESSAGE } from '@/conf/message';
 import { PATH_LIST } from '@/helpers';
+import { MUTATION_TYPES } from '@/store';
 
 export default {
   components: {
@@ -14,6 +17,8 @@ export default {
     FormCheckbox,
     FormMultiCheckbox,
     FormMultiSelect,
+    ListResults,
+    Pager,
   },
 
   data: () => ({
@@ -57,7 +62,9 @@ export default {
     },
     async findAll() {
       console.log(`search... conditions = ${JSON.stringify(this.where)}`);
+      this.$store.commit(MUTATION_TYPES.SET_SEARCHING, true);
       const response = await this.callApi(this.where).catch(ErrorHandler.apiHandleErr);
+      this.$store.commit(MUTATION_TYPES.SET_SEARCHING, false);
       this.results = response.data;
       this.count = response.count;
       this.page = response.page - 1;

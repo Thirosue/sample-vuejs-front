@@ -5,7 +5,7 @@
       <div class="cube2"></div>
     </div>
     <div v-show="noresult">
-      <article class="message is-info">
+      <article class="message">
         <div class="message-header">
           <p>No Result</p>
         </div>
@@ -18,13 +18,31 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import { GETTER_TYPES } from '@/store';
+
 export default {
   props: {
-    searching: {
-      type: Boolean,
+    results: {
+      type: Array,
+      required: true,
     },
-    noresult: {
-      type: Boolean,
+  },
+  data: () => ({
+    searched: false,
+    noresult: false,
+  }),
+  computed: {
+    ...mapGetters({
+      searching: GETTER_TYPES.GET_SEARCHING,
+    }),
+  },
+  watch: {
+    searching(searching) {
+      if (searching && !this.searched) {
+        this.searched = searching;
+      }
+      this.noresult = (!searching && this.searched && this.results.length === 0);
     },
   },
 };

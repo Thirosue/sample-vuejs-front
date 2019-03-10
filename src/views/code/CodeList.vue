@@ -57,77 +57,79 @@
 
     <hr>
 
-    <div class="sample-result-list" v-if="0 < results.length">
-      <nav class="level">
-        <!-- Left side -->
-        <div class="level-left">
-        </div>
-
-        <!-- Right side -->
-        <div class="level-right">
-          <div class="control">
-            <form-select
-              id="sort"
-              v-model.trim="form.items.sort.value"
-              v-bind:formItem="form.items.sort"
-              v-on:input="search(1)"
-            />
+    <list-results :results="results">
+      <div class="sample-result-list" v-if="0 < results.length">
+        <nav class="level">
+          <!-- Left side -->
+          <div class="level-left">
           </div>
-          <p class="level-item">
-            <form-select
-              id="rows"
-              v-model.trim="form.items.rows.value"
-              v-bind:formItem="form.items.rows"
-              v-on:input="search(1)"
-            />
-          </p>
-          <p class="level-item">
-            <button
-              class="button is-primary"
-              type="submit"
-              v-on:click.stop.prevent="downloadList">CSV Download</button>
-          </p>
-        </div>
-      </nav>
 
-      <sample-pager
-        :initial-page="page"
-        :page-count="totalPage"
-        :click-handler="search"
-        :resultCount="count"></sample-pager><!-- pager -->
-      <hr>
+          <!-- Right side -->
+          <div class="level-right">
+            <div class="control">
+              <form-select
+                id="sort"
+                v-model.trim="form.items.sort.value"
+                v-bind:formItem="form.items.sort"
+                v-on:input="search(1)"
+              />
+            </div>
+            <p class="level-item">
+              <form-select
+                id="rows"
+                v-model.trim="form.items.rows.value"
+                v-bind:formItem="form.items.rows"
+                v-on:input="search(1)"
+              />
+            </p>
+            <p class="level-item">
+              <button
+                class="button is-primary"
+                type="submit"
+                v-on:click.stop.prevent="downloadList">CSV Download</button>
+            </p>
+          </div>
+        </nav>
 
-      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>ID</th>
-            <th>コード分類キー</th>
-            <th>コード分類名</th>
-            <th>コードキー</th>
-            <th>コード値</th>
-            <th>コードエイリアス</th>
-            <th>表示順</th>
-            <th>無効フラグ</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(result, index) in results" v-bind:key="index">
-            <td>{{index+1}}</td>
-            <td>
-              <router-link :to="'/' + namespace + '/' + result.id">{{result.id}}</router-link>
-            </td>
-            <td>{{result.categoryKey}}</td>
-            <td>{{result.categoryName}}</td>
-            <td>{{result.codeKey}}</td>
-            <td>{{result.codeValue}}</td>
-            <td>{{result.codeAlias}}</td>
-            <td>{{result.displayOrder}}</td>
-            <td>{{result.isInvalid}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+        <pager
+          :initial-page="page"
+          :page-count="totalPage"
+          :click-handler="search"
+          :resultCount="count"></pager><!-- pager -->
+        <hr>
+
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>ID</th>
+              <th>コード分類キー</th>
+              <th>コード分類名</th>
+              <th>コードキー</th>
+              <th>コード値</th>
+              <th>コードエイリアス</th>
+              <th>表示順</th>
+              <th>無効フラグ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(result, index) in results" v-bind:key="index">
+              <td>{{index+1}}</td>
+              <td>
+                <router-link :to="'/' + namespace + '/' + result.id">{{result.id}}</router-link>
+              </td>
+              <td>{{result.categoryKey}}</td>
+              <td>{{result.categoryName}}</td>
+              <td>{{result.codeKey}}</td>
+              <td>{{result.codeValue}}</td>
+              <td>{{result.codeAlias}}</td>
+              <td>{{result.displayOrder}}</td>
+              <td>{{result.isInvalid}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </list-results>
   </div>
   <sample-footer></sample-footer>
 </div>
