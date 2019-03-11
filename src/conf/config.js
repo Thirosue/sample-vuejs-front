@@ -2,6 +2,8 @@
  * 定数定義
  */
 export default {
+  MY_APP_PREFIX: 'sample-vue-app',
+
   DEFAULT_ROWS: '10',
   LOG_RETRY_MAX: 5, // アクセスログ保存のリトライ上限
 

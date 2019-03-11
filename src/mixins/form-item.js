@@ -1,3 +1,4 @@
+import Config from '@/conf/Config';
 import is from 'is_js';
 import { BaseFormItem } from '@/lib';
 import ValidatorMappings from '@/conf/ValidatorMappings';
@@ -74,6 +75,14 @@ const formItemMixin = {
   },
 
   computed: {
+    appPrefix() {
+      return Config.MY_APP_PREFIX;
+    },
+
+    inputClassName() {
+      return `${this.appPrefix}-input-${this.id}`;
+    },
+
     nameAttr() {
       return this.name || this.id;
     },

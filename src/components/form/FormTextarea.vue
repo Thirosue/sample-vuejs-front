@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="field" v-bind:class="inputClassName">
     <label v-if="label" v-bind:for="id">{{ label }}</label>
     <textarea class="textarea"
       v-model="model"
