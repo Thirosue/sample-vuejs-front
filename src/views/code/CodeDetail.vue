@@ -88,7 +88,7 @@
  * 検索結果を素直に記載するVersion
  */
 import { codeApi } from '@/module/Api';
-import BaseDetail from '@/views/base/Detail';
+import { BaseDetail } from '@/views/base';
 
 export default {
   name: 'CodeDetail',

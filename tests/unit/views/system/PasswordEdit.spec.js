@@ -1,6 +1,7 @@
 import { shallowMount, mount } from '@vue/test-utils';
-import { _localVue, _localStore } from '../lib/testHelper';
+import { default as _localVue } from '../lib/testHelper';
 import VueRouter from 'vue-router';
+import { default as _store } from '@/store';
 import Config from '@/conf/Config';
 import PasswordEdit from '@/views/system/PasswordEdit.vue';
 
@@ -39,7 +40,7 @@ describe('PasswordEdit view', () => {
   let store;
 
   beforeEach(() => {
-    store = _localStore();
+    store = _store;
   });
 
   it('mount', () => {
@@ -47,7 +48,7 @@ describe('PasswordEdit view', () => {
     expect(wrapper.isVueInstance()).toBe(true);
   });
 
-  it('password empty validation', () => {
+  it('パスワードを空でフォーカスアウトした場合、必須チェックバリデーションが動作する', () => {
     const { password, passwordErrorMsg } = initMount(store);
     password.setValue('hoge');
     password.setValue('');
@@ -56,7 +57,7 @@ describe('PasswordEdit view', () => {
     expect(passwordErrorMsg.text()).not.toHaveLength(0);
   });
 
-  it('password length validation', () => {
+  it('パスワードを規定の長さ以下で入力した場合、length チェックバリデーションが動作する', () => {
     const { password, passwordErrorMsg } = initMount(store);
     password.setValue('hoge');
     password.trigger('blur');
@@ -64,7 +65,7 @@ describe('PasswordEdit view', () => {
     expect(passwordErrorMsg.text()).not.toHaveLength(0);
   });
 
-  it('passwordConfirm empty validation', () => {
+  it('確認用パスワードを空でフォーカスアウトした場合、必須チェックバリデーションが動作する', () => {
     const { passwordConfirm, passwordConfirmErrorMsg } = initMount(store);
     passwordConfirm.setValue('hoge');
     passwordConfirm.setValue('');
@@ -73,7 +74,7 @@ describe('PasswordEdit view', () => {
     expect(passwordConfirmErrorMsg.text()).not.toHaveLength(0);
   });
 
-  it('passwordConfirm length validation', () => {
+  it('確認用パスワードを規定の長さ以下で入力した場合、length チェックバリデーションが動作する', () => {
     const { passwordConfirm, passwordConfirmErrorMsg } = initMount(store);
     passwordConfirm.setValue('hoge');
     passwordConfirm.trigger('blur');
@@ -81,7 +82,7 @@ describe('PasswordEdit view', () => {
     expect(passwordConfirmErrorMsg.text()).not.toHaveLength(0);
   });
 
-  it('password relation validation is error', () => {
+  it('パスワードと確認用パスワードに異なる値を入力した場合、関連チェックバリデーションが ng となる', () => {
     const { password, passwordConfirm, allErrorMsg } = initMount(store);
     password.setValue('initpass1');
     passwordConfirm.setValue('initpass2');
@@ -91,7 +92,7 @@ describe('PasswordEdit view', () => {
     expect(allErrorMsg.at(relationErrorIndex).text()).not.toHaveLength(0);
   });
 
-  it('password relation validation is ok', () => {
+  it('パスワードと確認用パスワードに同じ値を入力した場合、関連チェックバリデーションが ok となる', () => {
     const { password, passwordConfirm, allErrorMsg } = initMount(store);
     password.setValue('initpass1');
     passwordConfirm.setValue('initpass1');
@@ -100,7 +101,7 @@ describe('PasswordEdit view', () => {
     expect(allErrorMsg.at(relationErrorIndex).text()).toHaveLength(0);
   });
 
-  it('when all complete then button enabled', () => {
+  it('全てのフィールドに正常値を入力した場合、submit が enable となる', () => {
     const { password, passwordConfirm, allErrorMsg, submitButton } = initMount(store);
 
     password.setValue('initpass1');

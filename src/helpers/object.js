@@ -11,4 +11,4 @@ const createObj = (str) => {
   }
 };
 
-export default { createObj };
+export { createObj as default };

@@ -140,7 +140,7 @@ import { StaffSearchForm } from '@/forms';
 import { staffApi } from '@/module/Api';
 import csvHeader from '@/conf/csvHeader';
 import ListSettings from '@/conf/ListSettings';
-import BaseList from '@/views/base/List';
+import { BaseList } from '@/views/base';
 
 export default {
   name: 'StaffList',

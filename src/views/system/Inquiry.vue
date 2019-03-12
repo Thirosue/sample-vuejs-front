@@ -123,10 +123,10 @@ import ErrorHandler from '@/module/ErrorHandler';
 import { InquiryUpdateForm } from '@/forms';
 import { inquiryApi } from '@/module/Api';
 import { COMMON_MESSAGE } from '@/conf/message';
-import BaseRegister from '@/views/base/Register';
+import { BaseUpdate, BaseRegister } from '@/views/base';
 
 export default {
-  mixins: [BaseRegister],
+  mixins: [BaseUpdate, BaseRegister],
 
   data() {
     const { inquiryCategories } = store.state.master;

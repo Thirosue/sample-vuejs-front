@@ -16,4 +16,4 @@ const getSortList = (mapping) => {
   return _.orderBy(_.concat(ascList, descList), 'order');
 };
 
-export default { getSortList };
+export { getSortList as default };

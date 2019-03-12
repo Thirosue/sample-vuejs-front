@@ -178,12 +178,12 @@
 
 <script>
 import { codeApi } from '@/module/Api';
-import BaseEdit from '@/views/base/Edit';
+import { BaseUpdate, BaseEdit } from '@/views/base';
 import { CodeUpdateForm } from '@/forms';
 
 export default {
   name: 'CodeEdit',
-  mixins: [BaseEdit],
+  mixins: [BaseUpdate, BaseEdit],
 
   data() {
     const form = new CodeUpdateForm();

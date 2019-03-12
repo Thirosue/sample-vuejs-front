@@ -1,10 +1,7 @@
 import ErrorHandler from '@/module/ErrorHandler';
-import BaseUpdate from '@/views/base/Update';
 import { PATH_LIST } from '@/helpers';
 
 export default {
-  mixins: [BaseUpdate],
-
   methods: {
     // callApi: id => { /* callApi */ }, // <--- 個別に定義
     create() {

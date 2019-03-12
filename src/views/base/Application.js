@@ -58,6 +58,9 @@ export default {
       inquiryGenre: MASTER_GETTER_TYPES.INQUIRY_GENRE,
       sex: MASTER_GETTER_TYPES.SEX,
     }),
+    appPrefix() {
+      return Config.MY_APP_PREFIX;
+    },
     hasState() { return this.$store !== undefined; }, // pluginはステートを持たない
     roles() { return this.session.roles ? this.session.roles : []; },
     menuCategories() {

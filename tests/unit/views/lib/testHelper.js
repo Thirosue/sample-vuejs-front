@@ -39,21 +39,4 @@ const _localVue = () => {
   return localVue;
 } 
 
-import * as session from '@/store/modules/session';
-import * as form from '@/store/modules/form';
-import * as master from '@/store/modules/master';
-
-function _localStore() {
-  return new Vuex.Store({
-    modules: {
-      session,
-      master,
-      form,
-    },
-  });    
-}
-
-export {
-  _localVue,
-  _localStore,
-};
+export { _localVue as default }; 

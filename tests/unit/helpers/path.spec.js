@@ -1,31 +1,31 @@
 import { buildPath } from '@/helpers';
 
 describe('buildPath', () => {
-  it('UserList Path', () => {
+  it('一覧画面のパスが正常に返る', () => {
     expect(buildPath('user').LIST).toBe('/userList');
   });
 
-  it('UserDetail Path', () => {
+  it('詳細画面のパスが正常に返る', () => {
     expect(buildPath('user').DETAIL).toBe('/user');
   });
 
-  it('UserEdit Path', () => {
+  it('編集画面のパスが正常に返る', () => {
     expect(buildPath('user').EDIT).toBe('/userEdit');
   });
 
-  it('UserEditComplete Path', () => {
+  it('編集完了画面のパスが正常に返る', () => {
     expect(buildPath('user').EDIT_COMPLETE).toBe('/userEditComplete');
   });
 
-  it('UserRegister Path', () => {
+  it('登録画面のパスが正常に返る', () => {
     expect(buildPath('user').REGISTER).toBe('/userRegister');
   });
 
-  it('UserRegisterComplete Path', () => {
+  it('登録完了画面のパスが正常に返る', () => {
     expect(buildPath('user').REGISTER_COMPLETE).toBe('/userRegisterComplete');
   });
 
-  it('Undefined Path', () => {
+  it('想定外のプロパティの場合は、undefined が返る', () => {
     expect(buildPath('user').HOGE).toBe(undefined);
   });
 });

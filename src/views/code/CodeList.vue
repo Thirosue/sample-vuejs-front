@@ -144,7 +144,7 @@ import { CodeSearchForm } from '@/forms';
 import { codeApi } from '@/module/Api';
 import { convertKeys } from '@/helpers';
 import csvHeader from '@/conf/csvHeader';
-import BaseList from '@/views/base/List';
+import { BaseList } from '@/views/base';
 
 const CodeSortItems = [
   { value: 'categoryKey asc, displayOrder asc', text: 'コード分類キー 昇順' },

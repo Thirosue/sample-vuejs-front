@@ -119,12 +119,12 @@
 
 <script>
 import { staffApi } from '@/module/Api';
-import BaseRegister from '@/views/base/Register';
+import { BaseUpdate, BaseRegister } from '@/views/base';
 import { StaffRegisterForm } from '@/forms';
 
 export default {
   name: 'StaffRegister',
-  mixins: [BaseRegister],
+  mixins: [BaseUpdate, BaseRegister],
 
   data() {
     const form = new StaffRegisterForm();

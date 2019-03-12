@@ -20,4 +20,4 @@ const createLengthValidator = (prop) => {
   };
 };
 
-export default createLengthValidator;
+export { createLengthValidator as default };

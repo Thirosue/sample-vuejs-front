@@ -95,7 +95,7 @@ import store from '@/store';
 import { InquirySearchForm2 } from '@/forms';
 import { inquiryApi } from '@/module/Api';
 import { decode } from '@/helpers';
-import BaseList from '@/views/base/List';
+import { BaseList } from '@/views/base';
 
 export default {
   name: 'InquriyList2',

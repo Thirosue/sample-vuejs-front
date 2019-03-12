@@ -187,14 +187,14 @@
 
 <script>
 import store from '@/store';
-import BaseRegister from '@/views/base/Register';
+import { BaseUpdate, BaseRegister } from '@/views/base';
 import { codeApi } from '@/module/Api';
 import { convertKeys } from '@/helpers';
 import { CodeUpdateForm } from '@/forms';
 
 export default {
   name: 'CodeRegister',
-  mixins: [BaseRegister],
+  mixins: [BaseUpdate, BaseRegister],
 
   data() {
     // APIの返戻を整形

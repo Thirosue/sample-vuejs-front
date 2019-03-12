@@ -73,7 +73,7 @@ import { PasswordUpdateForm } from '@/forms';
 import ErrorHandler from '@/module/ErrorHandler';
 import { staffApi } from '@/module/Api';
 import { COMMON_MESSAGE, PASSWORD_MESSAGE } from '@/conf/message';
-import BaseUpdate from '@/views/base/Update';
+import { BaseUpdate } from '@/views/base';
 
 export default {
   mixins: [BaseUpdate],

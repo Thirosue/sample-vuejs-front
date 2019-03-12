@@ -5,4 +5,4 @@ const decode = (code, options) => {
   return options.find(option => option.value === code).text;
 };
 
-export default { decode };
+export { decode as default };

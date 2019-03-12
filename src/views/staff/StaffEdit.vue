@@ -87,12 +87,12 @@
 
 <script>
 import { staffApi } from '@/module/Api';
-import BaseEdit from '@/views/base/Edit';
+import { BaseUpdate, BaseEdit } from '@/views/base';
 import { StaffUpdateForm } from '@/forms';
 
 export default {
   name: 'StaffEdit',
-  mixins: [BaseEdit],
+  mixins: [BaseUpdate, BaseEdit],
 
   data() {
     const form = new StaffUpdateForm();

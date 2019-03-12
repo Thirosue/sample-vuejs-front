@@ -10,4 +10,4 @@ const createView = (data, setting) => {
   return _.orderBy(view, 'orderBy');
 };
 
-export default { createView };
+export { createView as default };

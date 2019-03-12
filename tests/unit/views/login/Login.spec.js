@@ -1,6 +1,7 @@
 import { shallowMount, mount } from '@vue/test-utils';
-import { _localVue, _localStore } from '../lib/testHelper';
+import { default as _localVue } from '../lib/testHelper';
 import VueRouter from 'vue-router';
+import { default as _store } from '@/store';
 import Config from '@/conf/Config';
 import Login from '@/views/login/Login.vue';
 
@@ -39,7 +40,7 @@ describe('Login view', () => {
   let store;
 
   beforeEach(() => {
-    store = _localStore();
+    store = _store;
   });
 
   it('mount', () => {
@@ -47,7 +48,7 @@ describe('Login view', () => {
     expect(wrapper.isVueInstance()).toBe(true);
   });
 
-  it('email format validation', () => {
+  it('Email をフォーマット不正で入力した場合、Emailフォーマットチェックバリデーションが動作する', () => {
     const { email, emailErrorMsg } = initMount(store);
     email.setValue('hoge');
     email.trigger('blur');
@@ -55,7 +56,7 @@ describe('Login view', () => {
     expect(emailErrorMsg.text()).not.toHaveLength(0);
   });
 
-  it('email empty validation', () => {
+  it('Email を空でフォーカスアウトした場合、必須チェックバリデーションが動作する', () => {
     const { email, emailErrorMsg } = initMount(store);
     email.setValue('hoge');
     email.setValue('');
@@ -64,7 +65,7 @@ describe('Login view', () => {
     expect(emailErrorMsg.text()).not.toHaveLength(0);
   });
 
-  it('password format validation', () => {
+  it('パスワードを規定の長さ以下で入力した場合、length チェックバリデーションが動作する', () => {
     const { password, passwordErrorMsg } = initMount(store);
     password.setValue('hoge');
     password.trigger('blur');
@@ -72,7 +73,7 @@ describe('Login view', () => {
     expect(passwordErrorMsg.text()).not.toHaveLength(0);
   });
 
-  it('password empty validation', () => {
+  it('パスワードを空でフォーカスアウトした場合、必須チェックバリデーションが動作する', () => {
     const { password, passwordErrorMsg } = initMount(store);
     password.setValue('hoge');
     password.setValue('');
@@ -81,7 +82,7 @@ describe('Login view', () => {
     expect(passwordErrorMsg.text()).not.toHaveLength(0);
   });
 
-  it('when all complete then button enabled', () => {
+  it('全てのフィールドに正常値を入力した場合、submit が enable となる', () => {
     const { email, password, allErrorMsg, submitButton } = initMount(store);
 
     email.setValue('test@sample.com');

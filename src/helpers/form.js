@@ -12,6 +12,4 @@ const convertKeys = (obj, ...targets) => Object.entries(obj)
     {},
   );
 
-export default {
-  convertKeys,
-};
+export { convertKeys as default };

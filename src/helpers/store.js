@@ -10,4 +10,4 @@ function buildModuleTypes({ moduleName, types }) {
     );
 }
 
-export default { buildModuleTypes };
+export { buildModuleTypes as default };
