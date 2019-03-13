@@ -1,7 +1,8 @@
 <template>
   <div class="field" v-bind:class="inputClassName">
     <label v-if="label" v-bind:for="id">{{ label }}</label>
-    <textarea class="textarea"
+    <textarea
+      class="textarea"
       v-model="model"
       v-bind:id="id"
       v-bind:name="nameAttr"
@@ -12,14 +13,16 @@
       v-on:input="handleInput"
       v-on:blur="handleBlur"
     />
-    <ul
-      v-show="showError"
-    >
-      <li
-        v-for="(message, index) in messages"
-        v-bind:key="`${id}-${index}`"
-      >{{ message }}</li>
-    </ul>
+    <article v-show="showError" class="message is-danger">
+      <div class="message-body">
+        <ul>
+          <li
+            v-for="(message, index) in messages"
+            v-bind:key="`message-${index}`"
+          >{{ message }}</li>
+        </ul>
+      </div>
+    </article>
   </div>
 </template>
 

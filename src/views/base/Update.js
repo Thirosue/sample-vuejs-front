@@ -3,7 +3,14 @@ import { COMMON_MESSAGE } from '@/conf/message';
 import Config from '@/conf/Config';
 import { PATH_LIST, includeList, sleep } from '@/helpers';
 import {
-  FormInput, FormSelect, FormCheckbox, FormMultiCheckbox, FormMultiSelect, FormTextarea,
+  FormInput,
+  FormSelect,
+  FormCheckbox,
+  FormMultiCheckbox,
+  FormMultiSelect,
+  FormTextarea,
+  FormRadio,
+  FormDatePicker,
 } from '@/components/form';
 
 export default {
@@ -14,6 +21,8 @@ export default {
     FormMultiCheckbox,
     FormMultiSelect,
     FormTextarea,
+    FormRadio,
+    FormDatePicker,
   },
 
   beforeRouteLeave(to, from, next) {

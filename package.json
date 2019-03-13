@@ -13,10 +13,11 @@
     "is_js": "^0.9.0",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
+    "register-service-worker": "^1.6.2",
     "sprintf-js": "^1.1.2",
     "text-encoding": "^0.7.0",
-    "register-service-worker": "^1.6.2",
     "vue": "^2.6.8",
+    "vue-flatpickr-component": "^8.1.1",
     "vue-router": "^3.0.2",
     "vuex": "^3.1.0",
     "vuex-persistedstate": "^2.5.4",
@@ -53,14 +54,22 @@
     "rules": {
       "no-console": "off",
       "no-continue": "off",
-      "no-underscore-dangle": [ 2, {"allowAfterThis": true, "allowAfterSuper": true}]
+      "no-underscore-dangle": [
+        2,
+        {
+          "allowAfterThis": true,
+          "allowAfterSuper": true
+        }
+      ]
     },
     "parserOptions": {
       "parser": "babel-eslint"
     },
     "overrides": [
       {
-        "files": ["*.spec.js"],
+        "files": [
+          "*.spec.js"
+        ],
         "rules": {
           "no-unused-expressions": "off",
           "no-underscore-dangle": "off"
@@ -100,7 +109,7 @@
       "**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!(babel-jest|jest-vue-preprocessor)/)"
+      "node_modules/(?!(babel-jest|jest-vue-preprocessor|flatpickr)/)"
     ],
     "testURL": "http://localhost/"
   }
