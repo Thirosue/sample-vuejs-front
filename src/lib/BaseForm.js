@@ -30,6 +30,14 @@ export default class BaseForm {
     return this;
   }
 
+  removeItem(name) {
+    if (is.not.undefined(this._items[name])) {
+      delete this._items[name];
+    }
+    this.updateState();
+    return this;
+  }
+
   addRelationshipValidator({ names, validator, message }) {
     names.filter(name => name in this._items === false).forEach((name) => {
       throw new Error(`[BaseForm] ${name} is not set item`);

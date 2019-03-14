@@ -29,6 +29,19 @@ describe('BaseForm', () => {
       expect(baseForm.items.test).toBeInstanceOf(TestFormItem);
     });
 
+    it('remove', () => {
+      baseForm.addItem('test', new TestFormItem());
+      expect(baseForm.items.test).toBeInstanceOf(TestFormItem);
+      baseForm.removeItem('test');
+      expect(baseForm.items).toMatchObject({});
+      expect(baseForm.items.test).toBe(undefined);
+    });
+
+    it('remove で key が存在しない場合、スキップする', () => {
+      baseForm.removeItem('hoge');
+      expect(baseForm.items).toMatchObject({});
+    });
+
     it('throw error, BaseFormのインスタンスじゃない場合はエラーを投げる', () => {
       expect(() => {
         baseForm.addItem('test', {});
