@@ -33,7 +33,14 @@ export const isFlag = value => ['0', '1'].includes(value);
 
 export const isDate = (value) => {
   if (isEmpty(value)) {
-    return false;
+    return true;
   }
-  return moment(value).isValid();
+  return !moment(value).isValid();
+};
+
+export const isBirthDay = (value) => {
+  if (isDate(value)) {
+    return true;
+  }
+  return moment(value).isBefore(moment());
 };

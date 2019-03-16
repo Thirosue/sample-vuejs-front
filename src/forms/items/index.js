@@ -10,3 +10,4 @@ export { default as IntegerFormItem } from './IntegerFormItem';
 export { default as BooleanFormItem } from './BooleanFormItem';
 export { default as DateFormItem } from './DateFormItem';
 export { default as FlagFormItem } from './FlagFormItem';
+export { default as BirthDayFormItem } from './BirthDayFormItem';

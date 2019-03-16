@@ -1,5 +1,6 @@
 import is from 'is_js';
 import BaseFormItem from './BaseFormItem';
+import { sleep } from '@/helpers';
 
 export default class BaseForm {
   constructor() {
@@ -104,6 +105,12 @@ export default class BaseForm {
     Object.keys(this._items).forEach(key => this._items[key].validate());
     this._invalid = this._checkItemsInvalid();
     return this;
+  }
+
+  async refreshState() {
+    this.resetState();
+    await sleep(1);
+    this.updateState();
   }
 
   _updateState(invalid) {

@@ -1,7 +1,7 @@
 
 import { COMMON_MESSAGE } from '@/conf/message';
 import Config from '@/conf/Config';
-import { PATH_LIST, includeList, sleep } from '@/helpers';
+import { PATH_LIST, includeList } from '@/helpers';
 import {
   FormInput,
   FormSelect,
@@ -61,10 +61,7 @@ export default {
   },
 
   async mounted() {
-    // フォームを強制リフレッシュ
-    this.form.resetState();
-    await sleep(100);
-    this.form.updateState();
+    this.form.refreshState();
   },
 
   computed: {

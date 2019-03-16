@@ -116,13 +116,20 @@ describe('CodeRegister view', () => {
     expect(wrapper.isVueInstance()).toBe(true);
   });
 
-  it('パスワードを空でフォーカスアウトした場合、必須チェックバリデーションが動作する', () => {
+  it('コード分類キーを空でフォーカスアウトした場合、必須チェックバリデーションが NG となる', () => {
     const { codeCategoryId, codeCategoryIdError } = initMount(store);
-    codeCategoryId.setValue('hoge');
-    codeCategoryId.setValue('');
+    codeCategoryId.trigger('focus');
     codeCategoryId.trigger('blur');
     console.log(codeCategoryIdError.text());
     expect(codeCategoryIdError.text()).not.toHaveLength(0);
+  });
+
+  it('コード分類キーを選択した場合、必須チェックバリデーションが OK となる', () => {
+    const { codeCategoryId, codeCategoryIdError } = initMount(store);
+    codeCategoryId.findAll('option').at(1).setSelected();
+    codeCategoryId.trigger('input');
+    codeCategoryId.trigger('blur');
+    expect(codeCategoryIdError.text()).toHaveLength(0);
   });
 
   it('コードキーを空でフォーカスアウトした場合、必須チェックバリデーションが動作する', () => {
@@ -294,7 +301,8 @@ describe('CodeRegister view', () => {
               allErrorMsg,
               submitButton } = initMount(store);
 
-    codeCategoryId.setValue('hoge');          
+    codeCategoryId.findAll('option').at(1).setSelected();
+    codeCategoryId.trigger('input');
     codeKey.setValue('key');
     codeValue.setValue('value');
     codeAlias.setValue('alias');

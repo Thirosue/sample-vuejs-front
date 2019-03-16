@@ -131,7 +131,7 @@ describe('mixins/form-item', () => {
       const input = wrapper.find('input');
       input.trigger('blur');
 
-      expect(mockValidate.mock.calls).toHaveLength(1);
+      expect(mockValidate.mock.calls).not.toHaveLength(0);
     });
   });
 

@@ -9,11 +9,9 @@ export default class IntegerFormItem extends BaseFormItem {
   }
 
   _addValidators() {
-    if (this._value) {
-      this.addValidator({
-        message: '有効な数値を入力してください。',
-        validator: isInteger,
-      });
-    }
+    this.addValidator({
+      message: '有効な数値を入力してください。',
+      validator: isInteger,
+    });
   }
 }

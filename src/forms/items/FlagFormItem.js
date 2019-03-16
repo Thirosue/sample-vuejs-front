@@ -9,11 +9,9 @@ export default class FlagFormItem extends BaseFormItem {
   }
 
   _addValidators() {
-    if (this._value) {
-      this.addValidator({
-        message: '不正な操作が行われました',
-        validator: isFlag,
-      });
-    }
+    this.addValidator({
+      message: '不正な操作が行われました',
+      validator: isFlag,
+    });
   }
 }

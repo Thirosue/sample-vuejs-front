@@ -3,6 +3,7 @@ import {
   EmailFormItem, TextFormItem, SelectFormItem, MultiSelectFormItem,
 } from '@/forms/items';
 import { isNotEmpty } from '@/helpers/validators';
+import { ChildUpdateForm } from '@/forms';
 
 export default class InquiryUpdateForm extends BaseForm {
   constructor({
@@ -34,19 +35,30 @@ export default class InquiryUpdateForm extends BaseForm {
     this.addItem('title', new TextFormItem(title));
     this.addItem('body', new TextFormItem(body));
 
-    this.childCount = 0;
+    this.sexEnum = sexEnum;
+    this.children = [];
 
     this._addRelationshipValidator();
   }
 
-  addChildren() {
-    this.childCount += 1;
-    console.log(this.childCount);
+  async addChildren() {
+    const child = new ChildUpdateForm({}, this.sexEnum);
+    this.children.push(child);
   }
 
   removeChildren() {
-    this.childCount -= 1;
-    console.log(this.childCount);
+    this.children.pop();
+  }
+
+  notNullValues() {
+    const values = Object.entries(this.items)
+      .reduce(
+        (o, [name, item]) => ({ ...o, [name]: item.value }),
+        {},
+      );
+    values.children = [];
+    this.children.forEach(child => values.children.push(child.notNullValues()));
+    return values;
   }
 
   _addRelationshipValidator() {
