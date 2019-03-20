@@ -12,6 +12,7 @@
           'has-error': showError,
         }"
         v-on:blur="handleBlur"
+        :config="config"
       >
       </flat-pickr>
     </div>
@@ -31,6 +32,8 @@
 <script>
 import formItemMixin from '@/mixins/form-item';
 import flatPickr from 'vue-flatpickr-component';
+/* eslint-disable import/no-extraneous-dependencies, import/extensions */
+import { Japanese } from 'flatpickr/dist/l10n/ja.js';
 /* eslint-disable import/no-extraneous-dependencies */
 import 'flatpickr/dist/flatpickr.min.css';
 
@@ -41,6 +44,9 @@ export default {
   data() {
     return {
       date: this.value,
+      config: {
+        locale: Japanese, // locale for this instance only
+      },
     };
   },
   components: {
