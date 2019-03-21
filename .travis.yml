@@ -15,3 +15,9 @@ script:
   - yarn lint
   - yarn test:unit
   - yarn build
+  - cp -r dist docker/
+  - docker build -t mirrored1976/sample-vue-front docker/
+
+after_script:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - docker push mirrored1976/sample-vue-front

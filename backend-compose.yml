@@ -27,17 +27,6 @@ services:
     depends_on:
       - sample-db
 
-  sample-vue-front:
-    image: mirrored1976/sample-vue-front:latest
-    container_name: sample-vue
-    hostname: "sample-vue"
-    networks:
-      - link
-    ports:
-      - "8080:80"
-    depends_on:
-      - sample-api
-
 networks:
   link:
     driver: bridge
