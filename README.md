@@ -4,11 +4,14 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+[![Cypress.io tests](https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square)](https://cypress.io)
+
 > A Vue.js project
 
 ## Required
 
 * Docker
+* Chrome
 
 ## BackEnd
 

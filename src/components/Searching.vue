@@ -4,7 +4,7 @@
       <div class="cube1"></div>
       <div class="cube2"></div>
     </div>
-    <div v-show="noresult">
+    <div id="no-result" v-show="noresult">
       <article class="message">
         <div class="message-header">
           <p>No Result</p>

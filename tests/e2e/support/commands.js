@@ -10,7 +10,15 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
+const { email, password } = { email: 'sample@sample.com', password: 'password' };
+
+Cypress.Commands.add("login", () => { 
+  cy.visit('/login');
+  cy.get('#email').type(email);
+  cy.get('#password').type(`${password}{enter}`);
+  cy.location('pathname').should('eq', '/');
+});
+
 //
 //
 // -- This is a child command --

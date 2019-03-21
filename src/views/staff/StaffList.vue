@@ -97,7 +97,10 @@
           :resultCount="count"></pager><!-- pager -->
         <hr>
 
-        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+        <table
+          id="result-list"
+          class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth"
+        >
           <thead>
             <tr>
               <th>#</th>
