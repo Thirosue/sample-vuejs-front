@@ -1,10 +1,9 @@
 # vue-sample-app
 
-[![Build Status](https://travis-ci.org/Thirosue/sample-vuejs-front.svg?branch=master)](https://travis-ci.org/Thirosue/sample-vuejs-front)
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 [![Cypress.io tests](https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square)](https://cypress.io)
+[![Build Status](https://travis-ci.org/Thirosue/sample-vuejs-front.svg?branch=master)](https://travis-ci.org/Thirosue/sample-vuejs-front)
+![Build Status](https://codebuild.ap-northeast-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiQWJZVW1ubW1RWktXRFphSkpNUEVJQVdocnhyT080S0lJb3c1Z2o4aHArQlVIVGZhcHBuWkFCOUJsNGhiSW9NNGRIMEN3Vk9iSHFPdlpnUW1ER2xvNFo4PSIsIml2UGFyYW1ldGVyU3BlYyI6Im1oNmZueFVhem0zdWtxTnQiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > A Vue.js project
 
