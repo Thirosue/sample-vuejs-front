@@ -2,7 +2,7 @@
 
 [![Cypress.io tests](https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square)](https://cypress.io)
 [![Build Status](https://travis-ci.org/Thirosue/sample-vuejs-front.svg?branch=master)](https://travis-ci.org/Thirosue/sample-vuejs-front)
-![Build Status](https://codebuild.ap-northeast-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiQWJZVW1ubW1RWktXRFphSkpNUEVJQVdocnhyT080S0lJb3c1Z2o4aHArQlVIVGZhcHBuWkFCOUJsNGhiSW9NNGRIMEN3Vk9iSHFPdlpnUW1ER2xvNFo4PSIsIml2UGFyYW1ldGVyU3BlYyI6Im1oNmZueFVhem0zdWtxTnQiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
+![Build Status](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiNVhGMFR4S3VrK2xaR3k5UGZVYjQ2T0t1eWowNlhaamxLRUVtcStkcjlEZHpUWjR5NnBtbHc3WUlFWktrTEdHbmoyWERSMU0yR3o3Q0d0QnB3ZGQvSlZrPSIsIml2UGFyYW1ldGVyU3BlYyI6ImRNSTV4U1VrT29KZEhMZmQiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > A Vue.js project
