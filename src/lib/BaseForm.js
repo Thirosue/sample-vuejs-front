@@ -109,7 +109,7 @@ export default class BaseForm {
 
   async refreshState() {
     this.resetState();
-    await sleep(1);
+    await sleep(100);
     this.updateState();
   }
 

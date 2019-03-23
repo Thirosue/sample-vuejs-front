@@ -24,15 +24,14 @@ services:
       - link
     ports:
       - "18081:18081"
+    command: java -Dspring.datasource.url=jdbc:mysql://sample-db:3306/sample?useSSL=false&characterEncoding=UTF-8 -jar /sample-web-admin.jar
     depends_on:
       - sample-db
 
   sample-vue-front:
     image: mirrored1976/sample-vue-front:latest
-    container_name: sample-vue
-    hostname: "sample-vue"
-    volumes:
-      - ./docker/default.conf.template:/etc/nginx/conf.d/default.conf.template
+    container_name: sample-vue-front
+    hostname: "sample-vue-front"
     networks:
       - link
     ports:
