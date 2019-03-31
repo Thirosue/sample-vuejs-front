@@ -2,6 +2,8 @@
 node_modules
 /dist
 /docker/dist
+results
+mochawesome-report
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/
@@ -23,3 +25,8 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+
+# Test Report
+mochawesome.html
+mochawesome.json
+cypress/report/assets
