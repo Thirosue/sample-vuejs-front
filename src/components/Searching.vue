@@ -49,7 +49,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped href="https://cdn.rawgit.com/ConnorAtherton/loaders.css/master/loaders.min.css">
 .spinner {
   margin: 100px auto;
   width: 40px;

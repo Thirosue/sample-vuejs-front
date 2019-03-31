@@ -1,8 +1,11 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import Vue from 'vue';
 import App from './App.vue';
 import router from '@/router';
 import store from '@/store';
 import './registerServiceWorker';
+import Buefy from 'buefy';
+import 'buefy/dist/buefy.css';
 
 // add plugin for global
 import MyApplicationPlugin from '@/module/plugin/application';
@@ -16,6 +19,8 @@ import directive from '@/module/directive';
 // add compornent for global
 import NavBar from '@/components/layouts/Navbar.vue';
 import Footer from '@/components/layouts/Footer.vue';
+
+Vue.use(Buefy);
 
 Vue.config.productionTip = false;
 Vue.use(MyApplicationPlugin);
