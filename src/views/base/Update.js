@@ -61,7 +61,7 @@ export default {
   },
 
   async mounted() {
-    this.form.refreshState();
+    this.$nextTick(() => this.form.refreshState());
   },
 
   computed: {
