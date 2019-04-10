@@ -240,7 +240,9 @@ export default {
   computed: {
     screenId: () => 'INQUIRY',
     disabled() {
-      return this.form.invalid || this.form.children.some(child => child.invalid);
+      return this.form.invalid
+                || this.form.children.some(child => child.invalid)
+                || this.processing;
     },
   },
 };

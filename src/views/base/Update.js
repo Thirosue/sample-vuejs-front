@@ -1,4 +1,5 @@
 
+import { mapGetters } from 'vuex';
 import { COMMON_MESSAGE } from '@/conf/message';
 import Config from '@/conf/Config';
 import { PATH_LIST, includeList } from '@/helpers';
@@ -12,6 +13,7 @@ import {
   FormRadio,
   FormDatePicker,
 } from '@/components/form';
+import { GETTER_TYPES } from '@/store';
 
 export default {
   components: {
@@ -60,13 +62,19 @@ export default {
     document.cookie = Config.FUNCTION_ID + this.screenId;
   },
 
-  async mounted() {
-    this.$nextTick(() => this.form.refreshState());
+  mounted() {
+    this.form.updateState();
   },
 
   computed: {
     namespace: () => null, // <--- 個別に定義
     listPath() { return `/${this.namespace}${PATH_LIST.LIST}`; },
     completePath: () => null, // <--- 個別に定義
+    ...mapGetters({
+      processing: GETTER_TYPES.GET_PROCESSING,
+    }),
+    disableAction() {
+      return (this.form !== undefined && this.form.invalid) || this.processing;
+    },
   },
 };

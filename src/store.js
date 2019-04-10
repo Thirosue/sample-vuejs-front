@@ -12,13 +12,13 @@ Vue.use(Vuex);
 
 export const GETTER_TYPES = {
   GET_STACKTRACE: 'GET_STACKTRACE',
-  GET_SEARCHING: 'GET_SEARCHING',
+  GET_PROCESSING: 'GET_PROCESSING',
   GET_LOADING: 'GET_LOADING',
 };
 
 export const MUTATION_TYPES = {
   SET_STACKTRACE: 'SET_STACKTRACE',
-  SET_SEARCHING: 'SET_SEARCHING',
+  SET_PROCESSING: 'SET_PROCESSING',
   SET_LOADING: 'SET_LOADING',
 };
 
@@ -31,7 +31,7 @@ const store = new Vuex.Store({
 
   state: {
     stackTrace: null,
-    searching: false,
+    processing: false,
     loading: false,
     mode: process.env.NODE_ENV,
   },
@@ -40,8 +40,8 @@ const store = new Vuex.Store({
     [GETTER_TYPES.GET_STACKTRACE](state) {
       return state.stackTrace;
     },
-    [GETTER_TYPES.GET_SEARCHING](state) {
-      return state.searching;
+    [GETTER_TYPES.GET_PROCESSING](state) {
+      return state.processing;
     },
     [GETTER_TYPES.GET_LOADING](state) {
       return state.loading;
@@ -52,8 +52,8 @@ const store = new Vuex.Store({
     [MUTATION_TYPES.SET_STACKTRACE](state, stackTrace) {
       state.stackTrace = stackTrace;
     },
-    [MUTATION_TYPES.SET_SEARCHING](state, searching) {
-      state.searching = searching;
+    [MUTATION_TYPES.SET_PROCESSING](state, processing) {
+      state.processing = processing;
     },
     [MUTATION_TYPES.SET_LOADING](state, loading) {
       state.loading = loading;

@@ -4,6 +4,7 @@ import ErrorHandler from '@/module/ErrorHandler';
 import Config from '@/conf/Config';
 import { PATH_LIST } from '@/helpers';
 import { FORM_GETTER_TYPES, FORM_MUTATION_TYPES } from '@/store/modules/form';
+import { MUTATION_TYPES } from '@/store';
 
 export default {
   mounted() {
@@ -30,8 +31,13 @@ export default {
       }
     },
     update() {
+      if (this.disableAction) { return; }
+      this.$store.commit(MUTATION_TYPES.SET_PROCESSING, true);
       this.callUpdate(this.form.values())
-        .then(() => this.$router.push({ path: this.completePath, query: { to: this.listPath } }))
+        .then(() => {
+          this.$store.commit(MUTATION_TYPES.SET_PROCESSING, false);
+          this.$router.push({ path: this.completePath, query: { to: this.listPath } });
+        })
         .catch(ErrorHandler.apiHandleErr);
     },
   },

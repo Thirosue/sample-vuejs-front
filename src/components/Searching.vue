@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="spinner" v-show="searching">
+    <div class="spinner" v-show="processing">
       <div class="cube1"></div>
       <div class="cube2"></div>
     </div>
@@ -34,15 +34,15 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      searching: GETTER_TYPES.GET_SEARCHING,
+      processing: GETTER_TYPES.GET_PROCESSING,
     }),
   },
   watch: {
-    searching(searching) {
-      if (searching && !this.searched) {
-        this.searched = searching;
+    processing(processing) {
+      if (processing && !this.searched) {
+        this.searched = processing;
       }
-      this.noresult = (!searching && this.searched && this.results.length === 0);
+      this.noresult = (!processing && this.searched && this.results.length === 0);
     },
   },
 };

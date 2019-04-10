@@ -58,7 +58,7 @@
             id="form-submit"
             class="button is-link"
             type="submit"
-            :disabled="form.invalid"
+            :disabled="disableAction"
             v-on:click.stop.prevent="changePassword">更新</button>
         </div>
       </div>
@@ -74,6 +74,7 @@ import ErrorHandler from '@/module/ErrorHandler';
 import { staffApi } from '@/module/Api';
 import { COMMON_MESSAGE, PASSWORD_MESSAGE } from '@/conf/message';
 import { BaseUpdate } from '@/views/base';
+import { MUTATION_TYPES } from '@/store';
 
 export default {
   mixins: [BaseUpdate],
@@ -88,9 +89,13 @@ export default {
 
   methods: {
     async changePassword() {
+      this.$store.commit(MUTATION_TYPES.SET_PROCESSING, true);
       const data = { ...{ id: this.session.id }, ...this.form.values() };
       staffApi.changePassword(data)
-        .then(() => this.$showModal(COMMON_MESSAGE.UPDATED, '', () => this.$router.push('/')))
+        .then(() => {
+          this.$store.commit(MUTATION_TYPES.SET_PROCESSING, false);
+          this.$showModal(COMMON_MESSAGE.UPDATED, '', () => this.$router.push('/'));
+        })
         .catch((error) => {
           if (error.response.status === 400) {
             this.errMsg = PASSWORD_MESSAGE.SAME_PASSWORD;

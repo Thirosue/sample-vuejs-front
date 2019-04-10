@@ -41,17 +41,11 @@ class Api {
     'Content-Type': 'application/json',
   });
 
-  static updateStartFilter = () => {
-    if (this.submitButton()) {
-      [...this.submitButton()].forEach((button) => { button.setAttribute('disabled', 'disabled'); });
-    }
-  };
+  /* filter implements */
+  static updateStartFilter = () => {};
 
-  static updateEndFilter = () => {
-    if (this.submitButton()) {
-      [...this.submitButton()].forEach((button) => { button.removeAttribute('disabled'); });
-    }
-  };
+  /* filter implements */
+  static updateEndFilter = () => {};
 
   static updatehEnd = (response) => {
     this.updateEndFilter();

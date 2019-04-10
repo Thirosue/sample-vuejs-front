@@ -62,9 +62,9 @@ export default {
     },
     async findAll() {
       console.log(`search... conditions = ${JSON.stringify(this.where)}`);
-      this.$store.commit(MUTATION_TYPES.SET_SEARCHING, true);
+      this.$store.commit(MUTATION_TYPES.SET_PROCESSING, true);
       const response = await this.callApi(this.where).catch(ErrorHandler.apiHandleErr);
-      this.$store.commit(MUTATION_TYPES.SET_SEARCHING, false);
+      this.$store.commit(MUTATION_TYPES.SET_PROCESSING, false);
       this.results = response.data;
       this.count = response.count;
       this.page = response.page - 1;

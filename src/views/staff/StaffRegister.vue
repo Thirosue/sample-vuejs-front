@@ -107,7 +107,7 @@
             id="form-submit"
             class="button is-link"
             type="submit"
-            :disabled="form.invalid"
+            :disabled="disableAction"
             v-on:click.stop.prevent="create">登録</button>
         </div>
       </div>
