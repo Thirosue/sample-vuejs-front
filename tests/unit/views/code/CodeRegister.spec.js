@@ -321,4 +321,54 @@ describe('CodeRegister view', () => {
     expect(submitButton.attributes().disabled).toBe(undefined);
   });
 
+  it('全てのフィールドに正常値を入力し、登録した場合、フォームオブジェクトに入力値が設定され、登録APIがコールされること', () => {
+    const { wrapper,
+              codeCategoryId, 
+              codeKey,
+              codeValue,
+              codeAlias,
+              attribute1,
+              attribute2,
+              attribute3,
+              attribute4,
+              attribute5,
+              attribute6,
+              displayOrder,
+              isInvalid,
+              allErrorMsg,
+              submitButton } = initMount(store);
+
+    codeCategoryId.findAll('option').at(1).setSelected();
+    codeCategoryId.trigger('input');
+    codeKey.setValue('key');
+    codeValue.setValue('value');
+    codeAlias.setValue('alias');
+    attribute1.setValue('a1');
+    attribute2.setValue('a2');
+    attribute3.setValue('a3');
+    attribute4.setValue('a4');
+    attribute5.setValue('a5');
+    attribute6.setValue('a6');
+    displayOrder.setValue(1);
+    isInvalid.trigger('click');
+
+    const spy = jest.spyOn(wrapper.vm, 'callApi');
+    submitButton.trigger('click');
+
+    expect(spy).toHaveBeenCalled(); //api callされる
+    const form = wrapper.vm.form.notNullValues();
+
+    expect(form.codeCategoryId).toBe('1')
+    expect(form.codeKey).toBe('key');
+    expect(form.codeValue).toBe('value');
+    expect(form.codeAlias).toBe('alias');
+    expect(form.attribute1).toBe('a1');
+    expect(form.attribute2).toBe('a2');
+    expect(form.attribute3).toBe('a3');
+    expect(form.attribute4).toBe('a4');
+    expect(form.attribute5).toBe('a5');
+    expect(form.attribute6).toBe('a6');
+    expect(form.displayOrder).toBe("1");
+    expect(form.isInvalid).toBe(true);
+  });
 });

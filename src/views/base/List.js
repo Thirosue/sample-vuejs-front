@@ -65,10 +65,10 @@ export default {
       this.$store.commit(MUTATION_TYPES.SET_PROCESSING, true);
       const response = await this.callApi(this.where).catch(ErrorHandler.apiHandleErr);
       this.$store.commit(MUTATION_TYPES.SET_PROCESSING, false);
-      this.results = response.data;
       this.count = response.count;
       this.page = response.page - 1;
       this.totalPage = response.total_pages;
+      this.results = response.data;
     },
     downloadList() {
       if (this.results.length > 0) {

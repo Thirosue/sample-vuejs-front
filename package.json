@@ -10,7 +10,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "buefy": "^0.7.3",
+    "buefy": "^0.7.4",
     "is_js": "^0.9.0",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
@@ -19,18 +19,18 @@
     "text-encoding": "^0.7.0",
     "vue": "^2.6.10",
     "vue-flatpickr-component": "^8.1.2",
-    "vue-router": "^3.0.2",
+    "vue-router": "^3.0.4",
     "vuex": "^3.1.0",
     "vuex-persistedstate": "^2.5.4",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.5.5",
-    "@vue/cli-plugin-e2e-cypress": "^3.5.1",
-    "@vue/cli-plugin-eslint": "^3.5.1",
-    "@vue/cli-plugin-pwa": "^3.5.1",
-    "@vue/cli-plugin-unit-jest": "^3.5.3",
-    "@vue/cli-service": "^3.5.3",
+    "@vue/cli-plugin-babel": "^3.6.0",
+    "@vue/cli-plugin-e2e-cypress": "^3.6.0",
+    "@vue/cli-plugin-eslint": "^3.6.0",
+    "@vue/cli-plugin-pwa": "^3.6.0",
+    "@vue/cli-plugin-unit-jest": "^3.6.0",
+    "@vue/cli-service": "^3.6.0",
     "@vue/eslint-config-airbnb": "^4.0.0",
     "@vue/test-utils": "^1.0.0-beta.29",
     "babel-core": "7.0.0-bridge.0",
@@ -39,10 +39,11 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.2",
     "fibers": "^3.1.1",
-    "mocha": "^6.1.1",
+    "flush-promises": "^1.0.2",
+    "mocha": "^6.1.3",
     "mochawesome": "^3.1.1",
     "mochawesome-merge": "^1.0.7",
-    "sass": "^1.17.4",
+    "sass": "^1.18.0",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.10"
   },
@@ -115,6 +116,7 @@
     "transformIgnorePatterns": [
       "node_modules/(?!(babel-jest|jest-vue-preprocessor|flatpickr)/)"
     ],
-    "testURL": "http://localhost/"
+    "testURL": "http://localhost/",
+    "cache": false
   }
 }
