@@ -62,6 +62,7 @@ import Config from '@/conf/Config';
 import ErrorHandler from '@/module/ErrorHandler';
 import { LOGIN_MESSAGE } from '@/conf/message';
 import { authApi } from '@/module/Api';
+import ErrorTracking from '@/module/ErrorTracking';
 
 export default {
   name: 'Login',
@@ -97,7 +98,9 @@ export default {
       authApi.doAuth(value)
         .then((response) => {
           localStorage.clear();
-          this.$store.commit(SESSION_MUTATION_TYPES.SET_VALUES, response.data[0]);
+          const session = response.data[0];
+          ErrorTracking.configureScope(session);
+          this.$store.commit(SESSION_MUTATION_TYPES.SET_VALUES, session);
           this.$router.push('/');
         })
         .catch((error) => {

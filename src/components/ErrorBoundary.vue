@@ -38,6 +38,7 @@
 <script>
 import store from '@/store';
 import router from '@/router';
+import ErrorTracking from '@/module/ErrorTracking';
 
 export default {
   name: 'ErrorBoundary',
@@ -48,6 +49,8 @@ export default {
     };
   },
   errorCaptured(err, vm, info) {
+    ErrorTracking.captureException(err);
+    ErrorTracking.showReportDialog();
     this.error = err;
     this.info = info;
   },

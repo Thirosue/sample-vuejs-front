@@ -1,6 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import Vue from 'vue';
-import App from './App.vue';
 import router from '@/router';
 import store from '@/store';
 import './registerServiceWorker';
@@ -20,6 +19,12 @@ import directive from '@/module/directive';
 import ErrorBoundary from '@/components/ErrorBoundary.vue';
 import NavBar from '@/components/layouts/Navbar.vue';
 import Footer from '@/components/layouts/Footer.vue';
+
+// for event logging
+import * as Sentry from '@sentry/browser';
+import * as Integrations from '@sentry/integrations';
+
+import App from './App.vue';
 
 Vue.use(Buefy);
 
@@ -42,11 +47,20 @@ Vue.component('sample-navbar', NavBar);
 Vue.component('sample-footer', Footer);
 
 Vue.config.errorHandler = (err, vm, info) => {
-  //エラー連携
-  console.error('errorHandlererr:',err)
-  console.error('errorHandlervm:',vm)
-  console.error('errorHandlerinfo:',info)
+  console.error('errorHandlererr:', err);
+  console.error('errorHandlervm:', vm);
+  console.error('errorHandlerinfo:', info);
 };
+
+Sentry.init({
+  dsn: 'https://50ca12c46e024d1ea7d92aa3270ba917@sentry.io/1444663',
+  integrations: [
+    new Integrations.Vue({
+      Vue,
+      attachProps: true,
+    }),
+  ],
+});
 
 new Vue({
   router,
