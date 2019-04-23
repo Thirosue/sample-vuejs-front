@@ -1,7 +1,7 @@
 <template>
-  <div id="app" v-cloak>
+  <error-boundary id="app" v-cloak>
     <router-view/>
-  </div>
+  </error-boundary>
 </template>
 
 <style lang="scss">

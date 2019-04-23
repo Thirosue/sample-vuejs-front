@@ -11,13 +11,11 @@ import * as master from '@/store/modules/master';
 Vue.use(Vuex);
 
 export const GETTER_TYPES = {
-  GET_STACKTRACE: 'GET_STACKTRACE',
   GET_PROCESSING: 'GET_PROCESSING',
   GET_LOADING: 'GET_LOADING',
 };
 
 export const MUTATION_TYPES = {
-  SET_STACKTRACE: 'SET_STACKTRACE',
   SET_PROCESSING: 'SET_PROCESSING',
   SET_LOADING: 'SET_LOADING',
 };
@@ -30,16 +28,12 @@ const store = new Vuex.Store({
   },
 
   state: {
-    stackTrace: null,
     processing: false,
     loading: false,
     mode: process.env.NODE_ENV,
   },
 
   getters: {
-    [GETTER_TYPES.GET_STACKTRACE](state) {
-      return state.stackTrace;
-    },
     [GETTER_TYPES.GET_PROCESSING](state) {
       return state.processing;
     },
@@ -49,9 +43,6 @@ const store = new Vuex.Store({
   },
 
   mutations: {
-    [MUTATION_TYPES.SET_STACKTRACE](state, stackTrace) {
-      state.stackTrace = stackTrace;
-    },
     [MUTATION_TYPES.SET_PROCESSING](state, processing) {
       state.processing = processing;
     },

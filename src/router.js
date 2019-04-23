@@ -7,7 +7,6 @@ import Statistics from '@/module/Statistics';
 import { SESSION_GETTER_TYPES } from '@/store/modules/session';
 import { buildPath } from '@/helpers';
 
-import SystemError from '@/views/error/SystemError.vue';
 import BadRequest from '@/views/error/BadRequest.vue';
 import SessionTimeOut from '@/views/error/SessionTimeOut.vue';
 import Complete from '@/views/common/Complete.vue';
@@ -42,11 +41,6 @@ const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    {
-      path: Config.SYSERR_PATH,
-      name: 'SystemError',
-      component: SystemError,
-    },
     {
       path: Config.SESSION_TIMEOUT_PATH,
       name: 'SessionTimeOut',

@@ -17,6 +17,7 @@ import filter from '@/module/filter';
 import directive from '@/module/directive';
 
 // add compornent for global
+import ErrorBoundary from '@/components/ErrorBoundary.vue';
 import NavBar from '@/components/layouts/Navbar.vue';
 import Footer from '@/components/layouts/Footer.vue';
 
@@ -36,8 +37,16 @@ Vue.filter('Flag', filter.Flag);
 
 Vue.directive('focus', directive.focus);
 
+Vue.component('error-boundary', ErrorBoundary);
 Vue.component('sample-navbar', NavBar);
 Vue.component('sample-footer', Footer);
+
+Vue.config.errorHandler = (err, vm, info) => {
+  //エラー連携
+  console.error('errorHandlererr:',err)
+  console.error('errorHandlervm:',vm)
+  console.error('errorHandlerinfo:',info)
+};
 
 new Vue({
   router,
