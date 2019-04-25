@@ -41,7 +41,6 @@ import router from '@/router';
 import ErrorTracking from '@/module/ErrorTracking';
 
 export default {
-  name: 'ErrorBoundary',
   data() {
     return {
       error: null,

@@ -12,6 +12,7 @@ import filter from '@/module/filter';
 import directive from '@/module/directive';
 
 // add compornent for global
+import ErrorBoundary from '@/components/ErrorBoundary.vue';
 import NavBar from '@/components/layouts/Navbar.vue';
 import Footer from '@/components/layouts/Footer.vue';
 
@@ -33,6 +34,7 @@ const _localVue = () => {
 
   localVue.directive('focus', directive.focus);
 
+  localVue.component('error-boundary', ErrorBoundary);
   localVue.component('sample-navbar', NavBar);
   localVue.component('sample-footer', Footer);
 

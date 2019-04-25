@@ -7,9 +7,12 @@ import * as session from '@/store/modules/session';
 import * as form from '@/store/modules/form';
 import * as master from '@/store/modules/master';
 
+import ErrorBoundary from '@/components/ErrorBoundary.vue';
+
 const localVue = createLocalVue();
 localVue.use(Vuex);
 localVue.use(VueRouter);
+localVue.component('error-boundary', ErrorBoundary);
 
 const router = new VueRouter();
 
