@@ -26,8 +26,8 @@ export default class CodeUpdateForm extends BaseForm {
     super();
     this.addItem('id', new TextFormItem(id));
     this.addItem('codeCategoryId', new SelectFormItem(codeCategoryId, codeCategories, true).validate());
-    this.addItem('categoryKeyText', new TextFormItem(categoryKey));
-    this.addItem('categoryNameText', new TextFormItem(categoryName));
+    this.addItem('categoryKey', new TextFormItem(categoryKey));
+    this.addItem('categoryName', new TextFormItem(categoryName));
     this.addItem('codeKey', new TextFormItem(codeKey));
     this.addItem('codeValue', new TextFormItem(codeValue).validate());
     this.addItem('codeAlias', new TextFormItem(codeAlias).validate());

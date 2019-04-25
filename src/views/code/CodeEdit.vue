@@ -21,11 +21,11 @@
             </tr>
             <tr>
               <th>コード分類キー</th>
-              <td>{{form.items.categoryKeyText.value}}</td>
+              <td>{{form.items.categoryKey.value}}</td>
             </tr>
             <tr>
               <th>コード分類名</th>
-              <td>{{form.items.categoryNameText.value}}</td>
+              <td>{{form.items.categoryName.value}}</td>
             </tr>
             <tr>
               <th>コードキー</th>

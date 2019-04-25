@@ -14,6 +14,9 @@ export const isTel = (value) => {
 };
 
 export const isExpectLength = (value, { max = Infinity, min = 0 } = {}) => {
+  if (isEmpty(value)) {
+    return true;
+  }
   const str = String(value);
   if (str.length > max) {
     return false;
