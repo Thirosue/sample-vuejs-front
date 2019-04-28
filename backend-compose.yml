@@ -24,6 +24,7 @@ services:
       - link
     ports:
       - "18081:18081"
+    entrypoint: java -Dspring.datasource.url=jdbc:mysql://sample-db:3306/sample?useSSL=false&characterEncoding=UTF-8 -jar /sample-web-admin.jar
     depends_on:
       - sample-db
 
