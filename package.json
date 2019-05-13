@@ -42,7 +42,7 @@
     "eslint-plugin-vue": "^5.2.2",
     "fibers": "^3.1.1",
     "flush-promises": "^1.0.2",
-    "mocha": "^6.1.4",
+    "mocha": "^5.2.0",
     "mochawesome": "^3.1.2",
     "mochawesome-merge": "^1.0.7",
     "sass": "^1.19.0",
