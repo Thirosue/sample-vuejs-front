@@ -230,7 +230,7 @@ export default {
     },
     async addChildren() {
       this.form.addChildren();
-      this.$_.last(this.form.children).refreshState();
+      this.$_.last(this.form.children).updateState();
     },
     removeChildren() {
       this.form.removeChildren();
@@ -241,7 +241,8 @@ export default {
     screenId: () => 'INQUIRY',
     disabled() {
       return this.form.invalid
-                || this.form.children.some(child => child.invalid)
+                // 追加フォームがinvalid もしくは 未編集の場合は、Submitさせない
+                || this.form.children.some(child => child.invalid || !child.isDirty())
                 || this.processing;
     },
   },
