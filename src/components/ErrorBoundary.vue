@@ -11,7 +11,7 @@
         </div>
       </section>
       <div class="container is-fullhd">
-        <article class="message is-danger" v-if="isShow">
+        <article class="message is-danger" v-if="isProduction">
           <div class="message-body">
             <p>
               エラーメッセージ；{{error.message}}
@@ -24,8 +24,8 @@
             </p>
           </div>
         </article>
-        <a href="#" v-if="isLogin" @click="goHome">Homeへ</a>
-        <a href="#" v-else @click="goLogin">ログインページへ</a>
+        <a href="/" v-if="isLogin" @click="goHome">ポータルトップへ</a>
+        <a href="/login" v-else @click="goLogin">ログインページへ</a>
       </div>
       <sample-footer></sample-footer>
     </template>
@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import store from '@/store';
 import router from '@/router';
 import ErrorTracking from '@/module/ErrorTracking';
 
@@ -63,16 +62,6 @@ export default {
       this.error = null;
       this.info = null;
       router.push('/login');
-    },
-  },
-  computed: {
-    isShow() {
-      return store.state.mode !== 'production';
-    },
-    isLogin() {
-      return store.state.session !== null
-                && store.state.session.values !== null
-                && store.state.session.values.cookie !== null;
     },
   },
 };

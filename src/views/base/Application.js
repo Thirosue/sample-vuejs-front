@@ -76,5 +76,8 @@ export default {
         .value();
     },
     hasAdmin() { return this.session.roles.some(role => role === Config.ADMIN); },
+    isProduction() {
+      return this.$store.state.mode !== 'production';
+    },
   },
 };

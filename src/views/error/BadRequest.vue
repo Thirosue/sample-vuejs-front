@@ -16,7 +16,8 @@
           トップページよりもう一度操作してください。
         </div>
       </article>
-      <router-link to="/">ポータルトップ</router-link>
+      <router-link to="/" v-if="isLogin">ポータルトップ</router-link>
+      <router-link to="/login" v-else>ログインページへ</router-link>
     </div>
     <sample-footer></sample-footer>
   </div>
