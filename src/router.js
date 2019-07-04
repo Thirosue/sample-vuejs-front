@@ -25,6 +25,7 @@ import CodeRegister from '@/views/code/CodeRegister.vue';
 import Inquiry from '@/views/system/Inquiry.vue';
 import InquiryList from '@/views/inquiry/InquiryList.vue';
 import InquiryList2 from '@/views/inquiry/InquiryList2.vue';
+import { isEmpty } from '@/helpers/validators';
 
 Vue.use(Router);
 
@@ -151,6 +152,10 @@ const router = new Router({
 
 router.beforeEach(async (to, from, next) => {
   const session = store.getters[SESSION_GETTER_TYPES.VALUES];
+  if(isEmpty(session) && to.path === '/') {
+    console.log('Redirect to Login Form');
+    router.push(Config.LOGIN_PATH);
+  }
   if (!Auth.isAllowAction(to.path, session.roles)) {
     console.log('UnAuthorize Action');
     router.push(Config.BAD_REQUEST_PATH);
