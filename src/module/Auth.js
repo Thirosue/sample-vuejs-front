@@ -1,9 +1,7 @@
 import router from '@/router';
-import { includeList } from '@/helpers';
 import ErrorHandler from '@/module/ErrorHandler';
-import Screenlist from '@/conf/ScreenList';
-import Config from '@/conf/Config';
 import { authApi } from '@/module/Api';
+import Config from '@/conf/Config';
 
 export default class Auth {
   static handleError(error) {
@@ -14,19 +12,8 @@ export default class Auth {
     }
   }
 
-  static async checkSession(path) {
-    if (!includeList(Config.UNAUTHORITHED_PATH, path)) {
-      await authApi.checkSession().catch(this.handleError);
-      console.info('session available!');
-    }
-  }
-
-  static isAllowAction(targetPath, roleList) {
-    const targetScreen = Screenlist.find(screen => targetPath.indexOf(screen.url) !== -1);
-    if (undefined === targetScreen) {
-      return true; // 対象なしは許可
-    }
-    const allowRole = targetScreen.roles;
-    return allowRole.some(role => role === 'all' || roleList.includes(role));
+  static async checkSession() {
+    await authApi.checkSession().catch(this.handleError);
+    console.info('session available!');
   }
 }

@@ -57,7 +57,7 @@
 <script>
 import { FormInput } from '@/components/form';
 import { LoginForm } from '@/forms';
-import { SESSION_GETTER_TYPES, SESSION_MUTATION_TYPES } from '@/store/modules/session';
+import { SESSION_MUTATION_TYPES } from '@/store/modules/session';
 import Config from '@/conf/Config';
 import ErrorHandler from '@/module/ErrorHandler';
 import { LOGIN_MESSAGE } from '@/conf/message';
@@ -85,10 +85,6 @@ export default {
       form,
       errMsg: null,
     };
-  },
-
-  mounted() {
-    console.log(this.$store.getters[SESSION_GETTER_TYPES.VALUES]);
   },
 
   methods: {

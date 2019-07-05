@@ -5,7 +5,6 @@ import { MASTER_GETTER_TYPES, MASTER_MUTATION_TYPES } from '@/store/modules/mast
 import { masterApi } from '@/module/Api';
 import MenuCategoryList from '@/conf/MenuCategoryList';
 import MenuList from '@/conf/MenuList';
-import Screenlist from '@/conf/ScreenList';
 import ErrorHandler from '@/module/ErrorHandler';
 
 export default {
@@ -18,8 +17,6 @@ export default {
   },
 
   created() {
-    const target = Screenlist.find(s => s.id === this.screenId);
-    document.title = target ? `Vue Sample ｜${target.name}` : document.title;
     if (this.hasState && this.isLogin) {
       this.setMasterInfo();
     }

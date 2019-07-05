@@ -46,121 +46,234 @@ const router = new Router({
       path: Config.SESSION_TIMEOUT_PATH,
       name: 'SessionTimeOut',
       component: SessionTimeOut,
+      meta: {
+        requiresAuth: false,
+        title: 'セッションタイムアウト',
+      },
     },
     {
       path: Config.BAD_REQUEST_PATH,
       name: 'BadRequest',
       component: BadRequest,
-    },
-    {
-      path: '/',
-      name: 'Index',
-      component: Index,
+      meta: {
+        requiresAuth: false,
+        title: '不正な画面遷移',
+      },
     },
     {
       path: Config.LOGIN_PATH,
       name: 'Login',
       component: Login,
+      meta: {
+        requiresAuth: false,
+        title: 'ログイン',
+      },
     },
     {
       path: Config.LOGOUT_PATH,
       name: 'Logout',
       component: Logout,
+      meta: {
+        requiresAuth: false,
+        title: 'ログアウト',
+      },
+    },
+    {
+      path: '/',
+      name: 'Index',
+      component: Index,
+      meta: {
+        requiresAuth: true,
+        title: 'ポータルトップ',
+        allowRoles: [Config.ADMIN, Config.OPERATOR],
+      },
     },
     {
       path: Config.EDIT_PASSWORD,
       name: 'PasswordEdit',
       component: PasswordEdit,
+      meta: {
+        requiresAuth: true,
+        title: 'パスワード編集',
+        allowRoles: [Config.ADMIN, Config.OPERATOR],
+      },
     },
     {
       path: Config.INQUIRY,
       name: 'Inquiry',
       component: Inquiry,
+      meta: {
+        requiresAuth: true,
+        title: 'お問い合わせ',
+        allowRoles: [Config.ADMIN, Config.OPERATOR],
+      },
     },
     {
       path: STAFF.LIST,
       name: 'StaffList',
       component: StaffList,
+      meta: {
+        requiresAuth: true,
+        title: '担当者一覧',
+        allowRoles: [Config.ADMIN],
+      },
     },
     {
       path: `${STAFF.DETAIL}/:id`,
       name: 'StaffDetail',
       component: StaffDetail,
+      meta: {
+        requiresAuth: true,
+        title: '担当者詳細',
+        allowRoles: [Config.ADMIN],
+      },
     },
     {
       path: STAFF.EDIT,
       name: 'StaffEdit',
       component: StaffEdit,
+      meta: {
+        requiresAuth: true,
+        title: '担当者編集',
+        allowRoles: [Config.ADMIN],
+      },
     },
     {
       path: STAFF.EDIT_COMPLETE,
       name: 'StaffEditComplete',
       component: Complete,
+      meta: {
+        requiresAuth: true,
+        title: '担当者編集完了',
+        allowRoles: [Config.ADMIN],
+      },
     },
     {
       path: STAFF.REGISTER,
       name: 'StaffRegister',
       component: StaffRegister,
+      meta: {
+        requiresAuth: true,
+        title: '担当者登録',
+        allowRoles: [Config.ADMIN],
+      },
     },
     {
       path: STAFF.REGISTER_COMPLETE,
       name: 'StaffRegisterComplete',
       component: Complete,
+      meta: {
+        requiresAuth: true,
+        title: '担当者登録完了',
+        allowRoles: [Config.ADMIN],
+      },
     },
     {
       path: CODE.LIST,
       name: 'CodeList',
       component: CodeList,
+      meta: {
+        requiresAuth: true,
+        title: 'コード一覧',
+        allowRoles: [Config.ADMIN, Config.OPERATOR],
+      },
     },
     {
       path: `${CODE.DETAIL}/:id`,
       name: 'CodeDetail',
       component: CodeDetail,
+      meta: {
+        requiresAuth: true,
+        title: 'コード詳細',
+        allowRoles: [Config.ADMIN, Config.OPERATOR],
+      },
     },
     {
       path: CODE.EDIT,
       name: 'CodeEdit',
       component: CodeEdit,
+      meta: {
+        requiresAuth: true,
+        title: 'コード編集',
+        allowRoles: [Config.ADMIN, Config.OPERATOR],
+      },
     },
     {
       path: CODE.EDIT_COMPLETE,
       name: 'CodeEditComplete',
       component: Complete,
+      meta: {
+        requiresAuth: true,
+        title: 'コード編集完了',
+        allowRoles: [Config.ADMIN, Config.OPERATOR],
+      },
     },
     {
       path: CODE.REGISTER,
       name: 'CodeRegister',
       component: CodeRegister,
+      meta: {
+        requiresAuth: true,
+        title: 'コード登録',
+        allowRoles: [Config.ADMIN, Config.OPERATOR],
+      },
     },
     {
       path: CODE.REGISTER_COMPLETE,
       name: 'CodeRegisterComplete',
       component: Complete,
+      meta: {
+        requiresAuth: true,
+        title: 'コード登録完了',
+        allowRoles: [Config.ADMIN, Config.OPERATOR],
+      },
     },
     {
       path: INQUIRY.LIST,
       name: 'InquiryList',
       component: InquiryList,
+      meta: {
+        requiresAuth: true,
+        title: 'お問い合わせ一覧',
+        allowRoles: [Config.ADMIN, Config.OPERATOR],
+      },
     },
     {
       path: `${INQUIRY.LIST}2`,
       name: 'InquiryList2',
       component: InquiryList2,
+      meta: {
+        requiresAuth: true,
+        title: 'お問い合わせ一覧２',
+        allowRoles: [Config.ADMIN, Config.OPERATOR],
+      },
     },
   ],
 });
 
 router.beforeEach(async (to, from, next) => {
+  console.log('__beforeEach__');
+  document.title = `Vue Sample ｜ ${to.meta.title}`;
+  if (isEmpty(to.meta.title)) { // ルーティングなし
+    console.log('nothing to route table');
+    next(Config.BAD_REQUEST_PATH);
+    return;
+  }
   const session = store.getters[SESSION_GETTER_TYPES.VALUES];
-  if(isEmpty(session) && to.path === '/') {
+  if (isEmpty(session) && to.path === '/') { // ポータルトップ未ログイン
     console.log('Redirect to Login Form');
-    router.push(Config.LOGIN_PATH);
+    next(Config.LOGIN_PATH);
+    return;
   }
-  if (!Auth.isAllowAction(to.path, session.roles)) {
-    console.log('UnAuthorize Action');
-    router.push(Config.BAD_REQUEST_PATH);
+  if (to.meta.requiresAuth) {
+    // ロールなし画面への遷移
+    if (isEmpty(session) || !to.meta.allowRoles.some(role => session.roles.includes(role))) {
+      console.log('UnAuthorize Action');
+      next(Config.BAD_REQUEST_PATH);
+      return;
+    }
+    await Auth.checkSession();
   }
-  Auth.checkSession(to.path);
   if (from.path !== to.path) {
     const statistics = new Statistics();
     statistics.setAccessLog(to.path);
