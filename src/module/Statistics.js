@@ -10,11 +10,9 @@ export default class Statistics {
       const successes = await this.constructor.logging(processing);
 
       const retries = _.xor(processing, successes);
-      retries.forEach((r) => {
-        const target = { ...r };
-        target.retry += 1;
-        return target;
-      });
+      for ( let i = 0; i < retries.length; i++ ) {
+        retries[i].retry += 1;
+      }
 
       this.constructor.setAccessLog(retries.filter(r => r.retry < Config.LOG_RETRY_MAX));
     }, 3000);
