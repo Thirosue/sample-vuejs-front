@@ -46,6 +46,8 @@ export default {
 
   mounted() {
     console.log('BaseList start ...');
+    this.$store.commit(MUTATION_TYPES.SET_PROCESSING, false);
+
     if (!this.$is.empty(this.$router.history.current.query)) {
       this.findAll();
     }
