@@ -10,7 +10,7 @@ export default class Statistics {
       const successes = await this.constructor.logging(processing);
 
       const retries = _.xor(processing, successes);
-      for ( let i = 0; i < retries.length; i++ ) {
+      for (let i = 0; i < retries.length; i += 1) {
         retries[i].retry += 1;
       }
 

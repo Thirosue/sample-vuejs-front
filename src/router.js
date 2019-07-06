@@ -2,13 +2,16 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import store from '@/store';
 import Config from '@/conf/Config';
-import Auth from '@/module/Auth';
 import Statistics from '@/module/Statistics';
 import { SESSION_GETTER_TYPES } from '@/store/modules/session';
 import { buildPath } from '@/helpers';
+import { isEmpty } from '@/helpers/validators';
+import { authApi } from '@/module/Api';
+import ErrorTracking from '@/module/ErrorTracking';
 
 import BadRequest from '@/views/error/BadRequest.vue';
 import SessionTimeOut from '@/views/error/SessionTimeOut.vue';
+import SystemError from '@/views/error/SystemError.vue';
 import Complete from '@/views/common/Complete.vue';
 import Index from '@/views/index/Index.vue';
 import Login from '@/views/login/Login.vue';
@@ -25,7 +28,6 @@ import CodeRegister from '@/views/code/CodeRegister.vue';
 import Inquiry from '@/views/system/Inquiry.vue';
 import InquiryList from '@/views/inquiry/InquiryList.vue';
 import InquiryList2 from '@/views/inquiry/InquiryList2.vue';
-import { isEmpty } from '@/helpers/validators';
 
 Vue.use(Router);
 
@@ -58,6 +60,15 @@ const router = new Router({
       meta: {
         requiresAuth: false,
         title: '不正な画面遷移',
+      },
+    },
+    {
+      path: Config.SYSERR_PATH,
+      name: 'SystemError',
+      component: SystemError,
+      meta: {
+        requiresAuth: false,
+        title: '予期せぬエラー',
       },
     },
     {
@@ -260,19 +271,32 @@ router.beforeEach(async (to, from, next) => {
     return;
   }
   const session = store.getters[SESSION_GETTER_TYPES.VALUES];
-  if (isEmpty(session) && to.path === '/') { // ポータルトップ未ログイン
-    console.log('Redirect to Login Form');
-    next(Config.LOGIN_PATH);
-    return;
-  }
   if (to.meta.requiresAuth) {
-    // ロールなし画面への遷移
-    if (isEmpty(session) || !to.meta.allowRoles.some(role => session.roles.includes(role))) {
+    // 未ログイン時はログインページへリダイレクト
+    if (isEmpty(session)) {
+      console.log('Redirect to Login Form');
+      next(Config.LOGIN_PATH);
+      return;
+    }
+
+    // 権限エラーのハンドリング
+    if (!to.meta.allowRoles.some(role => session.roles.includes(role))) {
       console.log('UnAuthorize Action');
       next(Config.BAD_REQUEST_PATH);
       return;
     }
-    await Auth.checkSession();
+
+    // セッション確認
+    await authApi.checkSession()
+      .then(() => console.info('session available!'))
+      .catch((error) => {
+        if (error.response.status === 401) {
+          next(Config.SESSION_TIMEOUT_PATH);
+        } else {
+          next(error);
+          next(Config.SYSERR_PATH);
+        }
+      });
   }
   if (from.path !== to.path) {
     const statistics = new Statistics();
@@ -283,5 +307,10 @@ router.beforeEach(async (to, from, next) => {
 
 // router.afterEach((to, from) => {
 // });
+
+router.onError((error) => {
+  ErrorTracking.captureException(error);
+  ErrorTracking.showReportDialog();
+});
 
 export default router;
