@@ -25,4 +25,10 @@ export default [
   {
     category: 'INQUIRY', order: 2, id: 'INQUIRY_LIST2', name: '問い合わせ一覧２', url: '/inquiryList2', roles: [Config.ADMIN],
   },
+  {
+    category: 'SCHEDULE', order: 1, id: 'SCHEDULE_LIST', name: 'スケジュール一覧', url: '/scheduleList', roles: [Config.ADMIN],
+  },
+  {
+    category: 'SCHEDULE', order: 2, id: 'SCHEDULE_LIST2', name: 'スケジュール一覧２', url: '/scheduleList2', roles: [Config.ADMIN],
+  },
 ];

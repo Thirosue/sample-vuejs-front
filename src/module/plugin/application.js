@@ -2,6 +2,8 @@
 
 import is from 'is_js';
 import _ from 'lodash';
+import * as moment from 'moment';
+import 'moment/locale/ja';
 import store from '@/store';
 import router from '@/router';
 import { sleep } from '@/helpers';
@@ -19,6 +21,8 @@ export default {
       mixins: [Application],
     });
 
+    moment.locale('ja');
+    Vue.prototype.$moment = moment;
     Vue.prototype.$is = is;
     Vue.prototype.$_ = _;
 

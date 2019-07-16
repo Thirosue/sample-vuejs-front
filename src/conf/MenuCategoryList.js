@@ -14,6 +14,9 @@ export default [
     category: 'CODE', order: 2, name: 'コード管理', roles: [Config.ADMIN, Config.OPERATOR],
   },
   {
-    category: 'INQUIRY', order: 3, name: '問い合わせ管理', roles: [Config.ADMIN],
+    category: 'INQUIRY', order: 4, name: '問い合わせ管理', roles: [Config.ADMIN],
+  },
+  {
+    category: 'SCHEDULE', order: 3, name: 'スケジュール管理', roles: [Config.ADMIN],
   },
 ];

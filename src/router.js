@@ -28,6 +28,8 @@ import CodeRegister from '@/views/code/CodeRegister.vue';
 import Inquiry from '@/views/system/Inquiry.vue';
 import InquiryList from '@/views/inquiry/InquiryList.vue';
 import InquiryList2 from '@/views/inquiry/InquiryList2.vue';
+import ScheduleList from '@/views/schedule/scheduleList.vue';
+import ScheduleList2 from '@/views/schedule/scheduleList2.vue';
 
 Vue.use(Router);
 
@@ -257,6 +259,24 @@ const router = new Router({
         requiresAuth: true,
         title: 'お問い合わせ一覧２',
         allowRoles: [Config.ADMIN, Config.OPERATOR],
+      },
+    },
+    {
+      path: '/scheduleList',
+      name: 'scheduleList',
+      component: ScheduleList,
+      meta: {
+        requiresAuth: false,
+        title: 'スケジュール一覧',
+      },
+    },
+    {
+      path: '/scheduleList2',
+      name: 'scheduleList2',
+      component: ScheduleList2,
+      meta: {
+        requiresAuth: false,
+        title: 'スケジュール一覧2',
       },
     },
   ],
