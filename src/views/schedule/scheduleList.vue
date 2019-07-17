@@ -1,20 +1,31 @@
 <template>
   <div>
     <sample-navbar></sample-navbar>
-    <div class="container is-fluid">
-      <h4 class="title is-4">スケジュール一覧（日指定）</h4>
-      <h6 class="title is-6">{{getDisplayDate()}}</h6>
 
+    <div class="container is-fluid">
+      <h4 class="title is-4">スケジュール一覧</h4>
+
+      <div class="notification">
+        <div class="field is-grouped is-grouped-right">
+          <button
+            id="form-submit"
+            class="button is-link"
+            type="submit"
+            v-on:click.stop.prevent="search"
+          >Search</button>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="container is-fluid" v-if="searched">
       <div class="columns">
-        <div class="column is-1" id="ganttlabel">
+        <div class="column is-2" id="ganttlabel">
           <div class="daily-area">
             <div class="chart">
               <section class="hour"></section>
-              <section>label1</section>
-              <section>label2</section>
-              <section>label3</section>
-              <section>label4</section>
-              <section>label5</section>
+              <section v-for="schedule in schedules" :key="schedule.id">{{schedule.id}}</section>
             </div>
           </div>
         </div>
@@ -29,10 +40,10 @@
                   :key="'chart_' + i + '_hour' + hour"
                 >{{hour-1}}</section>
 
-                <span v-for="j in [0,1,2,3,4]" :key="j">
+                <span v-for="j in schedules.length" :key="j">
                   <span v-for="hour in 24" :key="hour">
                     <section
-                      v-bind:id="j + '_' + (hour - 1) + time"
+                      v-bind:id="j + '_' + `00${(hour - 1)}`.slice(-2) + time"
                       class="dropzone"
                       v-for="time in ['00', '15', '30', '45']"
                       :key="time"
@@ -68,85 +79,75 @@
       </div>
     </div>
 
-    <span id="ganttlabel">
-      <div class="chart">
-        <div class="daily-area"></div>
-      </div>
-    </span>
-
     <sample-footer></sample-footer>
     <img id="dummy" style="opacity:0; height:0px" src="#" />
     <!-- #TODO -->
-
-    <div id="modal" class="modal is-active" v-show="showModal">
-      <div class="modal-background" @click.stop="closeModal"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">スケジュール登録</p>
-          <button class="delete" aria-label="close" @click.stop="closeModal"></button>
-        </header>
-        <section class="modal-card-body">
-          <h6 class="title is-6">以下の時間で登録しますか？</h6>
-          <p style="white-space: pre-line;">日時: {{getDisplayDate()}}</p>
-          <p style="white-space: pre-line;">開始時間: {{getDisplayTime(start.hour, start.time)}}</p>
-          <p style="white-space: pre-line;">終了時間: {{getDisplayTime(end.hour, end.time, 15)}}</p>
-        </section>
-        <footer class="modal-card-foot">
-          <button class="button is-success" @click.stop.prevent="modalSubmit">はい</button>
-          <button class="button" @click.stop.prevent="closeModal">キャンセル</button>
-        </footer>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 /* TODO eslint enable */
 /* eslint-disable */
+import { BaseList } from "@/views/base";
+import { sleep } from "@/helpers";
 
 const tasks = [
-  // 1日目
-  [
-    {
-      name: "勉強会",
-      startTime: 1000,
-      endTime: 1045,
-      category: "event"
-    },
-    {
-      name: "ビジュアルコミュニケーションセミナー",
-      startTime: 1100,
-      endTime: 1200,
-      category: "lecture"
-    },
-    {
-      name: "部のランチ会",
-      startTime: 1215,
-      endTime: 1315,
-      category: "other"
-    },
-    {
-      name: "アプリ開発",
-      startTime: 1400,
-      endTime: 1730,
-      category: "dev"
-    }
-  ],
-  [],
-  [
-    {
-      name: "A社と打ち合わせ",
-      startTime: 1300,
-      endTime: 1500,
-      category: "meeting"
-    },
-    {
-      name: "品川出張",
-      startTime: 1600,
-      endTime: 1730,
-      category: "other"
-    }
-  ]
+  {
+    id: "#1",
+    info: "法人利用（株式会社 あああああああああああああああああああああああああああああああああああああああああああああ）",
+    startTime: 1000,
+    endTime: 1100,
+    area: "chiyoda"
+  },
+  {
+    id: "#2",
+    info: "個人利用（ああいい）",
+    startTime: 1000,
+    endTime: 1100,
+    area: "chiyoda"
+  },
+  {
+    id: "#3",
+    info: "法人利用（株式会社い）",
+    startTime: 1200,
+    endTime: 1700,
+    area: "chiyoda"
+  },
+  {
+    id: "#4",
+    info: "個人利用（Takeshi Hirosue）",
+    startTime: "0000",
+    endTime: 1100,
+    area: "chuou"
+  },
+  {
+    id: "#5",
+    info: "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttest",
+    startTime: "0000",
+    endTime: "0400",
+    area: "chuou"
+  },
+  {
+    id: "#6",
+    info: "法人利用（株式会社 う）",
+    startTime: 1200,
+    endTime: 1400,
+    area: "chuou"
+  },
+  {
+    id: "#7",
+    info: "法人利用です",
+    startTime: "0100",
+    endTime: "0700",
+    area: "minato"
+  },
+  {
+    id: "#8",
+    info: "サンプル情報８",
+    startTime: 1800,
+    endTime: 2400,
+    area: "minato"
+  }
 ];
 
 // 5分ごとの整数列のイテレータを返す
@@ -155,54 +156,83 @@ function* range(begin, end, interval = 5) {
     yield i;
   }
 }
+
 export default {
   name: "scheduleList",
+  mixins: [BaseList],
+
   data() {
     return {
-      showModal: false,
+      schedules: [],
+      searched: false,
       start: {},
-      end: {},
-      content: ""
+      end: {}
     };
   },
 
-  mounted() {
-    // 初期スクロール位置調整
-    const target = document.getElementById("easygantt");
-    const res = document.evaluate(
-      "//section[contains(., '7')]",
-      document,
-      null,
-      XPathResult.ANY_TYPE,
-      null
-    );
-
-    target.scrollLeft = res.iterateNext().getBoundingClientRect().left - 133;
-
-    // タスク配置
-    tasks.forEach((taskList, index) => {
-      taskList.forEach(task => {
-        const start = task.startTime;
-        const end = task.endTime;
-
-        for (const time of range(start, end)) {
-          const id = `${index}_${time}`;
-          const element = document.getElementById(id);
-
-          if (element !== null) {
-            if (start == time) {
-              element.style.borderLeft = "1px solid gainsboro;";
-            } else {
-              element.style.borderLeft = "0px";
-            }
-            element.style.backgroundColor = "yellow";
-          }
-        }
-      });
-    });
-  },
+  mounted() {},
 
   methods: {
+    async search() {
+      this.searched = false;
+      this.schedules = [...tasks];
+
+      await sleep(500);
+      this.searched = true;
+
+      this.$nextTick(() => {
+        // タスク配置
+        tasks.forEach((task, index) => {
+          const start = task.startTime;
+          const end = task.endTime;
+
+          let count = 0;
+          for (const time of range(Number(start), Number(end))) {
+            const id = `${index + 1}_` + `0000${time}`.slice(-4);
+            const element = document.getElementById(id);
+
+            if (element !== null) {
+              count += 1;
+              element.style.width = "0px";
+              if (`0000${start}`.slice(-4) === `0000${time}`.slice(-4)) {
+                element.style.borderLeft = "1px solid gainsboro;";
+              } else {
+                element.style.borderLeft = "0px";
+              }
+              if (
+                this.$moment(`0000${end}`.slice(-4), "HHmm").format("HHmm") ===
+                this.$moment(`0000${time}`.slice(-4), "HHmm")
+                  .add(15, "m")
+                  .format("HHmm")
+              ) {
+                const firstElement = document.getElementById(
+                  `${index + 1}_` + `0000${start}`.slice(-4)
+                );
+                firstElement.innerText = task.info;
+                firstElement.style.width = count * 30 + "px";
+              }
+              element.style.backgroundColor = "lightblue";
+            }
+          }
+
+          // 初期スクロール位置調整
+          const target = document.getElementById("easygantt");
+          const res = document.evaluate(
+            "//section[contains(., '7')]",
+            document,
+            null,
+            XPathResult.ANY_TYPE,
+            null
+          );
+          target.scrollLeft =
+            res.iterateNext().getBoundingClientRect().left - 175;
+
+          [...document.querySelectorAll(".chart")].forEach(ele => {
+            ele.style.height = 30 + this.schedules.length * 60 + "px";
+          });
+        });
+      });
+    },
     dragstart(item, event) {
       console.log("dragstart");
       this.start = item;
@@ -214,7 +244,7 @@ export default {
       console.log(item);
       if (
         event.target.className == "dropzone" &&
-        event.target.style.backgroundColor !== "yellow"
+        event.target.style.backgroundColor !== "lightblue"
       ) {
         // var previous = event.target.previousElementSibling;
         // var next = event.target.nextElementSibling;
@@ -242,11 +272,11 @@ export default {
       console.log("drop");
       console.log(item);
       this.end = item;
-      if (event.target.style.backgroundColor !== "yellow") {
+      if (event.target.style.backgroundColor !== "lightblue") {
         this.showModal = true;
       } else {
         this.$showModal(
-          "選択した時間には、予約済時間が含まれています。",
+          "選択した時間には、予約時間が含まれています。",
           "時間指定エラー"
         );
         this.clearAll();

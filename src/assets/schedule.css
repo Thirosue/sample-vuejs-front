@@ -25,13 +25,13 @@
   float: left;
   /* border-leftの線の太さを考慮して60 - 1する */
   background-color: white;
-  font-weight: lighter;
-  font-size: 13px;
+  font-weight: bolder;
+  font-size: 12px;
   border-right: 1px solid gainsboro;
   border-left: 1px solid lightgray;
   border-bottom: 1px solid gainsboro;
   height: 60px;
-  width: 155px;
+  width: 305px;
 }
 
 #easygantt {
@@ -55,7 +55,7 @@
 .chart {
   margin: 15px 0 0 0;
   margin-bottom: 10px;
-  height: 400px;
+  height: 300px;
 }
 
 #easygantt .scale {
@@ -67,8 +67,6 @@
 #easygantt section[class = "hour"] {
   text-align: left;
   padding: 0px 5px;
-  font-size: 13px;
-  font-weight: lighter;
   border-top: 1px solid gainsboro;
   height: 20px;
   white-space: nowrap;
@@ -77,12 +75,17 @@
 
 #easygantt section {
   float: left;
+  font-size: 13px;
+  font-weight: lighter;
   /* border-leftの線の太さを考慮して60 - 1する */
   background-color: white;
   border-left: 1px solid lightgray;
   border-bottom: 1px solid gainsboro;
   height: 60px;
   width: 30px;
+  display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 3;
 }
 
 /* バブルの色 */
