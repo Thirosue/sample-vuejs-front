@@ -74,4 +74,26 @@ describe('Validators', () => {
       expect(validators.isTel('03-1234-5678')).toBe(true);
     });
   });
+
+  describe('isDate', () => {
+    it('2019-1-1-1', () => {
+      expect(validators.isDate('2019-1-1-1')).toBe(false);
+    });
+
+    it('2019-13-01', () => {
+      expect(validators.isDate('2019-13-01')).toBe(false);
+    });
+
+    it('2019-01-32', () => {
+      expect(validators.isDate('2019-01-32')).toBe(false);
+    });
+
+    it('2019-02-29', () => {
+      expect(validators.isDate('2019-02-29')).toBe(false);
+    });
+
+    it('2019-07-17', () => {
+      expect(validators.isDate('2019-07-17')).toBe(true);
+    });
+  });
 });

@@ -38,7 +38,7 @@ export const isDate = (value) => {
   if (isEmpty(value)) {
     return true;
   }
-  return !moment(value).isValid();
+  return moment(value).isValid();
 };
 
 export const isBirthDay = (value) => {
