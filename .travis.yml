@@ -18,5 +18,5 @@ script:
   - docker build -t mirrored1976/sample-vue-front docker/
 
 after_script:
-  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
   - docker push mirrored1976/sample-vue-front
