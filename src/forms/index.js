@@ -11,6 +11,6 @@ export { default as CodeUpdateForm } from './code/CodeUpdateForm';
 
 export { default as InquirySearchForm } from './inquiry/InquirySearchForm';
 export { default as InquirySearchForm2 } from './inquiry/InquirySearchForm2';
-export { default as InquiryUpdateForm } from './inquiry/InquiryUpdateForm';
+export { default as InquiryUpdateForm } from './inquiry/InquiryUpdateForm'; // eslint-disable-line
 
 export { default as ChildUpdateForm } from './inquiry/ChildUpdateForm';

@@ -30,10 +30,10 @@
 </template>
 
 <script>
-import formItemMixin from '@/mixins/form-item';
 import flatPickr from 'vue-flatpickr-component';
 /* eslint-disable import/no-extraneous-dependencies, import/extensions */
 import { Japanese } from 'flatpickr/dist/l10n/ja.js';
+import formItemMixin from '@/mixins/form-item';
 /* eslint-disable import/no-extraneous-dependencies */
 import 'flatpickr/dist/flatpickr.min.css';
 

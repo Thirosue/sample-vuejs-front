@@ -1,10 +1,15 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import Buefy from 'buefy';
+import 'buefy/dist/buefy.css';
+
+// for event logging
+import * as Sentry from '@sentry/browser';
+import * as Integrations from '@sentry/integrations';
+
 import Vue from 'vue';
 import router from '@/router';
 import store from '@/store';
 import './registerServiceWorker';
-import Buefy from 'buefy';
-import 'buefy/dist/buefy.css';
 
 // add plugin for global
 import MyApplicationPlugin from '@/module/plugin/application';
@@ -19,10 +24,6 @@ import directive from '@/module/directive';
 import ErrorBoundary from '@/components/ErrorBoundary.vue';
 import NavBar from '@/components/layouts/Navbar.vue';
 import Footer from '@/components/layouts/Footer.vue';
-
-// for event logging
-import * as Sentry from '@sentry/browser';
-import * as Integrations from '@sentry/integrations';
 
 import App from './App.vue';
 

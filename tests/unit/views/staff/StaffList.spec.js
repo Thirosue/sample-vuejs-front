@@ -42,7 +42,7 @@ describe('StaffList view', () => {
 
   beforeEach(() => {
     store = _store;
-    router.push('/');
+    router.push('/').catch(err => { });
   });
 
   it('mount', () => {
@@ -53,7 +53,7 @@ describe('StaffList view', () => {
   it('初期状態で　submit が enable となる', () => {
     const { allErrorMsg, submitButton } = initMount(store);
 
-    for (let i = 0; i < allErrorMsg.length;  i++ ) {
+    for (let i = 0; i < allErrorMsg.length; i++) {
       expect(allErrorMsg.at(i).text()).toHaveLength(0);
     }
     expect(submitButton.attributes().disabled).toBe(undefined);
@@ -68,7 +68,7 @@ describe('StaffList view', () => {
     tel.setValue('tel');
     tel.trigger('blur');
 
-    for (let i = 0; i < allErrorMsg.length;  i++ ) {
+    for (let i = 0; i < allErrorMsg.length; i++) {
       expect(allErrorMsg.at(i).text()).toHaveLength(0);
     }
     expect(submitButton.attributes().disabled).toBe(undefined);
@@ -173,7 +173,7 @@ describe('StaffList view', () => {
     await flushPromises();
     const resultList = wrapper.findAll('#result-list tr');
     expect(resultList.length).toBe(4);
-    
+
     const secondRow = resultList.at(2);
     const cols = secondRow.findAll('td');
     expect(cols.at(0).text()).toBe('2'); //#

@@ -1,6 +1,6 @@
 import is from 'is_js';
 import 'whatwg-fetch';
-import querystring from 'querystring';
+import querystring from 'querystring'; // eslint-disable-line
 
 class Api {
   /** *******************
@@ -42,10 +42,10 @@ class Api {
   });
 
   /* filter implements */
-  static updateStartFilter = () => {};
+  static updateStartFilter = () => { };
 
   /* filter implements */
-  static updateEndFilter = () => {};
+  static updateEndFilter = () => { };
 
   static updatehEnd = (response) => {
     this.updateEndFilter();
@@ -71,10 +71,10 @@ class Api {
   };
 
   static fetchPost =
-            (url, data) => this.postBase(url, data).then(this.updatehEnd).then(this.checkStatus);
+    (url, data) => this.postBase(url, data).then(this.updatehEnd).then(this.checkStatus);
 
   static fetchPut =
-            (url, data) => this.putBase(url, data).then(this.updatehEnd).then(this.checkStatus);
+    (url, data) => this.putBase(url, data).then(this.updatehEnd).then(this.checkStatus);
 
   /** *******************
    * Delete Settings
