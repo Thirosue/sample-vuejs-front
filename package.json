@@ -45,7 +45,7 @@
     "mocha": "^6.2.0",
     "mochawesome": "^4.1.0",
     "mochawesome-merge": "^2.0.1",
-    "sass": "^1.22.12",
+    "sass": "1.32.12",
     "sass-loader": "^8.0.0",
     "vue-template-compiler": "^2.6.10"
   },
